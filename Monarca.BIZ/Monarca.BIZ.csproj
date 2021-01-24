@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Monarca.COMMON\Monarca.COMMON.csproj" />
+    <ProjectReference Include="..\Monarca.DAL.Local.LiteDB\Monarca.DAL.Local.LiteDB.csproj" />
+  </ItemGroup>
+
+</Project>
