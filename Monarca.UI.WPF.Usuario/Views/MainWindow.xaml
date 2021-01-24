@@ -3,10 +3,80 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:Monarca.UI.WPF.Usuario"
+        xmlns:views="clr-namespace:Monarca.UI.WPF.Usuario.Views"
+        xmlns:viewModels="clr-namespace:Monarca.UI.WPF.Usuario.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Distribuidora Monarca" Height="550" Width="900"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" BorderThickness="1"
+        BorderBrush="{StaticResource PrimaryBrush}">
+
+    <!-- ViewModel revolver -->
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModels:InicioViewModel}">
+            <views:InicioView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:ClientesViewModel}">
+            <views:ClientesView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:ProductosViewModel}">
+            <views:ProductosView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:VentasViewModel}">
+            <views:VentasView/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <!-- Bind DataContext via XAML-->
+    <Window.DataContext>
+        <viewModels:MainViewModel/>
+    </Window.DataContext>
+    
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
         
+        <Grid Background="{StaticResource PrimaryBrush}" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Images/logomonarca.png" Margin="10"/>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Distrubuidora Monarca" Grid.Column="1"/>
+            <Button Style="{StaticResource ButtonPrimaryStyle}" Content="&#xE8BB;" Grid.Column="2" HorizontalAlignment="Right" Command="{Binding CloseCommand}">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Cerrar"/>
+                </Button.ToolTip>
+            </Button>
+        </Grid>
+
+        <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding UserControlList}" SelectedItem="{Binding UserControl}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="10*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding Icon}" Height="27"/>
+                        <TextBlock Text="{Binding Ventana}" Style="{StaticResource SubTitleTextBlockStyle}" Grid.Column="1" Margin="5 0 0 0" VerticalAlignment="Center" FontSize="22"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding NavCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListBox>
+        <ContentControl x:Name="ContentControl" Grid.Row="1" Grid.Column="1" Content="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>

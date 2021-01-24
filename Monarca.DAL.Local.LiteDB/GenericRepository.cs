@@ -22,7 +22,7 @@ namespace Monarca.DAL.Local.LiteDB
             VerificarSiLaDireccionExiste(direccion);
             dbName = $@"{direccion}\Monarca.db";
             tableName = typeof(T).Name;
-            db = new LiteDatabase(dbName);
+            db = new LiteDatabase(@"Filename=Soyuz.db; Connection=shared");
         }
 
         private void VerificarSiLaDireccionExiste(string path)

@@ -1,0 +1,49 @@
+﻿<Window x:Class="Monarca.UI.WPF.Usuario.CustomControls.CustomMessageBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Monarca.UI.WPF.Usuario.CustomControls"
+        mc:Ignorable="d"
+        Title="CustomMessageBox" Height="150" Width="300"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource PrimaryBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="80*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Images/application.png" Height="25"/>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" x:Name="txtTitle" Text="Titulo de aplicación" FontSize="16" Grid.Column="1" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="70*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Style="{StaticResource IconTextBlockStyle}" x:Name="iconMsgError" Foreground="DarkRed" Text="&#xE783;" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="38" Grid.Column="0" Visibility="Collapsed"/>
+            <TextBlock Style="{StaticResource IconTextBlockStyle}" x:Name="iconMsgInformacion" Foreground="Blue"  Text="&#xE783;" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="38" Grid.Column="0" Visibility="Collapsed"/>
+            <TextBlock Style="{StaticResource IconTextBlockStyle}" x:Name="iconMsgAdvertencia" Foreground="Yellow" Text="&#xE783;" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="38" Grid.Column="0" Visibility="Collapsed"/>
+            <TextBlock Style="{StaticResource IconTextBlockStyle}" x:Name="iconMsgConfirmacion" Foreground="Gray" Text="&#xE783;" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="38" Grid.Column="0" Visibility="Collapsed"/>
+            <TextBlock Style="{StaticResource WhiteTextTextBlockStyle}" x:Name="txtMessage" Text="¡Un error ocurrió dentro de la aplicación!" Grid.Column="1"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="20*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnOk" Style="{StaticResource PrimaryNormalButtonSytle}" Grid.Column="1" Content="Aceptar" Click="btnOk_Click"/>
+            <Button x:Name="btnCancel" Style="{StaticResource PrimaryNormalButtonSytle}" Grid.Column="2" Content="Cancelar" Click="btnCancel_Click"/>
+        </Grid>
+    </Grid>
+</Window>

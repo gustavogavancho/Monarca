@@ -12,5 +12,8 @@ namespace Monarca.COMMON.Entidades
         public string PrecioCompra { get; set; }
         public string PrecioVenta { get; set; }
         public bool StockDisponible { get; set; }
+        public decimal Flete { get; set; }
+        public decimal Estiba { get; set; }
+        public decimal Reparto { get; set; }
     }
 }

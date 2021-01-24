@@ -12,8 +12,8 @@ namespace Monarca.BIZ
             this.CrearProductoManager = new ProductoManager(factoryRepository.CrearRepositorio<Producto>());
             this.CrearVentaManager = new VentaManager(factoryRepository.CrearRepositorio<Venta>());
         }
-        public IClienteManager CrearClienteManager { get; set; }
-        public IVentaManager CrearVentaManager { get; set; }
-        public IProductoManager CrearProductoManager { get; set; }
+        public IClienteManager CrearClienteManager { get; }
+        public IVentaManager CrearVentaManager { get; }
+        public IProductoManager CrearProductoManager { get; }
     }
 }
