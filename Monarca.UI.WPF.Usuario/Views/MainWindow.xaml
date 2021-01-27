@@ -20,11 +20,17 @@
         <DataTemplate DataType="{x:Type viewModels:ClientesViewModel}">
             <views:ClientesView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:ProveedoresViewModel}">
+            <views:ProveedoresView/>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type viewModels:ProductosViewModel}">
             <views:ProductosView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModels:VentasViewModel}">
             <views:VentasView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:ComprasViewModel}">
+            <views:ComprasView/>
         </DataTemplate>
     </Window.Resources>
 

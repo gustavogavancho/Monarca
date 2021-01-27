@@ -10,25 +10,25 @@ using System.Windows.Forms;
 
 namespace Monarca.UI.WPF.Usuario.ViewModels
 {
-    public class ClientesViewModel : BaseViewModel
+    public class ProveedoresViewModel : BaseViewModel
     {
         FactoryManager _factoryManager;
-        IClienteManager _clienteManager;
+        IProveedorManager _proveedorManager;
 
-        private ObservableCollection<Cliente> _clientes = new ObservableCollection<Cliente>();
-        public ObservableCollection<Cliente> Clientes
+        private ObservableCollection<Proveedor> _proveedores = new ObservableCollection<Proveedor>();
+        public ObservableCollection<Proveedor> Proveedores
         {
-            get => _clientes;
-            set => SetProperty(ref _clientes, value);
+            get => _proveedores;
+            set => SetProperty(ref _proveedores, value);
         }
 
-        private Cliente _cliente = new Cliente();
-        public Cliente Cliente
+        private Proveedor _proveedor = new Proveedor();
+        public Proveedor Proveedor
         {
-            get => _cliente;
+            get => _proveedor;
             set
             {
-                SetProperty(ref _cliente, value);
+                SetProperty(ref _proveedor, value);
                 ReadCommand.RaiseCanExecuteChanged();
                 EditCommnad.RaiseCanExecuteChanged();
                 DeleteCommnad.RaiseCanExecuteChanged();
@@ -48,10 +48,10 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         public RelayCommand DeleteCommnad { get; set; }
         public RelayCommand SearchCommand { get; set; }
 
-        public ClientesViewModel(FactoryManager factoryManager)
+        public ProveedoresViewModel(FactoryManager factoryManager)
         {
             _factoryManager = factoryManager;
-            _clienteManager = _factoryManager.CrearClienteManager;
+            _proveedorManager = _factoryManager.CrearProveedorManager;
             ReadCommand = new RelayCommand(OnRead, CanReadEditDelete);
             AddCommand = new RelayCommand(OnAdd);
             EditCommnad = new RelayCommand(OnEdit, CanReadEditDelete);
@@ -64,17 +64,17 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         {
             if (!string.IsNullOrWhiteSpace(SearchText))
             {
-                Clientes = _clienteManager.SearchCliente(SearchText).ToObservableCollection();
+                Proveedores = _proveedorManager.SearchProveedor(SearchText).ToObservableCollection();
             }
             else
             {
-                Clientes = _clienteManager.ObtenerTodo.ToObservableCollection();
+                Proveedores = _proveedorManager.ObtenerTodo.ToObservableCollection();
             }
         }
 
         private void OnRead()
         {
-            if (new ClientesModal(_factoryManager, "Read", Cliente).ShowDialog().Value)
+            if (new ProveedoresModal(_factoryManager, "Read", Proveedor).ShowDialog().Value)
             {
                 UpdateData();
             }
@@ -82,7 +82,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
 
         private void OnAdd()
         {
-            if (new ClientesModal(_factoryManager, "Add").ShowDialog().Value)
+            if (new ProveedoresModal(_factoryManager, "Add").ShowDialog().Value)
             {
                 UpdateData();
             }
@@ -90,7 +90,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
 
         private void OnEdit()
         {
-            if (new ClientesModal(_factoryManager, "Edit", Cliente).ShowDialog().Value)
+            if (new ProveedoresModal(_factoryManager, "Edit", Proveedor).ShowDialog().Value)
             {
                 UpdateData();
             }
@@ -98,17 +98,17 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
 
         private void OnDelete()
         {
-            DialogResult result = CustomMessageBox.Show("¿Está seguro que desea borrar la información del cliente?", CustomMessageBox.CMessageBoxTitle.Confirmación, CustomMessageBox.CMessageBoxButton.Si, CustomMessageBox.CMessageBoxButton.No);
+            DialogResult result = CustomMessageBox.Show("¿Está seguro que desea borrar la información del proveedor?", CustomMessageBox.CMessageBoxTitle.Confirmación, CustomMessageBox.CMessageBoxButton.Si, CustomMessageBox.CMessageBoxButton.No);
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
-                _clienteManager.Eliminar(Cliente.Id);
+                _proveedorManager.Eliminar(Proveedor.Id);
                 UpdateData();
             }
         }
 
         private bool CanReadEditDelete()
         {
-            if (!string.IsNullOrWhiteSpace(Cliente?.Id))
+            if (!string.IsNullOrWhiteSpace(Proveedor?.Id))
             {
                 return true;
             }
@@ -120,7 +120,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
 
         private void UpdateData()
         {
-            Clientes = _clienteManager.ObtenerTodo.ToObservableCollection();
+            Proveedores = _proveedorManager.ObtenerTodo.ToObservableCollection();
         }
     }
 }

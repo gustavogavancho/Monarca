@@ -1,10 +1,6 @@
 ﻿using Monarca.BIZ;
-using Monarca.COMMON.Entidades;
-using Monarca.COMMON.Interfaces;
 using Monarca.UI.WPF.Usuario.Helpers;
 using Monarca.UI.WPF.Usuario.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -17,8 +13,10 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
 
         InicioViewModel _inicioViewModel = new InicioViewModel();
         ClientesViewModel _clientesViewModel = new ClientesViewModel(_factoryManager);
+        ProveedoresViewModel _proveedoresViewModel = new ProveedoresViewModel(_factoryManager);
         ProductosViewModel _productosViewModel = new ProductosViewModel();
         VentasViewModel _ventasViewModel = new VentasViewModel();
+        ComprasViewModel _comprasViewModel = new ComprasViewModel();
 
         private ObservableCollection<CurrentUserControl> _userControlList;
 
@@ -57,6 +55,11 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 new CurrentUserControl
                 {
                     Ventana = "Clientes",
+                    Icon = "/Images/persona.png"
+                },
+                new CurrentUserControl
+                {
+                    Ventana = "Proveedores",
                     Icon = "/Images/people.png"
                 },
                 new CurrentUserControl
@@ -68,6 +71,11 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 {
                     Ventana = "Ventas",
                     Icon = "/Images/ventas.png"
+                },
+                new CurrentUserControl
+                {
+                    Ventana = "Compras",
+                    Icon = "/Images/compras.png"
                 }
             };
             CloseCommand = new RelayCommand(OnClose);
@@ -84,11 +92,17 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 case "Clientes":
                     CurrentViewModel = _clientesViewModel;
                     break;
+                case "Proveedores":
+                    CurrentViewModel = _proveedoresViewModel;
+                    break;
                 case "Productos":
                     CurrentViewModel = _productosViewModel;
                     break;
                 case "Ventas":
                     CurrentViewModel = _ventasViewModel;
+                    break;
+                case "Compras":
+                    CurrentViewModel = _comprasViewModel;
                     break;
             }
         }

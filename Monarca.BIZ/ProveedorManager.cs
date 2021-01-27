@@ -1,26 +1,25 @@
 ﻿using Monarca.COMMON.Entidades;
 using Monarca.COMMON.Interfaces;
-using System;
 using System.Collections.Generic;
 
 namespace Monarca.BIZ
 {
-    public class ClienteManager : GenericManager<Cliente>, IClienteManager
+    public class ProveedorManager : GenericManager<Proveedor>, IProveedorManager
     {
-        public ClienteManager(IGenericRepository<Cliente> repositorio) : base (repositorio)
+        public ProveedorManager(IGenericRepository<Proveedor> repositorio) : base (repositorio)
         {
 
         }
 
-        public IEnumerable<Cliente> SearchCliente(string text)
+        public IEnumerable<Proveedor> SearchProveedor(string text)
         {
-            return _repositorio.Query(x => x.Nombres != null && 
+            return _repositorio.Query(x => x.Nombres != null &&
                                       x.Nombres.ToLowerInvariant().Contains(text.ToLowerInvariant()) ||
-                                      x.Apellidos != null && 
+                                      x.Apellidos != null &&
                                       x.Apellidos.ToLowerInvariant().Contains(text.ToLowerInvariant()) ||
                                       x.RazonSocial != null &&
                                       x.RazonSocial.ToLowerInvariant().Contains(text.ToLowerInvariant()) ||
-                                      x.Dni > 0 && 
+                                      x.Dni > 0 &&
                                       x.Dni.ToString().Contains(text) ||
                                       x.Ruc > 0 &&
                                       x.Ruc.ToString().Contains(text));

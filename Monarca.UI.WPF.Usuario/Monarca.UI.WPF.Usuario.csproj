@@ -68,17 +68,28 @@
     <Compile Include="CustomControls\IntegerTextBox.cs" />
     <Compile Include="Extensions\IEnumerableToObservableCollection.cs" />
     <Compile Include="ViewModels\ClientesViewModel.cs" />
+    <Compile Include="ViewModels\ComprasViewModel.cs" />
     <Compile Include="ViewModels\InicioViewModel.cs" />
     <Compile Include="ViewModels\ProductosViewModel.cs" />
+    <Compile Include="ViewModels\ProveedoresViewModel.cs" />
     <Compile Include="ViewModels\VentasViewModel.cs" />
+    <Compile Include="Views\ComprasView.xaml.cs">
+      <DependentUpon>ComprasView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\InicioView.xaml.cs">
       <DependentUpon>InicioView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Modals\ClientesModal.xaml.cs">
       <DependentUpon>ClientesModal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Modals\ProveedoresModal.xaml.cs">
+      <DependentUpon>ProveedoresModal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProductosView.xaml.cs">
       <DependentUpon>ProductosView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProveedoresView.xaml.cs">
+      <DependentUpon>ProveedoresView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\VentasView.xaml.cs">
       <DependentUpon>VentasView.xaml</DependentUpon>
@@ -92,6 +103,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ClientesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ComprasView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,7 +140,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Modals\ProveedoresModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ProductosView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProveedoresView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -200,11 +223,6 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\person.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\empresa.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -213,6 +231,12 @@
     <Resource Include="Images\enterprise.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\compras.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\persona.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

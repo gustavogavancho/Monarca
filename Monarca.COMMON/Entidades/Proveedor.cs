@@ -2,7 +2,7 @@
 
 namespace Monarca.COMMON.Entidades
 {
-    public class Cliente : BaseEntity
+    public class Proveedor : BaseEntity
     {
         public TipoCliente TipoCliente { get; set; }
         public string Nombres { get; set; }
