@@ -1,5 +1,6 @@
 ﻿using Monarca.COMMON.Entidades;
 using Monarca.COMMON.Interfaces;
+using System.Collections.Generic;
 
 namespace Monarca.BIZ
 {
@@ -8,6 +9,11 @@ namespace Monarca.BIZ
         public ClienteManager(IGenericRepository<Cliente> repositorio) : base (repositorio)
         {
 
+        }
+
+        public IEnumerable<Cliente> SearchCliente(string text)
+        {
+            return _repositorio.Query(x => x.Nombres != null && x.Nombres.Contains(text));
         }
     }
 }

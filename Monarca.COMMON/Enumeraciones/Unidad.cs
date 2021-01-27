@@ -1,6 +1,6 @@
 ﻿namespace Monarca.COMMON.Enumeraciones
 {
-    public enum Unidad
+    public enum Unidad : short
     {
         Unidad = 1,
         Miligramos = 3,

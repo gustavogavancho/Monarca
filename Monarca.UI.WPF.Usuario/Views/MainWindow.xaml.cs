@@ -14,7 +14,7 @@ namespace Monarca.UI.WPF.Usuario
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            DialogResult result = CustomMessageBox.Show("¿Esta seguro que desear cerrar la aplicación?", CustomMessageBox.CMessageBoxTitle.Confirmación, CustomMessageBox.CMessageBoxButton.Si, CustomMessageBox.CMessageBoxButton.No);
+            DialogResult result = CustomMessageBox.Show("¿Está seguro que desea cerrar la aplicación?", CustomMessageBox.CMessageBoxTitle.Confirmación, CustomMessageBox.CMessageBoxButton.Si, CustomMessageBox.CMessageBoxButton.No);
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
                 base.OnClosing(e);

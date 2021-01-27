@@ -53,7 +53,7 @@
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Distrubuidora Monarca" Grid.Column="1"/>
             <Button Style="{StaticResource ButtonPrimaryStyle}" Content="&#xE8BB;" Grid.Column="2" HorizontalAlignment="Right" Command="{Binding CloseCommand}">
                 <Button.ToolTip>
-                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Cerrar"/>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Cerrar Aplicación"/>
                 </Button.ToolTip>
             </Button>
         </Grid>

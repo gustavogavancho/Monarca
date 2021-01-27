@@ -1,27 +1,151 @@
-﻿using System;
+﻿using Monarca.BIZ;
+using Monarca.COMMON.Entidades;
+using Monarca.COMMON.Enumeraciones;
+using Monarca.COMMON.Interfaces;
+using Monarca.UI.WPF.Usuario.CustomControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace Monarca.UI.WPF.Usuario.Views.Modals
 {
-    /// <summary>
-    /// Interaction logic for ClientesModal.xaml
-    /// </summary>
     public partial class ClientesModal : Window
     {
-        public ClientesModal()
+        FactoryManager _factoryManager;
+        IClienteManager _clienteManager;
+        Cliente _cliente;
+        string _operacion;
+
+        List<TipoCliente> _tipoCliente = Enum.GetValues(typeof(TipoCliente)).Cast<TipoCliente>().ToList();
+
+        public ClientesModal(FactoryManager factoryManager, string operacion, Cliente cliente = null)
         {
+            _factoryManager = factoryManager;
+            _operacion = operacion;
+            _cliente = cliente;
+            _clienteManager = _factoryManager.CrearClienteManager;
             InitializeComponent();
+            cmbTipoCliente.ItemsSource = _tipoCliente;
+            if (_operacion == "Edit" || _operacion == "Read")
+            {
+                cmbTipoCliente.SelectedItem = cliente.TipoCliente;
+                txtNombres.Text = cliente.Nombres;
+                txtApellidos.Text = cliente.Apellidos;
+                txtRazonSocial.Text = cliente.RazonSocial;
+                txtRepresentanteLegal.Text = cliente.RepresentanteLegal;
+                txtDireccion.Text = cliente.Direccion;
+                txtEmail.Text = cliente.Email;
+                txtRUC.Text = cliente.Ruc.ToString();
+                txtDNI.Text = cliente.Dni.ToString();
+                txtCelular.Text = cliente.Celular.ToString();
+            }
+            if (_operacion == "Read")
+            {
+                btnSave.IsEnabled = false;
+                cmbTipoCliente.IsEnabled = false;
+                txtNombres.IsReadOnly = true;
+                txtApellidos.IsReadOnly = true;
+                txtRazonSocial.IsReadOnly = true;
+                txtRepresentanteLegal.IsReadOnly = true;
+                txtDireccion.IsReadOnly = true;
+                txtEmail.IsReadOnly = true;
+                txtRUC.IsReadOnly = true;
+                txtDNI.IsReadOnly = true;
+                txtCelular.IsReadOnly = true;
+            }
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            long.TryParse(txtDNI.Text, out long resultDni);
+            long.TryParse(txtRUC.Text, out long resultRuc);
+            long.TryParse(txtCelular.Text, out long resultCelular);
+
+            if (cmbTipoCliente.SelectedItem == null)
+            {
+                DialogResult result = CustomMessageBox.Show("Debe seleccionar por lo menos un tipo de cliente", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                return;
+            }
+
+            switch (_operacion)
+            {
+                case "Add":
+                    _clienteManager.Insertar(new Cliente
+                    {
+                        TipoCliente = (TipoCliente)cmbTipoCliente.SelectedItem,
+                        Nombres = txtNombres.Text,
+                        Apellidos = txtApellidos.Text,
+                        RazonSocial = txtRazonSocial.Text,
+                        RepresentanteLegal = txtRepresentanteLegal.Text,
+                        Direccion = txtDireccion.Text,
+                        Email = txtEmail.Text,
+                        Ruc = resultRuc,
+                        Dni = resultDni,
+                        Celular = resultCelular,
+                    });
+                    break;
+                case "Edit":
+                    _clienteManager.Actualizar(new Cliente
+                    {
+                        Id = _cliente.Id,
+                        TipoCliente = (TipoCliente)cmbTipoCliente.SelectedItem,
+                        Nombres = txtNombres.Text,
+                        Apellidos = txtApellidos.Text,
+                        RazonSocial = txtRazonSocial.Text,
+                        RepresentanteLegal = txtRepresentanteLegal.Text,
+                        Direccion = txtDireccion.Text,
+                        Email = txtEmail.Text,
+                        Ruc = resultRuc,
+                        Dni = resultDni,
+                        Celular = resultCelular,
+                    });
+                    break;
+            }
+
+            DialogResult = true;
+            Close();
+        }
+
+        private void cmbTipoCliente_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if ((TipoCliente)cmbTipoCliente.SelectedItem == TipoCliente.PersonaNatural)
+            {
+                txtRazonSocial.IsEnabled = false;
+                txtRazonSocial.Text = "";
+                txtRepresentanteLegal.IsEnabled = false;
+                txtRepresentanteLegal.Text = "";
+                txtRUC.IsEnabled = false;
+                txtRUC.Text = "";
+
+                txtNombres.IsEnabled = true;
+                txtApellidos.IsEnabled = true;
+                txtDNI.IsEnabled = true;
+            }
+            else
+            {
+                txtNombres.IsEnabled = false;
+                txtNombres.Text = "";
+                txtApellidos.IsEnabled = false;
+                txtApellidos.Text = "";
+                txtDNI.IsEnabled = false;
+                txtDNI.Text = "";
+
+                txtRazonSocial.IsEnabled = true;
+                txtRepresentanteLegal.IsEnabled = true;
+                txtRUC.IsEnabled = true;
+            }
+        }
+
+        private void CommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

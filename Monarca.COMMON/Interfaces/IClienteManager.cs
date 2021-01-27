@@ -1,9 +1,10 @@
 ﻿using Monarca.COMMON.Entidades;
+using System.Collections.Generic;
 
 namespace Monarca.COMMON.Interfaces
 {
     public interface IClienteManager : IGenericManager<Cliente>
     {
-        //TODO:
+        IEnumerable<Cliente> SearchCliente(string text);
     }
 }

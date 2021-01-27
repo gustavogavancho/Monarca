@@ -13,14 +13,12 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
+        static FactoryManager _factoryManager = new FactoryManager("LiteDB");
+
         InicioViewModel _inicioViewModel = new InicioViewModel();
-        ClientesViewModel _clientesViewModel = new ClientesViewModel();
+        ClientesViewModel _clientesViewModel = new ClientesViewModel(_factoryManager);
         ProductosViewModel _productosViewModel = new ProductosViewModel();
         VentasViewModel _ventasViewModel = new VentasViewModel();
-
-        FactoryManager _factoryManager = new FactoryManager("LiteDB");
-        IClienteManager _clienteManager;
-        List<Cliente> _listaClientes;
 
         private ObservableCollection<CurrentUserControl> _userControlList;
 
@@ -72,14 +70,11 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                     Icon = "/Images/ventas.png"
                 }
             };
-            _clienteManager = _factoryManager.CrearClienteManager;
-            CrearCliente();
-            _listaClientes = ClienteObtenerTodo();
             CloseCommand = new RelayCommand(OnClose);
             NavCommand = new RelayCommand(OnNav);
         }
 
-        private void OnNav()
+        public void OnNav()
         {
             switch (UserControl.Ventana)
             {
@@ -101,19 +96,6 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         private void OnClose()
         {
             Application.Current.Windows.OfType<MainWindow>().FirstOrDefault().Close();
-        }
-
-        public void CrearCliente()
-        {
-            _clienteManager.Insertar(new Cliente
-            {
-                Nombres = "Gustavo",
-            });
-        }
-
-        public List<Cliente> ClienteObtenerTodo()
-        {
-            return _clienteManager.ObtenerTodo.ToList();
         }
     }
 }

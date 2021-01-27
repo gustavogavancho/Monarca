@@ -4,9 +4,84 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Monarca.UI.WPF.Usuario.Views.Modals"
+        xmlns:customControls="clr-namespace:Monarca.UI.WPF.Usuario.CustomControls"
         mc:Ignorable="d"
-        Title="ClientesModal" Height="450" Width="800">
+        BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="2"
+        Title="ClientesModal" Height="610" Width="400" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
+        FocusManager.FocusedElement="{Binding ElementName=cmbTipoCliente}">
+
+    <Window.InputBindings>
+        <KeyBinding Command="ApplicationCommands.Close" Key="Esc" />
+    </Window.InputBindings>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CommandBinding_Executed" />
+    </Window.CommandBindings>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="Cliente"/>
+        <Border Grid.Row="1" Background="{StaticResource PrimaryBrush}"  Height="2" Margin="10,0"/>
+        <TextBlock Text="Tipo Cliente:" Grid.Row="2" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <ComboBox x:Name="cmbTipoCliente" Grid.Row="3" Style="{StaticResource ComboBoxStyle}" Margin="5 0 5 0" SelectionChanged="cmbTipoCliente_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource EnumToDescription}}"></TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Text="Nombres:" Grid.Row="4" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <TextBox x:Name="txtNombres" Grid.Row="5" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
+        <TextBlock Text="Apellidos:" Grid.Row="6" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <TextBox x:Name="txtApellidos" Grid.Row="7" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
+        <TextBlock Text="Razon social:" Grid.Row="8" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <TextBox x:Name="txtRazonSocial" Grid.Row="9" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
+        <TextBlock Text="Representante legal:" Grid.Row="10" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <TextBox x:Name="txtRepresentanteLegal" Grid.Row="11" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
+        <TextBlock Text="DNI:" Grid.Row="12" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <customControls:IntegerTextBox x:Name="txtDNI" Grid.Row="13" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" MaxLength="8"/>
+        <TextBlock Text="RUC:" Grid.Row="14" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <customControls:IntegerTextBox x:Name="txtRUC" Grid.Row="15" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" MaxLength="11"/>
+        <TextBlock Text="Dirección:" Grid.Row="16" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <TextBox x:Name="txtDireccion" Grid.Row="17" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
+        <TextBlock Text="Email:" Grid.Row="18" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <TextBox x:Name="txtEmail" Grid.Row="19" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
+        <TextBlock Text="Celular:" Grid.Row="20" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <customControls:IntegerTextBox x:Name="txtCelular" Grid.Row="21" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" MaxLength="9"/>
+        <StackPanel Orientation="Horizontal" Margin="5 5 0 0" Grid.Row="22" HorizontalAlignment="Right">
+            <Button x:Name="btnSave" Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE74E;" FontSize="16" Click="btnSave_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Guardar Cliente"/>
+                </Button.ToolTip>
+            </Button>
+            <Button x:Name="btnClose" Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE8BB;" FontSize="16" Click="btnClose_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Cerrar Diálogo"/>
+                </Button.ToolTip>
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>
