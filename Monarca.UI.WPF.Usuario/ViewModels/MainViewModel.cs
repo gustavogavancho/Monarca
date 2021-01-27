@@ -14,7 +14,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         InicioViewModel _inicioViewModel = new InicioViewModel();
         ClientesViewModel _clientesViewModel = new ClientesViewModel(_factoryManager);
         ProveedoresViewModel _proveedoresViewModel = new ProveedoresViewModel(_factoryManager);
-        ProductosViewModel _productosViewModel = new ProductosViewModel();
+        ProductosViewModel _productosViewModel = new ProductosViewModel(_factoryManager);
         VentasViewModel _ventasViewModel = new VentasViewModel();
         ComprasViewModel _comprasViewModel = new ComprasViewModel();
 
@@ -69,14 +69,14 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 },
                 new CurrentUserControl
                 {
-                    Ventana = "Ventas",
-                    Icon = "/Images/ventas.png"
+                    Ventana = "Compras",
+                    Icon = "/Images/compras.png"
                 },
                 new CurrentUserControl
                 {
-                    Ventana = "Compras",
-                    Icon = "/Images/compras.png"
-                }
+                    Ventana = "Ventas",
+                    Icon = "/Images/ventas.png"
+                },
             };
             CloseCommand = new RelayCommand(OnClose);
             NavCommand = new RelayCommand(OnNav);

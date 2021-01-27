@@ -92,20 +92,24 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                     });
                     break;
                 case "Edit":
-                    _proveedorManager.Actualizar(new Proveedor
+                    DialogResult result = CustomMessageBox.Show("¿Está seguro que desea editar los datos del proveedor?", CustomMessageBox.CMessageBoxTitle.Confirmación, CustomMessageBox.CMessageBoxButton.Si, CustomMessageBox.CMessageBoxButton.No);
+                    if (result == System.Windows.Forms.DialogResult.Yes)
                     {
-                        Id = _proveedor.Id,
-                        TipoCliente = (TipoCliente)cmbTipoCliente.SelectedItem,
-                        Nombres = txtNombres.Text,
-                        Apellidos = txtApellidos.Text,
-                        RazonSocial = txtRazonSocial.Text,
-                        RepresentanteLegal = txtRepresentanteLegal.Text,
-                        Direccion = txtDireccion.Text,
-                        Email = txtEmail.Text,
-                        Ruc = resultRuc,
-                        Dni = resultDni,
-                        Celular = resultCelular,
-                    });
+                        _proveedorManager.Actualizar(new Proveedor
+                        {
+                            Id = _proveedor.Id,
+                            TipoCliente = (TipoCliente)cmbTipoCliente.SelectedItem,
+                            Nombres = txtNombres.Text,
+                            Apellidos = txtApellidos.Text,
+                            RazonSocial = txtRazonSocial.Text,
+                            RepresentanteLegal = txtRepresentanteLegal.Text,
+                            Direccion = txtDireccion.Text,
+                            Email = txtEmail.Text,
+                            Ruc = resultRuc,
+                            Dni = resultDni,
+                            Celular = resultCelular,
+                        });
+                    }
                     break;
             }
 

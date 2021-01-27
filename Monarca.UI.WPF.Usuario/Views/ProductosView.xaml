@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Monarca.UI.WPF.Usuario.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             FocusManager.FocusedElement="{Binding ElementName=txtSearch}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -25,42 +26,66 @@
                                 Command="{Binding SearchCommand}"/>
                 </TextBox.InputBindings>
             </TextBox>
-            <Button Grid.Column="1" FontFamily="Segoe MDL2 Assets" Content="&#xE721;" Width="27" Background="{StaticResource PrimaryBrush}" Foreground="White" Margin="5 5 0 0" Command="{Binding SearchCommand}"/>
+            <Button Grid.Column="1" FontFamily="Segoe MDL2 Assets" Content="&#xE721;" Width="27" Background="{StaticResource PrimaryBrush}" Foreground="White" Margin="5 5 0 0" Command="{Binding SearchCommand}">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Buscar Producto"/>
+                </Button.ToolTip>
+            </Button>
         </Grid>
-        <ListBox Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding Clientes}" SelectedItem="{Binding Cliente}">
+        <ListBox Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding Productos}" SelectedItem="{Binding Producto}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <ContentControl Content="{Binding}">
-                        <ContentControl.Style>
-                            <Style TargetType="ContentControl">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding TipoCliente}" Value="PersonaNatural">
-                                        <Setter Property="ContentTemplate" Value="{StaticResource PersonaNaturalDataTemplate}" />
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding TipoCliente}" Value="PersonaJuridica">
-                                        <Setter Property="ContentTemplate" Value="{StaticResource PersonaJuridicaDataTemplate}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ContentControl.Style>
-                    </ContentControl>
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="/Images/box.png" Grid.RowSpan="3" Height="50" Width="50">
+                            <Image.InputBindings>
+                                <MouseBinding MouseAction="LeftDoubleClick"
+                                      Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                            </Image.InputBindings>
+                            <Image.ToolTip>
+                                <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
+                            </Image.ToolTip>
+                        </Image>
+                        <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
+                            <Run Text="Nombre:" FontWeight="Bold"/>
+                            <Run Text="{Binding Nombre}"/>
+                            <LineBreak />
+                            <Run Text="Descripción:" FontWeight="Bold"/>
+                            <Run Text="{Binding Descripción}"/>
+                            <LineBreak />
+                            <Run Text="Marca:" FontWeight="Bold"/>
+                            <Run Text="{Binding Marca}"/>
+                        </TextBlock>
+                        <!--<TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="1" Grid.Column="1" Margin="10 0 0 0">
+                            <Run Text="Marca:" FontWeight="Bold"/>
+                            <Run Text="{Binding Marca}"/>
+                        </TextBlock>-->
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Orientation="Horizontal" Margin="5 0 10 0" Grid.Row="3" HorizontalAlignment="Right">
             <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE710;" FontSize="16" Command="{Binding AddCommand}">
                 <Button.ToolTip>
-                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Agregar Cliente"/>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Agregar Producto"/>
                 </Button.ToolTip>
             </Button>
             <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE70F;" FontSize="16" Command="{Binding EditCommnad}">
                 <Button.ToolTip>
-                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Editar Cliente"/>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Editar Producto"/>
                 </Button.ToolTip>
             </Button>
             <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE74D;" FontSize="16" Command="{Binding DeleteCommnad}">
                 <Button.ToolTip>
-                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Eliminar Cliente"/>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Eliminar Producto"/>
                 </Button.ToolTip>
             </Button>
         </StackPanel>

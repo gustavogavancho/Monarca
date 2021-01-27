@@ -135,27 +135,27 @@
             <Image Source="/Images/persona.png" Grid.RowSpan="3" Height="50" Width="50">
                 <Image.InputBindings>
                     <MouseBinding MouseAction="LeftDoubleClick"
-                                      Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                                  Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
                 </Image.InputBindings>
                 <Image.ToolTip>
                     <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
                 </Image.ToolTip>
             </Image>
             <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1">
-                    <Run Text="{Binding Nombres}"/>
-                    <Run Text="{Binding Apellidos}"/>
-                    <Run Text="/"/>
-                    <Run Text="{Binding TipoCliente,Converter={StaticResource EnumToDescription}}" FontWeight="Bold"/>
+                <Run Text="{Binding Nombres}"/>
+                <Run Text="{Binding Apellidos}"/>
+                <Run Text="/"/>
+                <Run Text="{Binding TipoCliente,Converter={StaticResource EnumToDescription}}" FontWeight="Bold"/>
             </TextBlock>
             <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="1" Grid.Column="1">
-                    <Run Text="DNI:" FontWeight="Bold"/>
-                    <Run Text="{Binding Dni}"/>
-                    <Run Text="Celular:" FontWeight="Bold"/>
-                    <Run Text="{Binding Celular}"/>
+                <Run Text="DNI:" FontWeight="Bold"/>
+                <Run Text="{Binding Dni}"/>
+                <Run Text="Celular:" FontWeight="Bold"/>
+                <Run Text="{Binding Celular}"/>
             </TextBlock>
             <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="2" Grid.Column="1" >
-                    <Run Text="Dirección:" FontWeight="Bold"/>
-                    <Run Text="{Binding Direccion}"/>
+                <Run Text="Dirección:" FontWeight="Bold"/>
+                <Run Text="{Binding Direccion}"/>
             </TextBlock>
         </Grid>
     </DataTemplate>
@@ -173,7 +173,7 @@
             <Image Source="/Images/enterprise.png" Grid.RowSpan="3" Height="50" Width="50">
                 <Image.InputBindings>
                     <MouseBinding MouseAction="LeftDoubleClick"
-                                      Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                                  Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
                 </Image.InputBindings>
                 <Image.ToolTip>
                     <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
@@ -196,6 +196,5 @@
             </TextBlock>
         </Grid>
     </DataTemplate>
-
 
 </ResourceDictionary>

@@ -28,7 +28,11 @@
                                 Command="{Binding SearchCommand}"/>
                 </TextBox.InputBindings>
             </TextBox>
-            <Button Grid.Column="1" FontFamily="Segoe MDL2 Assets" Content="&#xE721;" Width="27" Background="{StaticResource PrimaryBrush}" Foreground="White" Margin="5 5 0 0" Command="{Binding SearchCommand}"/>
+            <Button Grid.Column="1" FontFamily="Segoe MDL2 Assets" Content="&#xE721;" Width="27" Background="{StaticResource PrimaryBrush}" Foreground="White" Margin="5 5 0 0" Command="{Binding SearchCommand}">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Buscar Proveedores"/>
+                </Button.ToolTip>
+            </Button>
         </Grid>
         <ListBox Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding Proveedores}" SelectedItem="{Binding Proveedor}">
             <ListBox.ItemTemplate>

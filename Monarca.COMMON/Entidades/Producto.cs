@@ -8,12 +8,5 @@ namespace Monarca.COMMON.Entidades
         public string Descripción { get; set; }
         public string Marca { get; set; }
         public Unidad Unidad { get; set; }
-        public string Cantidad { get; set; }
-        public string PrecioCompra { get; set; }
-        public string PrecioVenta { get; set; }
-        public bool StockDisponible { get; set; }
-        public decimal Flete { get; set; }
-        public decimal Estiba { get; set; }
-        public decimal Reparto { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Monarca.COMMON.Entidades;
 using Monarca.COMMON.Interfaces;
+using System.Collections.Generic;
 
 namespace Monarca.BIZ
 {
@@ -9,5 +10,15 @@ namespace Monarca.BIZ
         {
 
         }
+        public IEnumerable<Producto> SearchProducto(string text)
+        {
+            return _repositorio.Query(x => x.Nombre != null &&
+                                      x.Nombre.ToLowerInvariant().Contains(text.ToLowerInvariant()) ||
+                                      x.Descripción != null &&
+                                      x.Descripción.ToLowerInvariant().Contains(text.ToLowerInvariant()) ||
+                                      x.Marca != null && 
+                                      x.Marca.Contains(text));
+        }
+
     }
 }

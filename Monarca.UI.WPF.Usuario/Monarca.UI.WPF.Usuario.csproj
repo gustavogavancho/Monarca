@@ -82,6 +82,9 @@
     <Compile Include="Views\Modals\ClientesModal.xaml.cs">
       <DependentUpon>ClientesModal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Modals\ProductosModal.xaml.cs">
+      <DependentUpon>ProductosModal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Modals\ProveedoresModal.xaml.cs">
       <DependentUpon>ProveedoresModal.xaml</DependentUpon>
     </Compile>
@@ -137,6 +140,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Modals\ClientesModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Modals\ProductosModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -237,6 +244,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\persona.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\box.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
