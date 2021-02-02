@@ -32,45 +32,7 @@
                 </Button.ToolTip>
             </Button>
         </Grid>
-        <ListBox Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding Productos}" SelectedItem="{Binding Producto}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Image Source="/Images/box.png" Grid.RowSpan="3" Height="50" Width="50">
-                            <Image.InputBindings>
-                                <MouseBinding MouseAction="LeftDoubleClick"
-                                      Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-                            </Image.InputBindings>
-                            <Image.ToolTip>
-                                <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
-                            </Image.ToolTip>
-                        </Image>
-                        <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
-                            <Run Text="Nombre:" FontWeight="Bold"/>
-                            <Run Text="{Binding Nombre}"/>
-                            <LineBreak />
-                            <Run Text="Descripción:" FontWeight="Bold"/>
-                            <Run Text="{Binding Descripción}"/>
-                            <LineBreak />
-                            <Run Text="Marca:" FontWeight="Bold"/>
-                            <Run Text="{Binding Marca}"/>
-                        </TextBlock>
-                        <!--<TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="1" Grid.Column="1" Margin="10 0 0 0">
-                            <Run Text="Marca:" FontWeight="Bold"/>
-                            <Run Text="{Binding Marca}"/>
-                        </TextBlock>-->
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+        <ListBox Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding Productos}" SelectedItem="{Binding Producto}" ItemTemplate="{StaticResource ProductosDataTemplate}">
         </ListBox>
         <StackPanel Orientation="Horizontal" Margin="5 0 10 0" Grid.Row="3" HorizontalAlignment="Right">
             <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE710;" FontSize="16" Command="{Binding AddCommand}">

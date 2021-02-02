@@ -1,0 +1,115 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Monarca.UI.WPF.Usuario.Styles">
+
+    <!-- DataTemplates -->
+    <DataTemplate x:Key="PersonaNaturalDataTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Images/persona.png" Grid.RowSpan="3" Height="35" Width="35">
+                <Image.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick"
+                                  Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                </Image.InputBindings>
+                <Image.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
+                </Image.ToolTip>
+            </Image>
+            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1">
+                <Run Text="Nombres y Apellidos:" FontWeight="Bold"/>
+                <Run Text="{Binding Nombres}"/>
+                <Run Text="{Binding Apellidos}"/>
+                <Run Text="/"/>
+                <Run Text="{Binding TipoCliente,Converter={StaticResource EnumToDescription}}" FontWeight="Bold"/>
+                <LineBreak />
+                <Run Text="DNI:" FontWeight="Bold"/>
+                <Run Text="{Binding Dni}"/>
+                <Run Text="Celular:" FontWeight="Bold"/>
+                <Run Text="{Binding Celular}"/>
+                <LineBreak />
+                <Run Text="Dirección:" FontWeight="Bold"/>
+                <Run Text="{Binding Direccion}"/>
+            </TextBlock>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="PersonaJuridicaDataTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Images/enterprise.png" Grid.RowSpan="3" Height="35" Width="35">
+                <Image.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick"
+                                  Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                </Image.InputBindings>
+                <Image.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
+                </Image.ToolTip>
+            </Image>
+            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1">
+                <Run Text="Razon Social:" FontWeight="Bold"/>
+                <Run Text="{Binding RazonSocial}"/>
+                <Run Text="/"/>
+                <Run Text="{Binding TipoCliente, Converter={StaticResource EnumToDescription}}" FontWeight="Bold"/>
+                <LineBreak />
+                <Run Text="RUC:" FontWeight="Bold"/>
+                <Run Text="{Binding Ruc}"/>
+                <Run Text="Celular:" FontWeight="Bold"/>
+                <Run Text="{Binding Celular}"/>
+                <LineBreak />
+                <Run Text="Dirección:" FontWeight="Bold"/>
+                <Run Text="{Binding Direccion}"/>
+            </TextBlock>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="ProductosDataTemplate">
+        <Grid Margin="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Images/box.png" Grid.RowSpan="3" Height="35" Width="35">
+                <Image.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick"
+                                      Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                </Image.InputBindings>
+                <Image.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
+                </Image.ToolTip>
+            </Image>
+            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
+                <Run Text="Producto:" FontWeight="Bold"/>
+                <Run Text="{Binding Nombre}"/>
+                <Run Text="/"/>
+                <Run Text="Unidad:" FontWeight="Bold"/>
+                <Run Text="{Binding Unidad, Converter={StaticResource EnumToDescription}}"/>
+                <LineBreak />
+                <Run Text="Descripción:" FontWeight="Bold"/>
+                <Run Text="{Binding Descripción}"/>
+                <LineBreak />
+                <Run Text="Marca:" FontWeight="Bold"/>
+                <Run Text="{Binding Marca}"/>
+            </TextBlock>
+        </Grid>
+    </DataTemplate>
+
+</ResourceDictionary>

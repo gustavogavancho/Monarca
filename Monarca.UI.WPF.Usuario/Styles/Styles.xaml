@@ -9,10 +9,13 @@
     <!-- Colors -->
     <Color x:Key="PrimaryColor">#003366</Color>
     <Color x:Key="SecondaryColor">White</Color>
+    <Color x:Key="TertiaryColor">#C70039</Color>
+
 
     <!-- Brushes -->
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}"/>
+    <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource TertiaryColor}"/>
 
     <!-- TextBlock -->
     <Style x:Key="TitleTextBlockStyle" TargetType="TextBlock">
@@ -22,7 +25,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="5"/>
     </Style>
-
+    
     <Style x:Key="SubTitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TitleTextBlockStyle}">
         <Setter Property="FontSize" Value="28"/>
         <Setter Property="FontWeight" Value="Light"/>
@@ -120,81 +123,4 @@
         <Setter Property="Height" Value="25"/>
     </Style>
     
-    <!-- DataTemplates -->
-    <DataTemplate x:Key="PersonaNaturalDataTemplate">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Image Source="/Images/persona.png" Grid.RowSpan="3" Height="50" Width="50">
-                <Image.InputBindings>
-                    <MouseBinding MouseAction="LeftDoubleClick"
-                                  Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-                </Image.InputBindings>
-                <Image.ToolTip>
-                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
-                </Image.ToolTip>
-            </Image>
-            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1">
-                <Run Text="{Binding Nombres}"/>
-                <Run Text="{Binding Apellidos}"/>
-                <Run Text="/"/>
-                <Run Text="{Binding TipoCliente,Converter={StaticResource EnumToDescription}}" FontWeight="Bold"/>
-            </TextBlock>
-            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="1" Grid.Column="1">
-                <Run Text="DNI:" FontWeight="Bold"/>
-                <Run Text="{Binding Dni}"/>
-                <Run Text="Celular:" FontWeight="Bold"/>
-                <Run Text="{Binding Celular}"/>
-            </TextBlock>
-            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="2" Grid.Column="1" >
-                <Run Text="Dirección:" FontWeight="Bold"/>
-                <Run Text="{Binding Direccion}"/>
-            </TextBlock>
-        </Grid>
-    </DataTemplate>
-    <DataTemplate x:Key="PersonaJuridicaDataTemplate">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Image Source="/Images/enterprise.png" Grid.RowSpan="3" Height="50" Width="50">
-                <Image.InputBindings>
-                    <MouseBinding MouseAction="LeftDoubleClick"
-                                  Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-                </Image.InputBindings>
-                <Image.ToolTip>
-                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
-                </Image.ToolTip>
-            </Image>
-            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1">
-                    <Run Text="{Binding RazonSocial}"/>
-                    <Run Text="/"/>
-                    <Run Text="{Binding TipoCliente, Converter={StaticResource EnumToDescription}}" FontWeight="Bold"/>
-            </TextBlock>
-            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="1" Grid.Column="1">
-                    <Run Text="RUC:" FontWeight="Bold"/>
-                    <Run Text="{Binding Ruc}"/>
-                    <Run Text="Celular:" FontWeight="Bold"/>
-                    <Run Text="{Binding Celular}"/>
-            </TextBlock>
-            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="2" Grid.Column="1" >
-                    <Run Text="Dirección:" FontWeight="Bold"/>
-                    <Run Text="{Binding Direccion}"/>
-            </TextBlock>
-        </Grid>
-    </DataTemplate>
-
 </ResourceDictionary>

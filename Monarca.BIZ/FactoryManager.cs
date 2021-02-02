@@ -12,10 +12,12 @@ namespace Monarca.BIZ
             this.CrearProveedorManager = new ProveedorManager(factoryRepository.CrearRepositorio<Proveedor>());
             this.CrearProductoManager = new ProductoManager(factoryRepository.CrearRepositorio<Producto>());
             this.CrearVentaManager = new VentaManager(factoryRepository.CrearRepositorio<Venta>());
+            this.CrearCompraManager = new CompraManager(factoryRepository.CrearRepositorio<Compra>());
         }
         public IClienteManager CrearClienteManager { get; }
         public IProveedorManager CrearProveedorManager { get; }
         public IVentaManager CrearVentaManager { get; }
         public IProductoManager CrearProductoManager { get; }
+        public ICompraManager CrearCompraManager { get; }
     }
 }

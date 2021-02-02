@@ -33,7 +33,7 @@
             <TextBlock Style="{StaticResource IconTextBlockStyle}" x:Name="iconMsgInformacion" Foreground="Blue"  Text="&#xE783;" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="38" Grid.Column="0" Visibility="Collapsed"/>
             <TextBlock Style="{StaticResource IconTextBlockStyle}" x:Name="iconMsgAdvertencia" Foreground="Yellow" Text="&#xE783;" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="38" Grid.Column="0" Visibility="Collapsed"/>
             <TextBlock Style="{StaticResource IconTextBlockStyle}" x:Name="iconMsgConfirmacion" Foreground="Gray" Text="&#xE783;" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="38" Grid.Column="0" Visibility="Collapsed"/>
-            <TextBlock Style="{StaticResource WhiteTextTextBlockStyle}" x:Name="txtMessage" Text="¡Un error ocurrió dentro de la aplicación!" Grid.Column="1"/>
+            <TextBlock Style="{StaticResource WhiteTextTextBlockStyle}" x:Name="txtMessage" Text="¡Un error ocurrió dentro de la aplicación!" Grid.Column="1" TextWrapping="Wrap" FontSize="12" Margin="5,29,15,29"/>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

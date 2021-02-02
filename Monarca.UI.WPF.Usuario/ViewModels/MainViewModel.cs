@@ -1,6 +1,7 @@
 ﻿using Monarca.BIZ;
 using Monarca.UI.WPF.Usuario.Helpers;
 using Monarca.UI.WPF.Usuario.Models;
+using Monarca.UI.WPF.Usuario.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -16,7 +17,10 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         ProveedoresViewModel _proveedoresViewModel = new ProveedoresViewModel(_factoryManager);
         ProductosViewModel _productosViewModel = new ProductosViewModel(_factoryManager);
         VentasViewModel _ventasViewModel = new VentasViewModel();
-        ComprasViewModel _comprasViewModel = new ComprasViewModel();
+        ComprasViewModel _comprasViewModel = new ComprasViewModel(_factoryManager);
+        GastosOperativosViewModel _gastosOperativosViewModel = new GastosOperativosViewModel();
+        CuentasPorCobrarViewModel _cuentasPorCobrarViewModel = new CuentasPorCobrarViewModel();
+        AlmacenViewModel _almacenViewModel = new AlmacenViewModel();
 
         private ObservableCollection<CurrentUserControl> _userControlList;
 
@@ -77,6 +81,21 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                     Ventana = "Ventas",
                     Icon = "/Images/ventas.png"
                 },
+                new CurrentUserControl
+                {
+                    Ventana = "Gastos Operativos",
+                    Icon = "/Images/gastospersonales.png"
+                },
+                new CurrentUserControl
+                {
+                    Ventana = "Cuentas por cobrar",
+                    Icon = "/Images/cuentacobrar.png"
+                },
+                new CurrentUserControl
+                {
+                    Ventana = "Almacén",
+                    Icon = "/Images/almacen.png"
+                },
             };
             CloseCommand = new RelayCommand(OnClose);
             NavCommand = new RelayCommand(OnNav);
@@ -103,6 +122,15 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                     break;
                 case "Compras":
                     CurrentViewModel = _comprasViewModel;
+                    break;
+                case "Gastos Operativos":
+                    CurrentViewModel = _gastosOperativosViewModel;
+                    break;
+                case "Cuentas por cobrar":
+                    CurrentViewModel = _cuentasPorCobrarViewModel;
+                    break;
+                case "Almacén":
+                    CurrentViewModel = _almacenViewModel;
                     break;
             }
         }

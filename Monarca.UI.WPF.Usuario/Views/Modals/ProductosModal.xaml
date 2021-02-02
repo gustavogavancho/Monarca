@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Monarca.UI.WPF.Usuario.Views.Modals"
         mc:Ignorable="d"
-         BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="2"
+        BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="2"
         Title="ClientesModal" Height="315" Width="400" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
         FocusManager.FocusedElement="{Binding ElementName=txtNombre}">
     
@@ -19,18 +19,6 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

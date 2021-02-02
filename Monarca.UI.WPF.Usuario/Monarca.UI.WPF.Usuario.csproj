@@ -64,23 +64,42 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Attached\FocusWhenSelected.cs" />
+    <Compile Include="Attached\TextBoxHelper.cs" />
     <Compile Include="Converters\EnunToDescription.cs" />
+    <Compile Include="CustomControls\DecimalTextBox.cs" />
     <Compile Include="CustomControls\IntegerTextBox.cs" />
     <Compile Include="Extensions\IEnumerableToObservableCollection.cs" />
+    <Compile Include="Models\CompraModel.cs" />
+    <Compile Include="ViewModels\AlmacenViewModel.cs" />
     <Compile Include="ViewModels\ClientesViewModel.cs" />
     <Compile Include="ViewModels\ComprasViewModel.cs" />
+    <Compile Include="ViewModels\CuentasPorCobrarViewModel.cs" />
+    <Compile Include="ViewModels\GastosOperativosViewModel.cs" />
     <Compile Include="ViewModels\InicioViewModel.cs" />
     <Compile Include="ViewModels\ProductosViewModel.cs" />
     <Compile Include="ViewModels\ProveedoresViewModel.cs" />
     <Compile Include="ViewModels\VentasViewModel.cs" />
+    <Compile Include="Views\AlmacenView.xaml.cs">
+      <DependentUpon>AlmacenView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ComprasView.xaml.cs">
       <DependentUpon>ComprasView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CuentasPorCobrarView.xaml.cs">
+      <DependentUpon>CuentasPorCobrarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GastosOperativosView.xaml.cs">
+      <DependentUpon>GastosOperativosView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InicioView.xaml.cs">
       <DependentUpon>InicioView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Modals\ClientesModal.xaml.cs">
       <DependentUpon>ClientesModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Modals\ComprasModal.xaml.cs">
+      <DependentUpon>ComprasModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Modals\ProductosModal.xaml.cs">
       <DependentUpon>ProductosModal.xaml</DependentUpon>
@@ -101,7 +120,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\DataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AlmacenView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -110,6 +137,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ComprasView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CuentasPorCobrarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GastosOperativosView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,6 +175,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Modals\ClientesModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Modals\ComprasModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,10 +282,32 @@
     <Resource Include="Images\compras.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\persona.png" />
+    <Resource Include="Images\persona.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\box.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\gastospersonales.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cuentacobrar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\almacen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\buy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

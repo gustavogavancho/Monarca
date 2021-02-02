@@ -7,6 +7,104 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="Compras" FontSize="36"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="Listado de compras" Grid.Row="0" Margin="10,0,0,0"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="txtSearch" Style="{StaticResource TextBoxStyle}" Width="260" Margin="10 5 0 0" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter"
+                                Command="{Binding SearchCommand}"/>
+                </TextBox.InputBindings>
+            </TextBox>
+            <Button Grid.Column="1" FontFamily="Segoe MDL2 Assets" Content="&#xE721;" Width="27" Background="{StaticResource PrimaryBrush}" Foreground="White" Margin="5 5 0 0" Command="{Binding SearchCommand}">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Buscar Cliente"/>
+                </Button.ToolTip>
+            </Button>
+        </Grid>
+        <ListBox Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding ComprasModel}" SelectedItem="{Binding CompraModel}" HorizontalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="1" HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="/Images/buy.png" Grid.Row="0" Grid.RowSpan="2" Height="35" Width="35">
+                            <Image.InputBindings>
+                                <MouseBinding MouseAction="LeftDoubleClick"
+                                      Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                            </Image.InputBindings>
+                            <Image.ToolTip>
+                                <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
+                            </Image.ToolTip>
+                        </Image>
+                        <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
+                            <Run Text="{Binding NombreProducto}"/>
+                            <Run Text="/"/>
+                            <Run Text="Proveedor:" FontWeight="Bold"/>
+                            <Run Text="{Binding NombreProveedor}"/>
+                            <LineBreak />
+                            <Run Text="Fecha Compra:" FontWeight="Bold"/>
+                            <Run Text="{Binding FechaCompra, StringFormat='d'}"/>
+                            <LineBreak />
+                            <Run Text="Precio Unitario:" FontWeight="Bold"/>
+                            <Run Text="{Binding PrecioCosto,StringFormat='n'}" />
+                            <LineBreak/>
+                            <Run Text="Total:" FontWeight="Bold"/>
+                            <Run Text="{Binding Total, StringFormat='n'}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
+                        </TextBlock>
+                        <Grid Grid.RowSpan="2" Grid.ColumnSpan="2" VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontWeight="Bold" Text="Cantidad:" HorizontalAlignment="Right"/>
+                            <Border Height="25" Width="100" Grid.Row="1" Background="{StaticResource PrimaryBrush}" HorizontalAlignment="Right">
+                                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontSize="12" Text="{Binding Cantidad, StringFormat='n'}" Foreground="White" HorizontalAlignment="Right"/>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" Margin="0 5 10 0">
+            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontWeight="Bold" Foreground="White" Text="Total Compras:"/>
+            <TextBox Text="{Binding TotalCompras,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="170" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="5 0 10 0" Grid.Row="4" HorizontalAlignment="Right">
+            <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE710;" FontSize="16" Command="{Binding AddCommand}">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Agregar Compra"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE70F;" FontSize="16" Command="{Binding EditCommnad}">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Editar Compra"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE74D;" FontSize="16" Command="{Binding DeleteCommnad}">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Eliminar Compra"/>
+                </Button.ToolTip>
+            </Button>
+        </StackPanel>
+
     </Grid>
 </UserControl>

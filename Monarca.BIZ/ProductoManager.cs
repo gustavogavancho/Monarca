@@ -17,7 +17,7 @@ namespace Monarca.BIZ
                                       x.Descripción != null &&
                                       x.Descripción.ToLowerInvariant().Contains(text.ToLowerInvariant()) ||
                                       x.Marca != null && 
-                                      x.Marca.Contains(text));
+                                      x.Marca.ToLowerInvariant().Contains(text.ToLowerInvariant()));
         }
 
     }
