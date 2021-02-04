@@ -111,5 +111,103 @@
             </TextBlock>
         </Grid>
     </DataTemplate>
+    <DataTemplate x:Key="ComprasProveedorPersona">
+        <Grid Margin="1" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Images/buy.png" Grid.Row="0" Grid.RowSpan="2" Height="35" Width="35">
+                <Image.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick"
+                                      Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                </Image.InputBindings>
+                <Image.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
+                </Image.ToolTip>
+            </Image>
+            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
+                            <Run Text="{Binding NombreProducto}"/>
+                            <Run Text="/"/>
+                            <Run Text="Proveedor:" FontWeight="Bold"/>
+                            <Run Text="{Binding NombreProveedor}"/>
+                            <LineBreak />
+                            <Run Text="Fecha Compra:" FontWeight="Bold"/>
+                            <Run Text="{Binding FechaHoraCreacion, StringFormat='d'}"/>
+                            <LineBreak />
+                            <Run Text="Precio Unitario:" FontWeight="Bold"/>
+                            <Run Text="S/."/>
+                            <Run Text="{Binding PrecioCosto,StringFormat='n'}" />
+                            <LineBreak/>
+                            <Run Text="Total: S/." FontWeight="Bold"/>
+                            <Run Text="{Binding Total, StringFormat='n'}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
+            </TextBlock>
+            <Grid Grid.RowSpan="2" Grid.ColumnSpan="2" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontWeight="Bold" Text="Cantidad:" HorizontalAlignment="Right"/>
+                <Border Height="25" Width="100" Grid.Row="1" Background="{StaticResource PrimaryBrush}" HorizontalAlignment="Right">
+                    <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontSize="12" Text="{Binding Cantidad, StringFormat='n'}" Foreground="White" HorizontalAlignment="Right"/>
+                </Border>
+            </Grid>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="ComprasProveedorEmpresa">
+        <Grid Margin="1" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Images/buy.png" Grid.Row="0" Grid.RowSpan="2" Height="35" Width="35">
+                <Image.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick"
+                                      Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                </Image.InputBindings>
+                <Image.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
+                </Image.ToolTip>
+            </Image>
+            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
+                            <Run Text="{Binding NombreProducto}"/>
+                            <Run Text="/"/>
+                            <Run Text="Proveedor:" FontWeight="Bold"/>
+                            <Run Text="{Binding RazonSocialProveedor}"/>
+                            <LineBreak />
+                            <Run Text="Fecha Compra:" FontWeight="Bold"/>
+                            <Run Text="{Binding FechaHoraCreacion, StringFormat='d'}"/>
+                            <LineBreak />
+                            <Run Text="Precio Unitario:" FontWeight="Bold"/>
+                            <Run Text="S/."/>
+                            <Run Text="{Binding PrecioCosto,StringFormat='n'}" />
+                            <LineBreak/>
+                            <Run Text="Total: S/." FontWeight="Bold"/>
+                            <Run Text="{Binding Total, StringFormat='n'}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
+            </TextBlock>
+            <Grid Grid.RowSpan="2" Grid.ColumnSpan="2" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontWeight="Bold" Text="Cantidad:" HorizontalAlignment="Right"/>
+                <Border Height="25" Width="100" Grid.Row="1" Background="{StaticResource PrimaryBrush}" HorizontalAlignment="Right">
+                    <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontSize="12" Text="{Binding Cantidad, StringFormat='n'}" Foreground="White" HorizontalAlignment="Right"/>
+                </Border>
+            </Grid>
+        </Grid>
+    </DataTemplate>
 
 </ResourceDictionary>

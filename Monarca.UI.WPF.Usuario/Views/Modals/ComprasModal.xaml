@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Monarca.UI.WPF.Usuario.Views.Modals"
+        xmlns:attached="clr-namespace:Monarca.UI.WPF.Usuario.Attached"
         mc:Ignorable="d"
         BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="2"
         Title="ClientesModal" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
@@ -48,19 +49,19 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Button Content="Seleccionar Producto" Background="{StaticResource PrimaryBrush}" Foreground="White" HorizontalAlignment="Left" Margin="5">
+                <Button x:Name="btnSelectProduct" Content="Seleccionar Producto" Background="{StaticResource PrimaryBrush}" Foreground="White" HorizontalAlignment="Left" Margin="5" Click="btnSelectProduct_Click">
                     <Button.ToolTip>
-                        <ToolTip Style="{StaticResource ToolTipStyle}" Content="Seleccionar Producto Cliente"/>
+                        <ToolTip Style="{StaticResource ToolTipStyle}" Content="Seleccionar Producto"/>
                     </Button.ToolTip>
                 </Button>
                 <TextBlock Text="Nombre:" Grid.Row="1" Style="{StaticResource BlueTextTextBlockStyle}"/>
-                <TextBox x:Name="txtNombreProducto" Grid.Row="2" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
+                <TextBox x:Name="txtNombreProducto" Grid.Row="2" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" IsEnabled="False"/>
                 <TextBlock Text="Descripción:" Grid.Row="3" Style="{StaticResource BlueTextTextBlockStyle}"/>
-                <TextBox x:Name="txtDescripcionProducto" Grid.Row="4" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
+                <TextBox x:Name="txtDescripcionProducto" Grid.Row="4" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" IsEnabled="False"/>
                 <TextBlock Text="Marca:" Grid.Row="5" Style="{StaticResource BlueTextTextBlockStyle}"/>
-                <TextBox x:Name="txtMarcaProducto" Grid.Row="6" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
+                <TextBox x:Name="txtMarcaProducto" Grid.Row="6" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" IsEnabled="False"/>
                 <TextBlock Text="Unidad:" Grid.Row="7" Style="{StaticResource BlueTextTextBlockStyle}"/>
-                <TextBox x:Name="txtUnidadProducto" Grid.Row="8" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 5"/>
+                <TextBox x:Name="txtUnidadProducto" Grid.Row="8" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 5" IsEnabled="False"/>
             </Grid>
         </Border>
         <TextBlock Text="Proveedor:" Grid.Row="2" Style="{StaticResource BlueTextTextBlockStyle}" Grid.Column="1"/>
@@ -77,19 +78,19 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Button Content="Seleccionar Proveedor" Background="{StaticResource PrimaryBrush}" Foreground="White" HorizontalAlignment="Left" Margin="5">
+                <Button x:Name="btnSelectProveedor" Content="Seleccionar Proveedor" Background="{StaticResource PrimaryBrush}" Foreground="White" HorizontalAlignment="Left" Margin="5" Click="btnSelectProveedor_Click">
                     <Button.ToolTip>
-                        <ToolTip Style="{StaticResource ToolTipStyle}" Content="Seleccionar Producto Cliente"/>
+                        <ToolTip Style="{StaticResource ToolTipStyle}" Content="Seleccionar Proveedor"/>
                     </Button.ToolTip>
                 </Button>
                 <TextBlock Text="Nombres y Apellidos:" Grid.Row="1" Style="{StaticResource BlueTextTextBlockStyle}"/>
-                <TextBox x:Name="txtNombreApellidoProveedor" Grid.Row="2" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
+                <TextBox x:Name="txtNombreApellidoProveedor" Grid.Row="2" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" IsEnabled="False"/>
                 <TextBlock Text="Razon Social:" Grid.Row="3" Style="{StaticResource BlueTextTextBlockStyle}"/>
-                <TextBox x:Name="txtRazonSocialProveedor" Grid.Row="4" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
+                <TextBox x:Name="txtRazonSocialProveedor" Grid.Row="4" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" IsEnabled="False"/>
                 <TextBlock Text="DNI:" Grid.Row="5" Style="{StaticResource BlueTextTextBlockStyle}"/>
-                <TextBox x:Name="txtDniProveedor" Grid.Row="6" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
+                <TextBox x:Name="txtDniProveedor" Grid.Row="6" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" IsEnabled="False"/>
                 <TextBlock Text="RUC:" Grid.Row="7" Style="{StaticResource BlueTextTextBlockStyle}"/>
-                <TextBox x:Name="txtRucProveedor" Grid.Row="8" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 5"/>
+                <TextBox x:Name="txtRucProveedor" Grid.Row="8" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 5" IsEnabled="False"/>
             </Grid>
         </Border>
         <Grid Grid.Row="4" Grid.ColumnSpan="2">
@@ -105,17 +106,17 @@
             <TextBlock Text="Cantidad:" Grid.Row="0" Style="{StaticResource BlueTextTextBlockStyle}"/>
             <TextBlock Text="Precio Unitario:" Grid.Row="0" Grid.Column="1" Style="{StaticResource BlueTextTextBlockStyle}"/>
             <TextBlock Text="Total:" Grid.Row="0" Grid.Column="2" Style="{StaticResource BlueTextTextBlockStyle}"/>
-            <TextBox x:Name="txtCantidad" Grid.Row="1" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 5"/>
-            <TextBox x:Name="txtPrecioUnitario" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 5"/>
+            <TextBox attached:TextBoxHelper.OnlyNumeric="Double" x:Name="txtCantidad" Grid.Row="1" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 5" TextChanged="txtCantidad_TextChanged"/>
+            <TextBox attached:TextBoxHelper.OnlyNumeric="Double" x:Name="txtPrecioUnitario" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 5" TextChanged="txtCantidad_TextChanged"/>
             <TextBox x:Name="txtTotal" Background="{StaticResource PrimaryBrush}" Foreground="White" IsEnabled="False" Grid.Row="1" Grid.Column="2" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 5"/>
         </Grid>
         <StackPanel Orientation="Horizontal" Margin="5 5 0 0" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Right">
-            <Button x:Name="btnSave" Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE74E;" FontSize="16">
+            <Button x:Name="btnSave" Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE74E;" FontSize="16" Click="btnSave_Click">
                 <Button.ToolTip>
-                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Guardar Cliente"/>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Guardar Compra"/>
                 </Button.ToolTip>
             </Button>
-            <Button x:Name="btnClose" Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE8BB;" FontSize="16">
+            <Button x:Name="btnClose" Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE8BB;" FontSize="16" Click="btnClose_Click">
                 <Button.ToolTip>
                     <ToolTip Style="{StaticResource ToolTipStyle}" Content="Cerrar Diálogo"/>
                 </Button.ToolTip>

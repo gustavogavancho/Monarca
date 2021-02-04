@@ -70,6 +70,7 @@
     <Compile Include="CustomControls\DecimalTextBox.cs" />
     <Compile Include="CustomControls\IntegerTextBox.cs" />
     <Compile Include="Extensions\IEnumerableToObservableCollection.cs" />
+    <Compile Include="Helpers\StaticParameters.cs" />
     <Compile Include="Models\CompraModel.cs" />
     <Compile Include="ViewModels\AlmacenViewModel.cs" />
     <Compile Include="ViewModels\ClientesViewModel.cs" />
@@ -106,6 +107,12 @@
     </Compile>
     <Compile Include="Views\Modals\ProveedoresModal.xaml.cs">
       <DependentUpon>ProveedoresModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Modals\SeleccionarProductoModal.xaml.cs">
+      <DependentUpon>SeleccionarProductoModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Modals\SeleccionarProveedorModal.xaml.cs">
+      <DependentUpon>SeleccionarProveedorModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductosView.xaml.cs">
       <DependentUpon>ProductosView.xaml</DependentUpon>
@@ -187,6 +194,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Modals\ProveedoresModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Modals\SeleccionarProductoModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Modals\SeleccionarProveedorModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

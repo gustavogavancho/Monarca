@@ -1,10 +1,14 @@
 ﻿using Monarca.BIZ;
 using Monarca.COMMON.Entidades;
 using Monarca.COMMON.Interfaces;
+using Monarca.UI.WPF.Usuario.CustomControls;
+using Monarca.UI.WPF.Usuario.Extensions;
 using Monarca.UI.WPF.Usuario.Helpers;
 using Monarca.UI.WPF.Usuario.Views.Modals;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Monarca.UI.WPF.Usuario.ViewModels
 {
@@ -24,8 +28,21 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         public Compra Compra
         {
             get => _compra;
-            set => SetProperty(ref _compra, value);
+            set
+            {
+                SetProperty(ref _compra, value);
+                EditCommnad.RaiseCanExecuteChanged();
+                DeleteCommnad.RaiseCanExecuteChanged();
+            }
         }
+
+        private decimal _totalCompras;
+        public decimal TotalCompras
+        {
+            get => _totalCompras;
+            set => SetProperty(ref _totalCompras, value);
+        }
+
 
         private string _searchText;
         public string SearchText
@@ -44,20 +61,77 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         {
             _factoryManager = factoryManager;
             _compraManager = _factoryManager.CrearCompraManager;
+            ReadCommand = new RelayCommand(OnRead, CanReadEditDelete);
             AddCommand = new RelayCommand(OnAdd);
+            EditCommnad = new RelayCommand(OnEdit, CanReadEditDelete);
+            DeleteCommnad = new RelayCommand(OnDelete, CanReadEditDelete);
+            SearchCommand = new RelayCommand(OnSearch);
+            UpdateData();
         }
 
-        private void OnAdd()
+        private void OnSearch()
         {
-            if (new ComprasModal().ShowDialog().Value)
+            if (!string.IsNullOrWhiteSpace(SearchText))
+            {
+                Compras = _compraManager.SearchCompra(SearchText).OrderByDescending(x => x.FechaHoraCreacion).ToObservableCollection();
+            }
+            else
+            {
+                Compras = _compraManager.ObtenerTodo.OrderByDescending(x=> x.FechaHoraCreacion).ToObservableCollection();
+            }
+        }
+
+        private void OnRead()
+        {
+            if (new ComprasModal(_factoryManager, "Read", Compra).ShowDialog().Value)
             {
                 UpdateData();
             }
         }
 
+        private void OnEdit()
+        {
+            if (new ComprasModal(_factoryManager, "Edit", Compra).ShowDialog().Value)
+            {
+                UpdateData();
+            }
+        }
+
+        private void OnDelete()
+        {
+            DialogResult result = CustomMessageBox.Show("¿Está seguro que desea borrar la información de la compra?", CustomMessageBox.CMessageBoxTitle.Confirmación, CustomMessageBox.CMessageBoxButton.Si, CustomMessageBox.CMessageBoxButton.No);
+            if (result == System.Windows.Forms.DialogResult.Yes)
+            {
+                _compraManager.Eliminar(Compra.Id);
+                UpdateData();
+            }
+        }
+
+        private void OnAdd()
+        {
+            if (new ComprasModal(_factoryManager, "Add").ShowDialog().Value)
+            {
+                UpdateData();
+            }
+        }
+
+        private bool CanReadEditDelete()
+        {
+            if (!string.IsNullOrWhiteSpace(Compra?.Id))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
         private void UpdateData()
         {
-
+            Compras = _compraManager.ObtenerTodo.OrderByDescending(x=> x.FechaHoraCreacion).ToObservableCollection();
+            TotalCompras = Compras.Sum(x => x.Total);
         }
     }
 }

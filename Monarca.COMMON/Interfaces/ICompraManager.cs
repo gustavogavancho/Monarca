@@ -1,9 +1,10 @@
 ﻿using Monarca.COMMON.Entidades;
+using System.Collections.Generic;
 
 namespace Monarca.COMMON.Interfaces
 {
     public interface ICompraManager : IGenericManager<Compra>
     {
-        //TODO:
+        IEnumerable<Compra> SearchCompra(string text);
     }
 }

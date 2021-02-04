@@ -85,6 +85,5 @@
                 </Button.ToolTip>
             </Button>
         </StackPanel>
-        
     </Grid>
 </Window>
