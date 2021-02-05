@@ -2,12 +2,15 @@
 using Monarca.COMMON.Entidades;
 using Monarca.COMMON.Enumeraciones;
 using Monarca.COMMON.Interfaces;
+using Monarca.Tools.API;
+using Monarca.Tools.API.Models;
 using Monarca.UI.WPF.Usuario.CustomControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace Monarca.UI.WPF.Usuario.Views.Modals
 {
@@ -131,6 +134,10 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 txtNombres.IsEnabled = true;
                 txtApellidos.IsEnabled = true;
                 txtDNI.IsEnabled = true;
+
+                Dispatcher.BeginInvoke(new System.Action(() => { Keyboard.Focus(txtDNI); }),
+                    System.Windows.Threading.DispatcherPriority.Loaded);
+
             }
             else
             {
@@ -144,12 +151,103 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 txtRazonSocial.IsEnabled = true;
                 txtRepresentanteLegal.IsEnabled = true;
                 txtRUC.IsEnabled = true;
+
+                Dispatcher.BeginInvoke(new System.Action(() => { Keyboard.Focus(txtRUC); }),
+                    System.Windows.Threading.DispatcherPriority.Loaded);
             }
         }
 
         private void CommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
             Close();
+        }
+
+        private async void txtDNI_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                bool canConvert = int.TryParse(txtDNI.Text, out int Dni);
+                if (canConvert && txtDNI.Text.Length == 8)
+                {
+                    try
+                    {
+                        DNI dni = await ConsultaDni.GetDni(txtDNI.Text);
+                        txtNombres.Text = dni.nombres;
+                        txtApellidos.Text = $"{dni.apellidoPaterno} {dni.apellidoMaterno}";
+
+                        await Dispatcher.BeginInvoke(new System.Action(() => { Keyboard.Focus(txtDireccion); }),
+                            System.Windows.Threading.DispatcherPriority.Loaded);
+                    }
+                    catch (Exception ex)
+                    {
+                        DialogResult result = CustomMessageBox.Show($"{ex.Message}", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.No);
+                    }
+                }
+            }
+        }
+
+        private async void btnConsultaDni_Click(object sender, RoutedEventArgs e)
+        {
+            bool canConvert = int.TryParse(txtDNI.Text, out int Dni);
+            if (canConvert && txtDNI.Text.Length == 8)
+            {
+                try
+                {
+                    DNI dni = await ConsultaDni.GetDni(txtDNI.Text);
+                    txtNombres.Text = dni.nombres;
+                    txtApellidos.Text = $"{dni.apellidoPaterno} {dni.apellidoMaterno}";
+
+                    await Dispatcher.BeginInvoke(new System.Action(() => { Keyboard.Focus(txtDireccion); }),
+                        System.Windows.Threading.DispatcherPriority.Loaded);
+                }
+                catch (Exception ex)
+                {
+                    DialogResult result = CustomMessageBox.Show($"{ex.Message}", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.No);
+                }
+            }
+        }
+
+        private async void txtRUC_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            bool canConvert = long.TryParse(txtRUC.Text, out long Ruc);
+            if (canConvert && txtRUC.Text.Length == 11)
+            {
+                try
+                {
+                    RUC ruc = await ConsultaRuc.GetRuc(txtRUC.Text);
+                    txtRazonSocial.Text = ruc.razonSocial;
+                    txtDireccion.Text = ruc.direccion;
+                    await Dispatcher.BeginInvoke(new System.Action(() => { Keyboard.Focus(txtRepresentanteLegal); }),
+                        System.Windows.Threading.DispatcherPriority.Loaded);
+
+                }
+                catch (Exception ex)
+                {
+                    DialogResult result = CustomMessageBox.Show($"{ex.Message}", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.No);
+                }
+            }
+        }
+
+        private async void btnConsultaRuc_Click(object sender, RoutedEventArgs e)
+        {
+            bool canConvert = long.TryParse(txtRUC.Text, out long Ruc);
+            if (canConvert && txtRUC.Text.Length == 11)
+            {
+                try
+                {
+                    RUC ruc = await ConsultaRuc.GetRuc(txtRUC.Text);
+                    txtRazonSocial.Text = ruc.razonSocial;
+                    txtDireccion.Text = ruc.direccion;
+
+                    await Dispatcher.BeginInvoke(new System.Action(() => { Keyboard.Focus(txtRepresentanteLegal); }),
+                        System.Windows.Threading.DispatcherPriority.Loaded);
+
+                }
+                catch (Exception ex)
+                {
+                    DialogResult result = CustomMessageBox.Show($"{ex.Message}", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.No);
+                }
+            }
         }
     }
 }

@@ -46,6 +46,9 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Border x:Name="brdListItem" Margin="5 5 5 0" Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Visibility="{Binding VisibilityBorder, Converter={StaticResource BoolToVisibilityConverter}}">
+            <TextBlock Text="No se encuentran registros de un algún proveedor" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray" TextWrapping="Wrap"/>
+        </Border>
         <StackPanel Orientation="Horizontal" Margin="5 5 0 0" Grid.Row="3" HorizontalAlignment="Right">
             <Button x:Name="btnSelect" Style="{StaticResource ButtonSecondaryStyle}" Content="&#xF13E;" FontSize="16" Click="btnSelect_Click">
                 <Button.ToolTip>

@@ -3,6 +3,7 @@ using Monarca.COMMON.Entidades;
 using Monarca.COMMON.Interfaces;
 using Monarca.UI.WPF.Usuario.CustomControls;
 using Monarca.UI.WPF.Usuario.Helpers;
+using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -20,6 +21,16 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             _proveedorManager = factoryManager.CrearProveedorManager;
             InitializeComponent();
             ltbProveedores.ItemsSource = _proveedorManager.ObtenerTodo;
+            if (_proveedorManager.ObtenerTodo.Count() > 1)
+            {
+                ltbProveedores.Visibility = Visibility.Visible;
+                brdListItem.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                ltbProveedores.Visibility = Visibility.Collapsed;
+                brdListItem.Visibility = Visibility.Visible;
+            }
         }
 
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)

@@ -55,18 +55,24 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <TextBlock Text="Nombres:" Grid.Row="4" Style="{StaticResource BlueTextTextBlockStyle}"/>
-        <TextBox x:Name="txtNombres" Grid.Row="5" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
-        <TextBlock Text="Apellidos:" Grid.Row="6" Style="{StaticResource BlueTextTextBlockStyle}"/>
-        <TextBox x:Name="txtApellidos" Grid.Row="7" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
-        <TextBlock Text="Razon social:" Grid.Row="8" Style="{StaticResource BlueTextTextBlockStyle}"/>
-        <TextBox x:Name="txtRazonSocial" Grid.Row="9" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
-        <TextBlock Text="Representante legal:" Grid.Row="10" Style="{StaticResource BlueTextTextBlockStyle}"/>
-        <TextBox x:Name="txtRepresentanteLegal" Grid.Row="11" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
-        <TextBlock Text="DNI:" Grid.Row="12" Style="{StaticResource BlueTextTextBlockStyle}"/>
-        <customControls:IntegerTextBox x:Name="txtDNI" Grid.Row="13" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" MaxLength="8"/>
-        <TextBlock Text="RUC:" Grid.Row="14" Style="{StaticResource BlueTextTextBlockStyle}"/>
-        <customControls:IntegerTextBox x:Name="txtRUC" Grid.Row="15" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" MaxLength="11"/>
+        <TextBlock Text="DNI:" Grid.Row="4" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <StackPanel Grid.Row="5" Margin="5 0 5 0" Orientation="Horizontal">
+            <customControls:IntegerTextBox x:Name="txtDNI" Grid.Row="5" Style="{StaticResource TextBoxStyle}" MaxLength="8" Width="365" KeyDown="txtDNI_KeyDown"/>
+            <Button x:Name="btnConsultaDni" Content="&#xE721;" Foreground="White" Padding="2" Background="{StaticResource PrimaryBrush}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Margin="3 0 0 0" Click="btnConsultaDni_Click"/>
+        </StackPanel>
+        <TextBlock Text="RUC:" Grid.Row="6" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <StackPanel Grid.Row="7" Margin="5 0 5 0" Orientation="Horizontal">
+            <customControls:IntegerTextBox x:Name="txtRUC" Grid.Row="7" Style="{StaticResource TextBoxStyle}" MaxLength="11" Width="365" KeyDown="txtRUC_KeyDown"/>
+            <Button x:Name="btnConsultaRuc" Content="&#xE721;" Foreground="White" Padding="2" Background="{StaticResource PrimaryBrush}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Margin="3 0 0 0" Click="btnConsultaRuc_Click"/>
+        </StackPanel>
+        <TextBlock Text="Nombres:" Grid.Row="8" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <TextBox x:Name="txtNombres" Grid.Row="9" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
+        <TextBlock Text="Apellidos:" Grid.Row="10" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <TextBox x:Name="txtApellidos" Grid.Row="11" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
+        <TextBlock Text="Razon social:" Grid.Row="12" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <TextBox x:Name="txtRazonSocial" Grid.Row="13" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
+        <TextBlock Text="Representante legal:" Grid.Row="14" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <TextBox x:Name="txtRepresentanteLegal" Grid.Row="15" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
         <TextBlock Text="Dirección:" Grid.Row="16" Style="{StaticResource BlueTextTextBlockStyle}"/>
         <TextBox x:Name="txtDireccion" Grid.Row="17" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
         <TextBlock Text="Email:" Grid.Row="18" Style="{StaticResource BlueTextTextBlockStyle}"/>

@@ -42,6 +42,19 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             set => SetProperty(ref _searchText, value);
         }
 
+        private bool _visibilityListBox;
+        public bool VisibilityListBox
+        {
+            get => _visibilityListBox;
+            set => SetProperty(ref _visibilityListBox, value);
+        }
+
+        private bool _visibilityBorder;
+        public bool VisibilityBorder
+        {
+            get => _visibilityBorder;
+            set => SetProperty(ref _visibilityBorder, value);
+        }
         public RelayCommand ReadCommand { get; private set; }
         public RelayCommand AddCommand { get; private set; }
         public RelayCommand EditCommnad { get; private set; }
@@ -121,6 +134,17 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         private void UpdateData()
         {
             Productos = _productoManager.ObtenerTodo.ToObservableCollection();
+            SearchText = "";
+            if (Productos.Count >= 1)
+            {
+                VisibilityListBox = true;
+                VisibilityBorder = false;
+            }
+            else
+            {
+                VisibilityBorder = true;
+                VisibilityListBox = false;
+            }
         }
     }
 }

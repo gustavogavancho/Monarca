@@ -1,7 +1,6 @@
 ﻿using Monarca.BIZ;
 using Monarca.UI.WPF.Usuario.Helpers;
 using Monarca.UI.WPF.Usuario.Models;
-using Monarca.UI.WPF.Usuario.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -20,7 +19,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         ComprasViewModel _comprasViewModel = new ComprasViewModel(_factoryManager);
         GastosOperativosViewModel _gastosOperativosViewModel = new GastosOperativosViewModel();
         CuentasPorCobrarViewModel _cuentasPorCobrarViewModel = new CuentasPorCobrarViewModel();
-        AlmacenViewModel _almacenViewModel = new AlmacenViewModel();
+        AlmacenViewModel _almacenViewModel = new AlmacenViewModel(_factoryManager);
 
         private ObservableCollection<CurrentUserControl> _userControlList;
 
@@ -133,6 +132,12 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                     CurrentViewModel = _almacenViewModel;
                     break;
             }
+        }
+
+        public async void LoadMainView()
+        {
+            UserControl = UserControlList[0];
+            CurrentViewModel = _inicioViewModel;
         }
 
         private void OnClose()

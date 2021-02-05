@@ -42,6 +42,9 @@
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime" />
@@ -71,7 +74,7 @@
     <Compile Include="CustomControls\IntegerTextBox.cs" />
     <Compile Include="Extensions\IEnumerableToObservableCollection.cs" />
     <Compile Include="Helpers\StaticParameters.cs" />
-    <Compile Include="Models\CompraModel.cs" />
+    <Compile Include="Models\AlmacenModel.cs" />
     <Compile Include="ViewModels\AlmacenViewModel.cs" />
     <Compile Include="ViewModels\ClientesViewModel.cs" />
     <Compile Include="ViewModels\ComprasViewModel.cs" />
@@ -253,6 +256,10 @@
     <ProjectReference Include="..\Monarca.COMMON\Monarca.COMMON.csproj">
       <Project>{78e96c81-bc61-454b-a3de-85298656ac09}</Project>
       <Name>Monarca.COMMON</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monarca.Tools\Monarca.Tools.csproj">
+      <Project>{68bc38b9-2205-427e-90d5-e5df2481bc7b}</Project>
+      <Name>Monarca.Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

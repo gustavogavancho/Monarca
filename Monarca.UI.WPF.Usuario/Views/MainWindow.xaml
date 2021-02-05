@@ -7,10 +7,17 @@
         xmlns:local="clr-namespace:Monarca.UI.WPF.Usuario"
         xmlns:views="clr-namespace:Monarca.UI.WPF.Usuario.Views"
         xmlns:viewModels="clr-namespace:Monarca.UI.WPF.Usuario.ViewModels"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="Distribuidora Monarca" Height="650" Width="900"
         WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" BorderThickness="1"
         BorderBrush="{StaticResource PrimaryBrush}">
+
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:CallMethodAction TargetObject="{Binding}" MethodName="LoadMainView"/>
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
 
     <!-- ViewModel revolver -->
     <Window.Resources>
@@ -73,7 +80,7 @@
             </Button>
         </Grid>
 
-        <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding UserControlList}" SelectedItem="{Binding UserControl}">
+        <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding UserControlList}" SelectedItem="{Binding UserControl, UpdateSourceTrigger=PropertyChanged}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="2">

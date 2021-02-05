@@ -4,6 +4,7 @@ using Monarca.COMMON.Interfaces;
 using Monarca.UI.WPF.Usuario.CustomControls;
 using Monarca.UI.WPF.Usuario.Helpers;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -23,6 +24,16 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             _productoManager = factoryManager.CrearProductoManager;
             InitializeComponent();
             ltbProductos.ItemsSource = _productoManager.ObtenerTodo;
+            if (_productoManager.ObtenerTodo.Count() > 1)
+            {
+                ltbProductos.Visibility = Visibility.Visible;
+                brdListItem.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                ltbProductos.Visibility = Visibility.Collapsed;
+                brdListItem.Visibility = Visibility.Visible;
+            }
         }
 
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)

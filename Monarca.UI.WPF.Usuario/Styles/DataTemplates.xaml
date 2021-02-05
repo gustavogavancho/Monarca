@@ -77,7 +77,7 @@
         </Grid>
     </DataTemplate>
     <DataTemplate x:Key="ProductosDataTemplate">
-        <Grid Margin="1">
+        <Grid Margin="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>

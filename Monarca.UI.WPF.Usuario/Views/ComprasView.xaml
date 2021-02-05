@@ -32,7 +32,7 @@
                 </Button.ToolTip>
             </Button>
         </Grid>
-        <ListBox Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding Compras}" SelectedItem="{Binding Compra}" HorizontalContentAlignment="Stretch">
+        <ListBox Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding Compras}" SelectedItem="{Binding Compra}" HorizontalContentAlignment="Stretch" Visibility="{Binding VisibilityListBox, Converter={StaticResource BoolToVisibilityConverter}}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <ContentControl Content="{Binding}">
@@ -52,6 +52,9 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Border Margin="10 10 10 0" Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Visibility="{Binding VisibilityBorder, Converter={StaticResource BoolToVisibilityConverter}}">
+            <TextBlock Text="Click en el buton + para agregar un nuevo item" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray"/>
+        </Border>
         <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" Margin="0 5 10 0">
             <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Compras: S/."/>
             <TextBox Text="{Binding TotalCompras,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="170" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right"/>

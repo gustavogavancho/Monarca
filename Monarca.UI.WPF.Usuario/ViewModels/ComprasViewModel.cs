@@ -5,7 +5,6 @@ using Monarca.UI.WPF.Usuario.CustomControls;
 using Monarca.UI.WPF.Usuario.Extensions;
 using Monarca.UI.WPF.Usuario.Helpers;
 using Monarca.UI.WPF.Usuario.Views.Modals;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -49,6 +48,20 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         {
             get => _searchText;
             set => SetProperty(ref _searchText, value);
+        }
+
+        private bool _visibilityListBox;
+        public bool VisibilityListBox
+        {
+            get => _visibilityListBox;
+            set => SetProperty(ref _visibilityListBox, value);
+        }
+
+        private bool _visibilityBorder;
+        public bool VisibilityBorder
+        {
+            get => _visibilityBorder;
+            set => SetProperty(ref _visibilityBorder, value);
         }
 
         public RelayCommand ReadCommand { get; private set; }
@@ -131,6 +144,17 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         private void UpdateData()
         {
             Compras = _compraManager.ObtenerTodo.OrderByDescending(x=> x.FechaHoraCreacion).ToObservableCollection();
+            SearchText = "";
+            if (Compras.Count >= 1)
+            {
+                VisibilityListBox = true;
+                VisibilityBorder = false;
+            }
+            else
+            {
+                VisibilityBorder = true;
+                VisibilityListBox = false;
+            }
             TotalCompras = Compras.Sum(x => x.Total);
         }
     }
