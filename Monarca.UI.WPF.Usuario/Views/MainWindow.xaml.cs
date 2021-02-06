@@ -1,7 +1,10 @@
 ﻿using Monarca.UI.WPF.Usuario.CustomControls;
+using Monarca.UI.WPF.Usuario.Helpers;
 using System.ComponentModel;
+using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace Monarca.UI.WPF.Usuario
 {
@@ -10,6 +13,20 @@ namespace Monarca.UI.WPF.Usuario
         public MainWindow()
         {
             InitializeComponent();
+            if (CheckOneTimeInternetConnection.CheckInternetConnection())
+            {
+                elp.Fill = new SolidColorBrush(System.Windows.Media.Colors.Green);
+                ElipseToolTip.Content = "Consulta RUC y DNI disponible";
+                txtInternet.Text = "Internet disponible";
+            }
+            else
+            {
+                elp.Fill = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                ElipseToolTip.Content = "Consulta RUC y DNI no disponible";
+                txtInternet.Text = "Internet no disponible";
+            }
+
+            NetworkChange.NetworkAvailabilityChanged += AvailabilityChanged;
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -24,5 +41,28 @@ namespace Monarca.UI.WPF.Usuario
                 e.Cancel = true;
             }
         }
+
+        private void AvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
+        {
+            SolidColorBrush blueBrush = new SolidColorBrush();
+            blueBrush.Color = Colors.Blue;
+
+            App.Current.Dispatcher.Invoke(new System.Action(() =>
+            {
+                if (e.IsAvailable)
+                {
+                    elp.Fill = new SolidColorBrush(System.Windows.Media.Colors.Green);
+                    ElipseToolTip.Content = "Consulta RUC y DNI disponible";
+                    txtInternet.Text = "Internet disponible";
+                }
+                else
+                {
+                    elp.Fill = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                    ElipseToolTip.Content = "Consulta RUC y DNI no disponible";
+                    txtInternet.Text = "Internet no disponible";
+                }
+            }));
+        }
+
     }
 }

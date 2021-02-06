@@ -209,5 +209,60 @@
             </Grid>
         </Grid>
     </DataTemplate>
+    <DataTemplate x:Key="AlmacenDataTemplate">
+        <Grid Margin="1" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Images/item.png" Grid.Row="0" Grid.RowSpan="2" Height="35" Width="35">
+                <Image.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick"
+                                      Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                </Image.InputBindings>
+                <Image.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
+                </Image.ToolTip>
+            </Image>
+            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0" VerticalAlignment="Center">
+                <Run Text="{Binding NombreProducto}"/>
+                <Run Text="/"/>
+                <Run Text="Marca:" FontWeight="Bold"/>
+                <Run Text="{Binding MarcaProducto}"/>
+                <LineBreak />
+                <Run Text="Proveedor:" FontWeight="Bold"/>
+                <Run Text="{Binding NombreProveedor}"/>
+            </TextBlock>
+            <Grid Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontWeight="Bold" Text="Cantidad Comprada:" HorizontalAlignment="Right"/>
+                <Border Height="25" Width="100" Grid.Row="1" Background="{StaticResource PrimaryBrush}" HorizontalAlignment="Center" Margin="0 0 0 5">
+                    <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontSize="12" Text="{Binding CantidadComprada, StringFormat='n'}" Foreground="White" HorizontalAlignment="Center"/>
+                </Border>
+                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontWeight="Bold" Text="Cantidad Vendida:" HorizontalAlignment="Right" Grid.Column="1"/>
+                <Border Height="25" Width="100" Grid.Row="1" Background="{StaticResource PrimaryBrush}" HorizontalAlignment="Center" Margin="0 0 0 5" Grid.Column="1">
+                    <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontSize="12" Text="{Binding Cantidad, StringFormat='n'}" Foreground="White" HorizontalAlignment="Center"/>
+                </Border>
+                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontWeight="Bold" Text="Cantidad Disponible:" HorizontalAlignment="Right" Grid.Column="2"/>
+                <Border Height="25" Width="100" Grid.Row="1" Background="{StaticResource PrimaryBrush}" HorizontalAlignment="Center" Margin="0 0 0 5" Grid.Column="2">
+                    <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontSize="12" Text="{Binding Cantidad, StringFormat='n'}" Foreground="White" HorizontalAlignment="Center"/>
+                </Border>
+            </Grid>
+        </Grid>
+    </DataTemplate>
+
 
 </ResourceDictionary>

@@ -3,6 +3,7 @@
     public class AlmacenModel
     {
         public string IdProducto { get; set; }
+        public string IdProveedor { get; set; }
         public string NombreProducto { get; set; }
         public string MarcaProducto { get; set; }
         public string NombreProveedor { get; set; }

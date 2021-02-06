@@ -31,7 +31,7 @@
                 </Button.ToolTip>
             </Button>
         </Grid>
-        <ListBox Margin="10 10 10 10" Grid.Row="2" ItemsSource="{Binding Clientes}" SelectedItem="{Binding Cliente}" Visibility="{Binding VisibilityListBox, Converter={StaticResource BoolToVisibilityConverter}}">
+        <ListBox Margin="10 10 10 10" Grid.Row="2" ItemsSource="{Binding Almacenes}" SelectedItem="{Binding Almacen}" Visibility="{Binding VisibilityListBox, Converter={StaticResource BoolToVisibilityConverter}}" ItemTemplate="{StaticResource AlmacenDataTemplate}" HorizontalContentAlignment="Stretch">
         </ListBox>
         <Border Margin="10 10 10 10" Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Visibility="{Binding VisibilityBorder, Converter={StaticResource BoolToVisibilityConverter}}">
             <TextBlock Text="Click en el buton + para agregar un nuevo item" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray"/>

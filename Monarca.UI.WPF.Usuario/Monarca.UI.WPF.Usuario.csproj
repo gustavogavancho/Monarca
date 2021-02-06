@@ -73,6 +73,7 @@
     <Compile Include="CustomControls\DecimalTextBox.cs" />
     <Compile Include="CustomControls\IntegerTextBox.cs" />
     <Compile Include="Extensions\IEnumerableToObservableCollection.cs" />
+    <Compile Include="Helpers\CheckOneTimeInternetConnection.cs" />
     <Compile Include="Helpers\StaticParameters.cs" />
     <Compile Include="Models\AlmacenModel.cs" />
     <Compile Include="ViewModels\AlmacenViewModel.cs" />
@@ -329,6 +330,11 @@
   <ItemGroup>
     <Resource Include="Images\buy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\item.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

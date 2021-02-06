@@ -9,7 +9,7 @@
         xmlns:viewModels="clr-namespace:Monarca.UI.WPF.Usuario.ViewModels"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="Distribuidora Monarca" Height="650" Width="900"
+        Title="Distribuidora Monarca" Height="650" Width="1100"
         WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" BorderThickness="1"
         BorderBrush="{StaticResource PrimaryBrush}">
 
@@ -61,7 +61,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="3.5*"/>
             <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
         
@@ -70,10 +70,19 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Image Source="/Images/logomonarca.png" Margin="10"/>
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Distrubuidora Monarca" Grid.Column="1"/>
-            <Button Style="{StaticResource ButtonPrimaryStyle}" Content="&#xE8BB;" Grid.Column="2" HorizontalAlignment="Right" Command="{Binding CloseCommand}">
+            <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Ellipse x:Name="elp" Height="15" Width="15" Fill="Yellow" Margin="0 0 15 0">
+                    <Ellipse.ToolTip>
+                        <ToolTip Style="{StaticResource ToolTipStyle}" x:Name="ElipseToolTip"/>
+                    </Ellipse.ToolTip>
+                </Ellipse>
+                <TextBlock x:Name="txtInternet" Text="No Especificado / Consulte a su proveedor" Foreground="White" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 15 0"/>
+            </StackPanel>
+            <Button Style="{StaticResource ButtonPrimaryStyle}" Content="&#xE8BB;" Grid.Column="3" HorizontalAlignment="Right" Command="{Binding CloseCommand}">
                 <Button.ToolTip>
                     <ToolTip Style="{StaticResource ToolTipStyle}" Content="Cerrar Aplicación"/>
                 </Button.ToolTip>
