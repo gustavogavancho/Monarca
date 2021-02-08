@@ -9,7 +9,7 @@
         xmlns:viewModels="clr-namespace:Monarca.UI.WPF.Usuario.ViewModels"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="Distribuidora Monarca" Height="650" Width="1100"
+        Title="Distribuidora Monarca" Height="650" Width="1200"
         WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" BorderThickness="1"
         BorderBrush="{StaticResource PrimaryBrush}">
 
@@ -61,7 +61,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3.5*"/>
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
         

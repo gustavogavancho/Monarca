@@ -98,6 +98,12 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             };
             CloseCommand = new RelayCommand(OnClose);
             NavCommand = new RelayCommand(OnNav);
+            _comprasViewModel.AlmacenUpdate += _comprasViewModel_AlmacenUpdate;
+        }
+
+        private void _comprasViewModel_AlmacenUpdate()
+        {
+            _almacenViewModel = new AlmacenViewModel(_factoryManager);
         }
 
         public void OnNav()

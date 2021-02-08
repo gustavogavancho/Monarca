@@ -59,8 +59,8 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         public RelayCommand ReadCommand { get; private set; }
         public RelayCommand AddCommand { get; private set; }
         public RelayCommand EditCommnad { get; private set; }
-        public RelayCommand DeleteCommnad { get; set; }
-        public RelayCommand SearchCommand { get; set; }
+        public RelayCommand DeleteCommnad { get; private set; }
+        public RelayCommand SearchCommand { get; private set; }
 
         public ClientesViewModel(FactoryManager factoryManager)
         {

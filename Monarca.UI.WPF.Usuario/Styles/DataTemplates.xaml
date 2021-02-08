@@ -258,7 +258,7 @@
                 </Border>
                 <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontWeight="Bold" Text="Cantidad Disponible:" HorizontalAlignment="Right" Grid.Column="2"/>
                 <Border Height="25" Width="100" Grid.Row="1" Background="{StaticResource PrimaryBrush}" HorizontalAlignment="Center" Margin="0 0 0 5" Grid.Column="2">
-                    <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontSize="12" Text="{Binding Cantidad, StringFormat='n'}" Foreground="White" HorizontalAlignment="Center"/>
+                    <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontSize="12" Text="{Binding Stock, StringFormat='n'}" Foreground="White" HorizontalAlignment="Center"/>
                 </Border>
             </Grid>
         </Grid>

@@ -72,6 +72,7 @@
     <Compile Include="Converters\EnunToDescription.cs" />
     <Compile Include="CustomControls\DecimalTextBox.cs" />
     <Compile Include="CustomControls\IntegerTextBox.cs" />
+    <Compile Include="Extensions\IEnumerableDistinctBy.cs" />
     <Compile Include="Extensions\IEnumerableToObservableCollection.cs" />
     <Compile Include="Helpers\CheckOneTimeInternetConnection.cs" />
     <Compile Include="Helpers\StaticParameters.cs" />
@@ -99,6 +100,9 @@
     </Compile>
     <Compile Include="Views\InicioView.xaml.cs">
       <DependentUpon>InicioView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Modals\AlmacenModal.xaml.cs">
+      <DependentUpon>AlmacenModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Modals\ClientesModal.xaml.cs">
       <DependentUpon>ClientesModal.xaml</DependentUpon>
@@ -185,6 +189,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Modals\AlmacenModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Modals\ClientesModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -240,7 +248,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\AlmacenReport.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Monarca.UI.WPF.Usuario.Models.AlmacenModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -336,6 +348,9 @@
     <Resource Include="Images\item.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reportes\Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

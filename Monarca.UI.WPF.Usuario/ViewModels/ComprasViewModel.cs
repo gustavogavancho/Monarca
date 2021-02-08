@@ -5,6 +5,7 @@ using Monarca.UI.WPF.Usuario.CustomControls;
 using Monarca.UI.WPF.Usuario.Extensions;
 using Monarca.UI.WPF.Usuario.Helpers;
 using Monarca.UI.WPF.Usuario.Views.Modals;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -63,6 +64,8 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             get => _visibilityBorder;
             set => SetProperty(ref _visibilityBorder, value);
         }
+
+        public event Action AlmacenUpdate = delegate { };
 
         public RelayCommand ReadCommand { get; private set; }
         public RelayCommand AddCommand { get; private set; }
@@ -156,6 +159,8 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 VisibilityListBox = false;
             }
             TotalCompras = Compras.Sum(x => x.Total);
+
+            AlmacenUpdate();
         }
     }
 }

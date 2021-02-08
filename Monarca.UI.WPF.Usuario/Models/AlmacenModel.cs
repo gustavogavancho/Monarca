@@ -1,4 +1,6 @@
-﻿namespace Monarca.UI.WPF.Usuario.Models
+﻿using System;
+
+namespace Monarca.UI.WPF.Usuario.Models
 {
     public class AlmacenModel
     {
@@ -10,5 +12,7 @@
         public decimal CantidadComprada { get; set; }
         public decimal CantidadVendida { get; set; }
         public decimal Stock { get; set; }
+        public DateTime FechaHoraCreacion { get; set; }
+        public int Item { get; set; }
     }
 }

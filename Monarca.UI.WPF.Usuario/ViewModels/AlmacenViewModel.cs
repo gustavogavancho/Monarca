@@ -1,8 +1,9 @@
 ﻿using Monarca.BIZ;
 using Monarca.COMMON.Interfaces;
+using Monarca.UI.WPF.Usuario.Extensions;
 using Monarca.UI.WPF.Usuario.Helpers;
 using Monarca.UI.WPF.Usuario.Models;
-using System;
+using Monarca.UI.WPF.Usuario.Views.Modals;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -30,6 +31,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             set
             {
                 SetProperty(ref _almacen, value);
+                ReadCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -54,7 +56,9 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             set => SetProperty(ref _visibilityBorder, value);
         }
 
-
+        public RelayCommand ReadCommand { get; private set; }
+        public RelayCommand SearchCommand { get; private set; }
+        public RelayCommand ExportCommand { get; private set; }
 
         public AlmacenViewModel(FactoryManager factoryManager)
         {
@@ -62,19 +66,66 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             _compraManager = factoryManager.CrearCompraManager;
             _proveedorManger = factoryManager.CrearProveedorManager;
             _productoManager = factoryManager.CrearProductoManager;
+            ReadCommand = new RelayCommand(OnRead, CanRead);
+            SearchCommand = new RelayCommand(OnSearch);
+            ExportCommand = new RelayCommand(OnExport);
             UpdateData();
+        }
+
+        private void OnExport()
+        {
+        }
+
+        private void OnSearch()
+        {
+            if (!string.IsNullOrWhiteSpace(SearchText))
+            {
+                ProcessAlmacenData();
+                Almacenes = Almacenes.Where(x => x.NombreProducto.ToLowerInvariant().Contains(SearchText.ToLowerInvariant())).ToObservableCollection();
+            }
+            else
+            {
+                UpdateData();
+            }
+
+        }
+
+        private void OnRead()
+        {
+            if (new AlmacenModal(_factoryManager, Almacen).ShowDialog().Value)
+            {
+                UpdateData();
+            }
+        }
+
+        private bool CanRead()
+        {
+            if (!string.IsNullOrWhiteSpace(Almacen?.IdProducto))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void UpdateData()
         {
-            Almacenes = new ObservableCollection<AlmacenModel>();
             SearchText = "";
+            ProcessAlmacenData();
+        }
+
+        private void ProcessAlmacenData()
+        {
+            Almacenes = new ObservableCollection<AlmacenModel>();
             var compras = _compraManager.ObtenerTodo;
             if (compras.Count() >= 1)
             {
                 VisibilityListBox = true;
                 VisibilityBorder = false;
-                foreach (var item in _compraManager.ObtenerTodo)
+                var compraData = _compraManager.ObtenerTodo;
+                foreach (var item in _compraManager.ObtenerTodo.DistinctBy(x => x.IdProducto))
                 {
                     var almacen = new AlmacenModel
                     {
@@ -82,8 +133,8 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                         IdProveedor = item.IdProveedor,
                         NombreProducto = item.NombreProducto,
                         MarcaProducto = item.MarcaProducto,
-                        CantidadComprada = item.Cantidad,
-
+                        CantidadComprada = compraData.Where(x => x.IdProducto == item.IdProducto).Sum(x => x.Cantidad),
+                        Stock = compraData.Where(x => x.IdProducto == item.IdProducto).Sum(x => x.Cantidad),
                     };
                     if (string.IsNullOrWhiteSpace(item.NombreProveedor))
                     {
