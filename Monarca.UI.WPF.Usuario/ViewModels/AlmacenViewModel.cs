@@ -1,11 +1,18 @@
-﻿using Monarca.BIZ;
+﻿using Microsoft.Reporting.WebForms;
+using Monarca.BIZ;
 using Monarca.COMMON.Interfaces;
+using Monarca.UI.WPF.Usuario.CustomControls;
 using Monarca.UI.WPF.Usuario.Extensions;
 using Monarca.UI.WPF.Usuario.Helpers;
 using Monarca.UI.WPF.Usuario.Models;
 using Monarca.UI.WPF.Usuario.Views.Modals;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Monarca.UI.WPF.Usuario.ViewModels
 {
@@ -74,6 +81,55 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
 
         private void OnExport()
         {
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Archivos PDF (*.pdf) | *.pdf",
+                AddExtension = true,
+                DefaultExt = ".pdf",
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (Almacenes.Count > 0)
+                {
+                    Almacenes.FirstOrDefault().FechaHoraCreacion = DateTime.Now;
+                    int num = 1;
+                    foreach (var item in Almacenes)
+                    {
+                        item.Item = num;
+                        num++;
+                    }
+
+                    LocalReport localReport = new LocalReport
+                    {
+                        ReportPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reportes/AlmacenReport.rdlc")
+                    };
+
+                    localReport.DataSources.Add(new ReportDataSource
+                    {
+                        Value = Almacenes,
+                        Name = "Registros"
+                    });
+
+                    byte[] renderedBytes = localReport.Render(
+                    "PDF",
+                    null,
+                    out string mimeType,
+                    out string encoding,
+                    out string fileNameExtension,
+                    out string[] streams,
+                    out Warning[] warnings);
+
+                    FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create);
+                    fs.Write(renderedBytes, 0, renderedBytes.Length);
+                    fs.Close();
+
+                    DialogResult result = CustomMessageBox.Show("Exportación exitosa", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.No);
+                    result = CustomMessageBox.Show("¿Desea abrir el archivo?", CustomMessageBox.CMessageBoxTitle.Confirmación, CustomMessageBox.CMessageBoxButton.Si, CustomMessageBox.CMessageBoxButton.No);
+                    if (result == DialogResult.Yes)
+                        Process.Start(saveFileDialog.FileName);
+                }
+            }
         }
 
         private void OnSearch()

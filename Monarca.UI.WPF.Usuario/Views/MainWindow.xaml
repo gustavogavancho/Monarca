@@ -9,7 +9,7 @@
         xmlns:viewModels="clr-namespace:Monarca.UI.WPF.Usuario.ViewModels"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="Distribuidora Monarca" Height="650" Width="1200"
+        Title="Distribuidora Monarca" Height="650" Width="1290"
         WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" BorderThickness="1"
         BorderBrush="{StaticResource PrimaryBrush}">
 
@@ -19,7 +19,6 @@
         </b:EventTrigger>
     </b:Interaction.Triggers>
 
-    <!-- ViewModel revolver -->
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewModels:InicioViewModel}">
             <views:InicioView/>
@@ -50,7 +49,6 @@
         </DataTemplate>
     </Window.Resources>
 
-    <!-- Bind DataContext via XAML-->
     <Window.DataContext>
         <viewModels:MainViewModel/>
     </Window.DataContext>
