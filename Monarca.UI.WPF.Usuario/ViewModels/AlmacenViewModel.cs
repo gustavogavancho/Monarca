@@ -22,7 +22,6 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         ICompraManager _compraManager;
         IProductoManager _productoManager;
         IProveedorManager _proveedorManger;
-        IVentaManager ventaManager;
 
         private ObservableCollection<AlmacenModel> _almacenes = new ObservableCollection<AlmacenModel>();
         public ObservableCollection<AlmacenModel> Almacenes

@@ -125,6 +125,9 @@
     <Compile Include="Views\Modals\ComprasModal.xaml.cs">
       <DependentUpon>ComprasModal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Modals\GastosOperativosModal.xaml.cs">
+      <DependentUpon>GastosOperativosModal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Modals\ProductosModal.xaml.cs">
       <DependentUpon>ProductosModal.xaml</DependentUpon>
     </Compile>
@@ -213,6 +216,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Modals\ComprasModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Modals\GastosOperativosModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -366,6 +373,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reportes\Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\gastooperativo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

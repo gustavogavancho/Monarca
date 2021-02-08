@@ -17,7 +17,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         ProductosViewModel _productosViewModel = new ProductosViewModel(_factoryManager);
         VentasViewModel _ventasViewModel = new VentasViewModel();
         ComprasViewModel _comprasViewModel = new ComprasViewModel(_factoryManager);
-        GastosOperativosViewModel _gastosOperativosViewModel = new GastosOperativosViewModel();
+        GastosOperativosViewModel _gastosOperativosViewModel = new GastosOperativosViewModel(_factoryManager);
         CuentasPorCobrarViewModel _cuentasPorCobrarViewModel = new CuentasPorCobrarViewModel();
         AlmacenViewModel _almacenViewModel = new AlmacenViewModel(_factoryManager);
 
@@ -140,7 +140,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             }
         }
 
-        public async void LoadMainView()
+        public void LoadMainView()
         {
             UserControl = UserControlList[0];
             CurrentViewModel = _inicioViewModel;

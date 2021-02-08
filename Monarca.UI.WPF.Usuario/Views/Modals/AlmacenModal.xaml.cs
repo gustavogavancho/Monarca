@@ -12,7 +12,6 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
         FactoryManager _factoryManager;
         IProductoManager _productoManager;
         IProveedorManager _proveedorManager;
-        AlmacenModel _almacen;
 
         public AlmacenModal(FactoryManager factoryManager, AlmacenModel almacen)
         {

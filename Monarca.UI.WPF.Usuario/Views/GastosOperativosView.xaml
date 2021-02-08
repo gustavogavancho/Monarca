@@ -5,8 +5,54 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Monarca.UI.WPF.Usuario.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             FocusManager.FocusedElement="{Binding ElementName=txtSearch}">
     <Grid>
-        <TextBlock Text="Gastos Operativos" FontSize="36"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="Listado de gastos operativos" Grid.Row="0" Margin="10,0,0,0"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="txtSearch" Style="{StaticResource TextBoxStyle}" Width="260" Margin="10 5 0 0" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter"
+                                Command="{Binding SearchCommand}"/>
+                </TextBox.InputBindings>
+            </TextBox>
+            <Button Grid.Column="1" FontFamily="Segoe MDL2 Assets" Content="&#xE721;" Width="27" Background="{StaticResource PrimaryBrush}" Foreground="White" Margin="5 5 0 0" Command="{Binding SearchCommand}">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Buscar Gasto Operativo"/>
+                </Button.ToolTip>
+            </Button>
+        </Grid>
+        <ListBox Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding GastosOperativos}" SelectedItem="{Binding GastoOperativo}" Visibility="{Binding VisibilityListBox, Converter={StaticResource BoolToVisibilityConverter}}" ItemTemplate="{StaticResource GastosOperativosDataTemplate}"/>
+        <Border Margin="10 10 10 0" Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Visibility="{Binding VisibilityBorder, Converter={StaticResource BoolToVisibilityConverter}}">
+            <TextBlock Text="Click en el buton + para agregar un nuevo item" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray"/>
+        </Border>
+        <StackPanel Orientation="Horizontal" Margin="5 0 10 0" Grid.Row="3" HorizontalAlignment="Right">
+            <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE710;" FontSize="16" Command="{Binding AddCommand}">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Agregar Gasto Operativo"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE70F;" FontSize="16" Command="{Binding EditCommnad}">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Editar Gasto Operativo"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE74D;" FontSize="16" Command="{Binding DeleteCommnad}">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Eliminar Gasto Operativo"/>
+                </Button.ToolTip>
+            </Button>
+        </StackPanel>
+
     </Grid>
 </UserControl>

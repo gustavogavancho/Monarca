@@ -3,6 +3,7 @@
     public enum Unidad : short
     {
         Unidad = 1,
+        Saco = 4,
         Miligramos = 3,
         Gramos = 4,
         Kilos = 5,
