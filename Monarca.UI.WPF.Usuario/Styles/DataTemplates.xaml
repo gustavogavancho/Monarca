@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Monarca.UI.WPF.Usuario.Styles">
+                    xmlns:local="clr-namespace:Monarca.UI.WPF.Usuario.Styles"
+                    xmlns:attached="clr-namespace:Monarca.UI.WPF.Usuario.Attached">
 
     <!-- DataTemplates -->
     <DataTemplate x:Key="PersonaNaturalDataTemplate">
@@ -97,6 +98,9 @@
                 </Image.ToolTip>
             </Image>
             <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
+                <Run Text="Cógido Interno:" FontWeight="Bold"/>
+                <Run Text="{Binding CodigoInterno}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
+                <LineBreak/>
                 <Run Text="Producto:" FontWeight="Bold"/>
                 <Run Text="{Binding Nombre}"/>
                 <Run Text="/"/>
@@ -138,9 +142,6 @@
                 <Run Text="/"/>
                 <Run Text="Proveedor:" FontWeight="Bold"/>
                 <Run Text="{Binding NombreProveedor}"/>
-                <LineBreak />
-                <Run Text="Fecha Compra:" FontWeight="Bold"/>
-                <Run Text="{Binding FechaHoraCreacion, StringFormat='d'}"/>
                 <LineBreak />
                 <Run Text="Precio Unitario:" FontWeight="Bold"/>
                 <Run Text="S/."/>
@@ -188,9 +189,6 @@
                 <Run Text="/"/>
                 <Run Text="Proveedor:" FontWeight="Bold"/>
                 <Run Text="{Binding RazonSocialProveedor}"/>
-                <LineBreak />
-                <Run Text="Fecha Compra:" FontWeight="Bold"/>
-                <Run Text="{Binding FechaHoraCreacion, StringFormat='d'}"/>
                 <LineBreak />
                 <Run Text="Precio Unitario:" FontWeight="Bold"/>
                 <Run Text="S/."/>
@@ -265,7 +263,6 @@
             </Grid>
         </Grid>
     </DataTemplate>
-
     <DataTemplate x:Key="GastosOperativosDataTemplate">
         <Grid Margin="2">
             <Grid.RowDefinitions>
@@ -297,10 +294,143 @@
                 <Run Text="{Binding Descripcion, StringFormat='d'}"/>
                 <LineBreak />
                 <Run Text="Costo:" FontWeight="Bold"/>
-                <Run Text="{Binding Costo, StringFormat='n'}"/>
+                <Run Text="{Binding Costo, StringFormat='n'}" FontWeight="Bold" Foreground="{StaticResource TertiaryBrush}"/>
             </TextBlock>
         </Grid>
     </DataTemplate>
-
+    <DataTemplate x:Key="VentasProveedorPersona">
+        <Grid Margin="1" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Images/sell.png" Grid.Row="0" Grid.RowSpan="2" Height="35" Width="35">
+                <Image.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick"
+                                      Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                </Image.InputBindings>
+                <Image.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
+                </Image.ToolTip>
+            </Image>
+            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
+                <Run Text="Tipo Venta:" FontWeight="Bold"/>
+                <Run Text="{Binding TipoVenta}"/>
+                <Run Text="/"/>
+                <Run Text="Cliente:" FontWeight="Bold"/>
+                <Run Text="{Binding NombreProveedor}"/>
+                <LineBreak/>
+                <Run Text="Tipo Cliente:" FontWeight="Bold"/>
+                <Run Text="{Binding TipoCliente, Converter={StaticResource EnumToDescription}}"/>
+                <Run Text="/"/>
+                <Run Text="Número de comprobante:" FontWeight="Bold"/>
+                <Run Text="{Binding SerieDocumento}" />
+                <Run Text="-"/>
+                <Run Text="{Binding NumeroDocumento}"/>
+                <LineBreak/>
+                <Run Text="Total: S/." FontWeight="Bold"/>
+                <Run Text="{Binding ., StringFormat='n'}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
+                <LineBreak/>
+                <Run Text="PDF:" FontWeight="Bold"/>
+                <Hyperlink NavigateUri="{Binding linkPdf}" attached:HyperlinkExtensions.IsExternal="True">
+                    Descargar
+                </Hyperlink>
+                <Run Text="XML:" FontWeight="Bold"/>
+                <Hyperlink NavigateUri="{Binding linkXml}" attached:HyperlinkExtensions.IsExternal="True">
+                    Descargar
+                </Hyperlink>
+                <Run Text="CDR:" FontWeight="Bold"/>
+                <Hyperlink NavigateUri="{Binding linkCdr}" attached:HyperlinkExtensions.IsExternal="True">
+                    Descargar
+                </Hyperlink>
+                <LineBreak/>
+                <Run Text="Baja" FontWeight="Bold"/>
+                <Run Text="{Binding Baja, Converter={StaticResource BoolToStringVenta}}"/>
+            </TextBlock>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="VentasProveedorEmpresa">
+        <Grid Margin="1" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Images/sell.png" Grid.Row="0" Grid.RowSpan="2" Height="35" Width="35">
+                <Image.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick"
+                                      Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                </Image.InputBindings>
+                <Image.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
+                </Image.ToolTip>
+            </Image>
+            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
+                <Run Text="Tipo Venta:" FontWeight="Bold"/>
+                <Run Text="{Binding TipoVenta}"/>
+                <Run Text="/"/>
+                <Run Text="Cliente:" FontWeight="Bold"/>
+                <Run Text="{Binding RazonSocialProveedor}"/>
+                <LineBreak/>
+                <Run Text="Tipo Cliente:" FontWeight="Bold"/>
+                <Run Text="{Binding TipoCliente, Converter={StaticResource EnumToDescription}}"/>
+                <Run Text="/"/>
+                <Run Text="Número de comprobante:" FontWeight="Bold"/>
+                <Run Text="{Binding SerieDocumento}" />
+                <Run Text="-"/>
+                <Run Text="{Binding NumeroDocumento}"/>
+                <LineBreak/>
+                <Run Text="Total: S/." FontWeight="Bold"/>
+                <Run Text="{Binding ., StringFormat='n'}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
+                <LineBreak/>
+                <Run Text="PDF:" FontWeight="Bold"/>
+                <Hyperlink NavigateUri="{Binding linkPdf}" attached:HyperlinkExtensions.IsExternal="True" >
+                    Descargar
+                </Hyperlink>
+                <Run Text="XML:" FontWeight="Bold"/>
+                <Hyperlink NavigateUri="{Binding linkXML}" attached:HyperlinkExtensions.IsExternal="True">
+                    Descargar
+                </Hyperlink>
+                <Run Text="CDR:" FontWeight="Bold"/>
+                <Hyperlink NavigateUri="{Binding linkCdr}" attached:HyperlinkExtensions.IsExternal="True">
+                    Descargar
+                </Hyperlink>
+                <LineBreak/>
+                <Run Text="Baja" FontWeight="Bold"/>
+                <Run Text="{Binding Baja, Converter={StaticResource BoolToStringVenta}}"/>
+            </TextBlock>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="ResumenVentaDataTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Background="{Binding Color}">
+                <TextBlock Text="{Binding Mes}" Style="{StaticResource WhiteTextTextBlockStyle}" HorizontalAlignment="Center" FontSize="16"/>
+            </Grid>
+            <TextBlock Grid.Column="1" Style="{StaticResource BlueTextTextBlockStyle}" FontSize="16">
+                <Run Text="Total: S/." FontWeight="Bold"/>
+                <Run Text="{Binding Monto, StringFormat='#,##0.00'}"/>
+                <Run Text="Crecimmiento: S/." FontWeight="Bold"/>
+                <Run Text="{Binding Crecimiento, StringFormat='#,##0.00'}"/>
+                <Run Text="Porcentaje:" FontWeight="Bold"/>
+                <Run Text="{Binding Porcentaje, StringFormat='P2'}"/>
+            </TextBlock>
+        </Grid>
+    </DataTemplate>
 
 </ResourceDictionary>

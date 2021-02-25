@@ -47,6 +47,9 @@
         <DataTemplate DataType="{x:Type viewModels:AlmacenViewModel}">
             <views:AlmacenView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:ConfiguracionesViewModel}">
+            <views:ConfiguracionesView/>
+        </DataTemplate>
     </Window.Resources>
 
     <Window.DataContext>

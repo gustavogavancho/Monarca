@@ -19,9 +19,9 @@ namespace Monarca.BIZ
                                       x.Apellidos.ToLowerInvariant().Contains(text.ToLowerInvariant()) ||
                                       x.RazonSocial != null &&
                                       x.RazonSocial.ToLowerInvariant().Contains(text.ToLowerInvariant()) ||
-                                      x.Dni > 0 &&
+                                      x.Dni != null &&
                                       x.Dni.ToString().Contains(text) ||
-                                      x.Ruc > 0 &&
+                                      x.Ruc != null &&
                                       x.Ruc.ToString().Contains(text));
         }
     }

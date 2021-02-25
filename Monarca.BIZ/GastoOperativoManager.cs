@@ -1,5 +1,6 @@
 ﻿using Monarca.COMMON.Entidades;
 using Monarca.COMMON.Interfaces;
+using System.Collections.Generic;
 
 namespace Monarca.BIZ
 {
@@ -8,6 +9,11 @@ namespace Monarca.BIZ
         public GastoOperativoManager(IGenericRepository<GastoOperativo> repositorio) : base (repositorio)
         {}
 
-        //TODO:
+        public IEnumerable<GastoOperativo> SearchGastoOperativo(string text)
+        {
+            return _repositorio.Query(x => x.Nombre != null &&
+            x.Nombre.ToLowerInvariant().Contains(text.ToLowerInvariant()) ||
+            x.Descripcion.ToLowerInvariant().Contains(text.ToLowerInvariant()));
+        }
     }
 }

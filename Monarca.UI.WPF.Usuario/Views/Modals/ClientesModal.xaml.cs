@@ -40,8 +40,8 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 txtRepresentanteLegal.Text = cliente.RepresentanteLegal;
                 txtDireccion.Text = cliente.Direccion;
                 txtEmail.Text = cliente.Email;
-                txtRUC.Text = cliente.Ruc.ToString();
-                txtDNI.Text = cliente.Dni.ToString();
+                txtRUC.Text = cliente.Ruc;
+                txtDNI.Text = cliente.Dni;
                 txtCelular.Text = cliente.Celular.ToString();
             }
             if (_operacion == "Read")
@@ -67,8 +67,8 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            long.TryParse(txtDNI.Text, out long resultDni);
-            long.TryParse(txtRUC.Text, out long resultRuc);
+            //long.TryParse(txtDNI.Text, out long resultDni);
+            //long.TryParse(txtRUC.Text, out long resultRuc);
             long.TryParse(txtCelular.Text, out long resultCelular);
 
             if (cmbTipoCliente.SelectedItem == null)
@@ -89,8 +89,8 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                         RepresentanteLegal = txtRepresentanteLegal.Text,
                         Direccion = txtDireccion.Text,
                         Email = txtEmail.Text,
-                        Ruc = resultRuc,
-                        Dni = resultDni,
+                        Ruc = txtRUC.Text,
+                        Dni = txtDNI.Text,
                         Celular = resultCelular,
                     });
                     break;
@@ -108,8 +108,8 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                             RepresentanteLegal = txtRepresentanteLegal.Text,
                             Direccion = txtDireccion.Text,
                             Email = txtEmail.Text,
-                            Ruc = resultRuc,
-                            Dni = resultDni,
+                            Ruc = txtRUC.Text,
+                            Dni = txtDNI.Text,
                             Celular = resultCelular,
                         });
                     }
@@ -216,11 +216,18 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                     try
                     {
                         DNI dni = await ConsultaDni.GetDni(txtDNI.Text);
-                        txtNombres.Text = dni.nombres;
-                        txtApellidos.Text = $"{dni.apellidoPaterno} {dni.apellidoMaterno}";
+                        if (dni != null)
+                        {
+                            txtNombres.Text = dni.nombres;
+                            txtApellidos.Text = $"{dni.apellidoPaterno} {dni.apellidoMaterno}";
 
-                        await Dispatcher.BeginInvoke(new System.Action(() => { Keyboard.Focus(txtDireccion); }),
-                            System.Windows.Threading.DispatcherPriority.Loaded);
+                            await Dispatcher.BeginInvoke(new System.Action(() => { Keyboard.Focus(txtDireccion); }),
+                                System.Windows.Threading.DispatcherPriority.Loaded);
+                        }
+                        else
+                        {
+                            DialogResult result = CustomMessageBox.Show($"N° de DNI no valido", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.No);
+                        }
                     }
                     catch (Exception ex)
                     {

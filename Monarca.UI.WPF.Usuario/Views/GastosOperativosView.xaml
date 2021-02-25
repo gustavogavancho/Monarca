@@ -7,6 +7,15 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              FocusManager.FocusedElement="{Binding ElementName=txtSearch}">
+
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="GroupedItems" Source="{Binding GastosOperativos}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Fecha" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -32,7 +41,40 @@
                 </Button.ToolTip>
             </Button>
         </Grid>
-        <ListBox Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding GastosOperativos}" SelectedItem="{Binding GastoOperativo}" Visibility="{Binding VisibilityListBox, Converter={StaticResource BoolToVisibilityConverter}}" ItemTemplate="{StaticResource GastosOperativosDataTemplate}"/>
+        <ListView Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding Source={StaticResource GroupedItems}}" SelectedItem="{Binding GastoOperativo}" Visibility="{Binding VisibilityListBox, Converter={StaticResource BoolToVisibilityConverter}}" ItemTemplate="{StaticResource GastosOperativosDataTemplate}">
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander
+                                            BorderThickness="0"
+                                            DataContext="{Binding Items}"
+                                            IsExpanded="True">
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock
+                                                        VerticalAlignment="Top"
+                                                        FontSize="22"
+                                                        FontWeight="Bold"
+                                                        Foreground="{StaticResource PrimaryBrush}">
+                                                        <Run Text="{Binding Fecha, StringFormat='dd/MM/yyyy'}" />
+                                                    </TextBlock>
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListView.GroupStyle>
+        </ListView>
+        
         <Border Margin="10 10 10 0" Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Visibility="{Binding VisibilityBorder, Converter={StaticResource BoolToVisibilityConverter}}">
             <TextBlock Text="Click en el buton + para agregar un nuevo item" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray"/>
         </Border>

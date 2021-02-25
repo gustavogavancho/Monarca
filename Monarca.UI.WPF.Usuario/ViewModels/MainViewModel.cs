@@ -15,11 +15,12 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         ClientesViewModel _clientesViewModel = new ClientesViewModel(_factoryManager);
         ProveedoresViewModel _proveedoresViewModel = new ProveedoresViewModel(_factoryManager);
         ProductosViewModel _productosViewModel = new ProductosViewModel(_factoryManager);
-        VentasViewModel _ventasViewModel = new VentasViewModel();
+        VentasViewModel _ventasViewModel = new VentasViewModel(_factoryManager);
         ComprasViewModel _comprasViewModel = new ComprasViewModel(_factoryManager);
         GastosOperativosViewModel _gastosOperativosViewModel = new GastosOperativosViewModel(_factoryManager);
         CuentasPorCobrarViewModel _cuentasPorCobrarViewModel = new CuentasPorCobrarViewModel();
         AlmacenViewModel _almacenViewModel = new AlmacenViewModel(_factoryManager);
+        ConfiguracionesViewModel _configuracionesViewModel = new ConfiguracionesViewModel();
 
         private ObservableCollection<CurrentUserControl> _userControlList;
 
@@ -95,6 +96,11 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                     Ventana = "Almacén",
                     Icon = "/Images/almacen.png"
                 },
+                new CurrentUserControl
+                {
+                    Ventana = "Configuraciones",
+                    Icon = "/Images/config.png"
+                },
             };
             CloseCommand = new RelayCommand(OnClose);
             NavCommand = new RelayCommand(OnNav);
@@ -123,7 +129,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                     CurrentViewModel = _productosViewModel;
                     break;
                 case "Ventas":
-                    CurrentViewModel = _ventasViewModel;
+                    CurrentViewModel = _ventasViewModel = new VentasViewModel(_factoryManager);
                     break;
                 case "Compras":
                     CurrentViewModel = _comprasViewModel;
@@ -136,6 +142,9 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                     break;
                 case "Almacén":
                     CurrentViewModel = _almacenViewModel;
+                    break;
+                case "Configuraciones":
+                    CurrentViewModel = _configuracionesViewModel;
                     break;
             }
         }

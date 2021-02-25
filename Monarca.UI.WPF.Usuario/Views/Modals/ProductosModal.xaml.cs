@@ -29,9 +29,12 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             _productoManager = _factoryManager.CrearProductoManager;
             InitializeComponent();
             cmbUnidad.ItemsSource = _unidad;
-            cmbUnidad.SelectedItem = Unidad.Unidad;
+            cmbUnidad.SelectedItem = Unidad.NIU;
+            txtCodigoInterno.Text = GenerarCodigo();
             if (_operacion == "Edit" || _operacion == "Read")
             {
+                txtCodigoInterno.Text = producto.CodigoInterno;
+                txtCodigoInterno.IsEnabled = false;
                 txtNombre.Text = producto.Nombre;
                 txtDescripción.Text = producto.Descripción;
                 txtMarca.Text = producto.Marca;
@@ -65,6 +68,7 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                     _productoManager.Insertar(new Producto
                     {
                         Nombre = txtNombre.Text,
+                        CodigoInterno = txtCodigoInterno.Text,
                         Descripción = txtDescripción.Text,
                         Marca = txtMarca.Text,
                         Unidad = (Unidad)cmbUnidad.SelectedItem,
@@ -77,6 +81,7 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                         _productoManager.Actualizar(new Producto
                         {
                             Id = _producto.Id,
+                            CodigoInterno = txtCodigoInterno.Text,
                             Nombre = txtNombre.Text,
                             Descripción = txtDescripción.Text,
                             Marca = txtMarca.Text,
@@ -95,5 +100,21 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             this.Close();
         }
 
+        private string GenerarCodigo()
+        {
+            var cantidadProductos = _productoManager.ObtenerTodo;
+
+            if (cantidadProductos.Count() <= 0)
+            {
+                int codigo = 1;
+                return codigo.ToString("D3");
+            }
+            else
+            {
+                List<int> listInt = cantidadProductos.Select(x => x.CodigoInterno).ToList().ConvertAll(int.Parse);
+                int numero = listInt.Max() + 1;
+                return numero.ToString("D3");
+            }
+        }
     }
 }

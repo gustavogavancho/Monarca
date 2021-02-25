@@ -88,8 +88,8 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             {
                 txtNombreApellidoProveedor.Text = $"{StaticParameters.ProveedorSelected.Nombres} {StaticParameters.ProveedorSelected.Apellidos}";
                 txtRazonSocialProveedor.Text = StaticParameters.ProveedorSelected.RazonSocial;
-                txtDniProveedor.Text = StaticParameters.ProveedorSelected.Dni.ToString();
-                txtRucProveedor.Text = StaticParameters.ProveedorSelected.Ruc.ToString();
+                txtDniProveedor.Text = StaticParameters.ProveedorSelected.Dni;
+                txtRucProveedor.Text = StaticParameters.ProveedorSelected.Ruc;
             }
         }
 
@@ -100,7 +100,7 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             decimal.TryParse(txtCantidad.Text, out decimal resultCantidad);
             decimal.TryParse(txtPrecioUnitario.Text, out decimal resultPrecioUnitario);
 
-            if (string.IsNullOrWhiteSpace(txtNombreProducto.Text) || string.IsNullOrWhiteSpace(txtRucProveedor.Text) || string.IsNullOrWhiteSpace(txtDniProveedor.Text) || string.IsNullOrWhiteSpace(txtPrecioUnitario.Text) || string.IsNullOrWhiteSpace(txtCantidad.Text))
+            if (string.IsNullOrWhiteSpace(txtNombreProducto.Text) || string.IsNullOrWhiteSpace(txtRucProveedor.Text) && string.IsNullOrWhiteSpace(txtDniProveedor.Text) || string.IsNullOrWhiteSpace(txtPrecioUnitario.Text) || string.IsNullOrWhiteSpace(txtCantidad.Text))
             {
                 DialogResult result = CustomMessageBox.Show("Todos los campos son obligatorios", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
                 return;

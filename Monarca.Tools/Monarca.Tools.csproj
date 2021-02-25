@@ -8,4 +8,9 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Monarca.BIZ\Monarca.BIZ.csproj" />
+    <ProjectReference Include="..\Monarca.COMMON\Monarca.COMMON.csproj" />
+  </ItemGroup>
+
 </Project>

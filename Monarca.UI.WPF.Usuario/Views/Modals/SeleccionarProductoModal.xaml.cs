@@ -2,8 +2,10 @@
 using Monarca.COMMON.Entidades;
 using Monarca.COMMON.Interfaces;
 using Monarca.UI.WPF.Usuario.CustomControls;
+using Monarca.UI.WPF.Usuario.Extensions;
 using Monarca.UI.WPF.Usuario.Helpers;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
@@ -24,7 +26,7 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             _productoManager = factoryManager.CrearProductoManager;
             InitializeComponent();
             ltbProductos.ItemsSource = _productoManager.ObtenerTodo;
-            if (_productoManager.ObtenerTodo.Count() > 1)
+            if (_productoManager.ObtenerTodo.Count() >= 1)
             {
                 ltbProductos.Visibility = Visibility.Visible;
                 brdListItem.Visibility = Visibility.Collapsed;
@@ -48,12 +50,19 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
 
         private void SelectProduct()
         {
-            if (ltbProductos.SelectedItem == null)
+            decimal.TryParse(txtCantidad.Text, out decimal resultCantidad);
+            decimal.TryParse(txtPrecioUnitario.Text, out decimal resultPrecioUnitario);
+
+            Producto producto = (Producto)ltbProductos.SelectedItem;
+            if (producto == null || string.IsNullOrWhiteSpace(txtCantidad.Text) || string.IsNullOrWhiteSpace(txtPrecioUnitario.Text))
             {
-                DialogResult result = CustomMessageBox.Show("Debe seleccionar un producto", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                DialogResult result = CustomMessageBox.Show("Todos los campos son obligatorios", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
                 return;
             }
-            StaticParameters.ProductoSelected = (Producto)ltbProductos.SelectedItem;
+            StaticParameters.ProductoSelected = producto;
+            StaticParameters.ProductoSelected.Cantidad = Convert.ToDecimal(txtCantidad.Text);
+            StaticParameters.ProductoSelected.PrecioUnitario = resultPrecioUnitario;
+            StaticParameters.ProductoSelected.Total = resultCantidad * resultPrecioUnitario;
             DialogResult = true;
         }
 
@@ -67,6 +76,32 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             if (e.Key == Key.Return && e.KeyboardDevice.Modifiers == ModifierKeys.None)
             {
                 SelectProduct();
+            }
+        }
+
+        private void ltbProductos_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (ltbProductos.SelectedItem != null)
+            {
+                Producto producto = (Producto)ltbProductos.SelectedItem;
+                txtUnidad.Text = producto.Unidad.GetDescription();
+
+                Dispatcher.BeginInvoke(new System.Action(() => { Keyboard.Focus(txtCantidad); }),
+                    System.Windows.Threading.DispatcherPriority.Loaded);
+
+            }
+        }
+
+        private void txtCantidad_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (decimal.TryParse(txtCantidad.Text, out decimal cantidad) && decimal.TryParse(txtPrecioUnitario.Text, out decimal precioUnitario))
+            {
+                var nfi = new NumberFormatInfo { NumberDecimalSeparator = ".", NumberGroupSeparator = "," };
+                txtTotal.Text = (cantidad * precioUnitario).ToString("#,##0.00", nfi);
+            }
+            else
+            {
+                txtTotal.Text = "";
             }
         }
     }

@@ -33,6 +33,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 SetProperty(ref _compra, value);
                 EditCommnad.RaiseCanExecuteChanged();
                 DeleteCommnad.RaiseCanExecuteChanged();
+                ReadCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -90,10 +91,12 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             if (!string.IsNullOrWhiteSpace(SearchText))
             {
                 Compras = _compraManager.SearchCompra(SearchText).OrderByDescending(x => x.FechaHoraCreacion).ToObservableCollection();
+                TotalCompras = Compras.Sum(x => x.Total);
             }
             else
             {
                 Compras = _compraManager.ObtenerTodo.OrderByDescending(x=> x.FechaHoraCreacion).ToObservableCollection();
+                TotalCompras = Compras.Sum(x => x.Total);
             }
         }
 
@@ -142,7 +145,6 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 return false;
             }
         }
-
 
         private void UpdateData()
         {

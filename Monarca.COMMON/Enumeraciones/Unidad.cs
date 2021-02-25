@@ -1,14 +1,14 @@
-﻿namespace Monarca.COMMON.Enumeraciones
+﻿using System.ComponentModel;
+
+namespace Monarca.COMMON.Enumeraciones
 {
     public enum Unidad : short
     {
-        Unidad = 1,
-        Saco = 4,
-        Miligramos = 3,
-        Gramos = 4,
-        Kilos = 5,
-        Toneladas = 6,
-        Mililitros = 8,
-        Litos = 9,
+        [Description("Unidad")]
+        NIU = 1,
+        [Description("Saco")]
+        SA = 4,
+        [Description("Kilo")]
+        LBR = 5,
     }
 }

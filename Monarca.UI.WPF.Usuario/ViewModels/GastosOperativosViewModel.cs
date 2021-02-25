@@ -6,6 +6,7 @@ using Monarca.UI.WPF.Usuario.Extensions;
 using Monarca.UI.WPF.Usuario.Helpers;
 using Monarca.UI.WPF.Usuario.Views.Modals;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Monarca.UI.WPF.Usuario.ViewModels
@@ -76,6 +77,14 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
 
         private void OnSearch()
         {
+            if (!string.IsNullOrWhiteSpace(SearchText))
+            {
+                GastosOperativos = _gastoOperativoManager.SearchGastoOperativo(SearchText).OrderByDescending(x=> x.FechaHoraCreacion).ToObservableCollection();
+            }
+            else
+            {
+                GastosOperativos = _gastoOperativoManager.ObtenerTodo.OrderByDescending(x => x.FechaHoraCreacion).ToObservableCollection();
+            }
         }
 
         private void OnDelete()
@@ -126,7 +135,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
 
         private void UpdateData()
         {
-            GastosOperativos = _gastoOperativoManager.ObtenerTodo.ToObservableCollection();
+            GastosOperativos = _gastoOperativoManager.ObtenerTodo.OrderByDescending(x=> x.FechaHoraCreacion).ToObservableCollection();
             SearchText = "";
             if (GastosOperativos.Count >= 1)
             {

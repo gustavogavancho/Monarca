@@ -1,28 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Monarca.UI.WPF.Usuario.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Monarca.UI.WPF.Usuario.Views
 {
-    /// <summary>
-    /// Interaction logic for VentasView.xaml
-    /// </summary>
     public partial class VentasView : UserControl
     {
         public VentasView()
         {
             InitializeComponent();
+            SeleccionPestania(0);
+        }
+
+        private void ItemTabCustom_ClickItem(object sender, int e) => SeleccionPestania(e);
+
+        private void SeleccionPestania(int index)
+        {
+            if (stpPestañas != null)
+            {
+                foreach (UIElement item in stpPestañas.Children)
+                {
+                    if (item is CustomControls.ItemTabCustom tab)
+                    {
+                        tab.SetSelection(index);
+                        VentasViewModel dataConext = this.DataContext as VentasViewModel;
+                        if (dataConext != null)
+                        {
+                            if (index == 0)
+                            {
+                                dataConext.State = false;
+                                dataConext.UpdateData(dataConext.State);
+                            }
+
+                            else if (index == 1)
+                            {
+                                dataConext.State = true;
+                                dataConext.UpdateData(dataConext.State);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        protected override void OnTouchLeave(TouchEventArgs e)
+        {
+            base.OnTouchLeave(e);
+            SeleccionPestania(0);
         }
     }
 }

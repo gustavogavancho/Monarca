@@ -7,6 +7,7 @@
 
     <!-- Converters -->
     <converters:EnunToDescription x:Key="EnumToDescription"/>
+    <converters:BoolToStringVenta x:Key="BoolToStringVenta"/>
 
     <!-- Colors -->
     <Color x:Key="PrimaryColor">#003366</Color>
@@ -92,7 +93,44 @@
         <Setter Property="Background" Value="{StaticResource SecondaryBrush}"/>
         <Setter Property="Margin" Value="5"/>
     </Style>
+    
+    <Style x:Key="ButtonItem" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Fondo" Background="{TemplateBinding Background}" BorderThickness="2" BorderBrush="{TemplateBinding BorderBrush}">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter TargetName="Fondo" Property="BorderBrush">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0.3,0" EndPoint="0.7,1">
+                                        <GradientStop Offset="0" Color="#50FFFFFF"/>
+                                        <GradientStop Offset="0.5" Color="#00FFFFFF"/>
+                                        <GradientStop Offset="1" Color="#50FFFFFF"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="Fondo" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform Y="0.5" X="0.5"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
+    <!-- Tool Tip -->
     <Style x:Key="ToolTipStyle" TargetType="ToolTip">
         <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
         <Setter Property="Foreground" Value="{StaticResource SecondaryBrush}"/>

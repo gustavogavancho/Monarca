@@ -8,5 +8,6 @@ namespace Monarca.COMMON.Entidades
         public string Descripcion { get; set; }
         public DateTime? Fecha { get; set; }
         public decimal Costo { get; set; }
+        public decimal SumaGastos { get; set; }
     }
 }

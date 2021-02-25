@@ -21,7 +21,7 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             _proveedorManager = factoryManager.CrearProveedorManager;
             InitializeComponent();
             ltbProveedores.ItemsSource = _proveedorManager.ObtenerTodo;
-            if (_proveedorManager.ObtenerTodo.Count() > 1)
+            if (_proveedorManager.ObtenerTodo.Count() > 0)
             {
                 ltbProveedores.Visibility = Visibility.Visible;
                 brdListItem.Visibility = Visibility.Collapsed;

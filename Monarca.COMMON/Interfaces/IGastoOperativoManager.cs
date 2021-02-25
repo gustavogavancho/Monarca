@@ -1,9 +1,10 @@
 ﻿using Monarca.COMMON.Entidades;
+using System.Collections.Generic;
 
 namespace Monarca.COMMON.Interfaces
 {
     public interface IGastoOperativoManager : IGenericManager<GastoOperativo>
     {
-        //TODO:
+        IEnumerable<GastoOperativo> SearchGastoOperativo(string text);
     }
 }

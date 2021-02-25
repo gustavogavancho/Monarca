@@ -9,8 +9,8 @@ namespace Monarca.COMMON.Entidades
         public string Apellidos { get; set; }
         public string RazonSocial { get; set; }
         public string RepresentanteLegal { get; set; }
-        public long Dni { get; set; }
-        public long Ruc { get; set; }
+        public string Dni { get; set; }
+        public string Ruc { get; set; }
         public string Direccion { get; set; }
         public string Email { get; set; }
         public long Celular { get; set; }

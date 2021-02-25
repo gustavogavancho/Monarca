@@ -83,18 +83,26 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Attached\FocusWhenSelected.cs" />
+    <Compile Include="Attached\HyperlinkExtensions.cs" />
     <Compile Include="Attached\TextBoxHelper.cs" />
+    <Compile Include="Converters\BoolToStringVenta.cs" />
     <Compile Include="Converters\EnunToDescription.cs" />
     <Compile Include="CustomControls\DecimalTextBox.cs" />
     <Compile Include="CustomControls\IntegerTextBox.cs" />
+    <Compile Include="CustomControls\ItemTabCustom.xaml.cs">
+      <DependentUpon>ItemTabCustom.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\EnumHelper.cs" />
     <Compile Include="Extensions\IEnumerableDistinctBy.cs" />
     <Compile Include="Extensions\IEnumerableToObservableCollection.cs" />
     <Compile Include="Helpers\CheckOneTimeInternetConnection.cs" />
     <Compile Include="Helpers\StaticParameters.cs" />
     <Compile Include="Models\AlmacenModel.cs" />
+    <Compile Include="Models\VentaResumenModel.cs" />
     <Compile Include="ViewModels\AlmacenViewModel.cs" />
     <Compile Include="ViewModels\ClientesViewModel.cs" />
     <Compile Include="ViewModels\ComprasViewModel.cs" />
+    <Compile Include="ViewModels\ConfiguracionesViewModel.cs" />
     <Compile Include="ViewModels\CuentasPorCobrarViewModel.cs" />
     <Compile Include="ViewModels\GastosOperativosViewModel.cs" />
     <Compile Include="ViewModels\InicioViewModel.cs" />
@@ -106,6 +114,9 @@
     </Compile>
     <Compile Include="Views\ComprasView.xaml.cs">
       <DependentUpon>ComprasView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConfiguracionesView.xaml.cs">
+      <DependentUpon>ConfiguracionesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CuentasPorCobrarView.xaml.cs">
       <DependentUpon>CuentasPorCobrarView.xaml</DependentUpon>
@@ -134,11 +145,20 @@
     <Compile Include="Views\Modals\ProveedoresModal.xaml.cs">
       <DependentUpon>ProveedoresModal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Modals\ResumenVentas.xaml.cs">
+      <DependentUpon>ResumenVentas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Modals\SeleccionarClienteModal.xaml.cs">
+      <DependentUpon>SeleccionarClienteModal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Modals\SeleccionarProductoModal.xaml.cs">
       <DependentUpon>SeleccionarProductoModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Modals\SeleccionarProveedorModal.xaml.cs">
       <DependentUpon>SeleccionarProveedorModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Modals\VentasModal.xaml.cs">
+      <DependentUpon>VentasModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductosView.xaml.cs">
       <DependentUpon>ProductosView.xaml</DependentUpon>
@@ -150,6 +170,10 @@
       <DependentUpon>VentasView.xaml</DependentUpon>
     </Compile>
     <Page Include="CustomControls\CustomMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\ItemTabCustom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -170,6 +194,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ComprasView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConfiguracionesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,11 +259,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Modals\ResumenVentas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Modals\SeleccionarClienteModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Modals\SeleccionarProductoModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Modals\SeleccionarProveedorModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Modals\VentasModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -376,6 +416,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\gastooperativo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\config.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

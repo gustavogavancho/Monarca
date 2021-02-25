@@ -67,8 +67,8 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            long.TryParse(txtDNI.Text, out long resultDni);
-            long.TryParse(txtRUC.Text, out long resultRuc);
+            //long.TryParse(txtDNI.Text, out long resultDni);
+            //long.TryParse(txtRUC.Text, out long resultRuc);
             long.TryParse(txtCelular.Text, out long resultCelular);
 
             if (cmbTipoCliente.SelectedItem == null)
@@ -89,8 +89,8 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                         RepresentanteLegal = txtRepresentanteLegal.Text,
                         Direccion = txtDireccion.Text,
                         Email = txtEmail.Text,
-                        Ruc = resultRuc,
-                        Dni = resultDni,
+                        Ruc = txtRUC.Text,
+                        Dni = txtDNI.Text,
                         Celular = resultCelular,
                     });
                     break;
@@ -108,8 +108,8 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                             RepresentanteLegal = txtRepresentanteLegal.Text,
                             Direccion = txtDireccion.Text,
                             Email = txtEmail.Text,
-                            Ruc = resultRuc,
-                            Dni = resultDni,
+                            Ruc = txtRUC.Text,
+                            Dni = txtDNI.Text,
                             Celular = resultCelular,
                         });
                     }

@@ -7,6 +7,6 @@ namespace Monarca.COMMON.Enumeraciones
         [Description("Persona Natural")]
         PersonaNatural = 1,
         [Description("Persona Jurídica")]
-        PersonaJuridica = 2,
+        PersonaJuridica = 6,
     }
 }

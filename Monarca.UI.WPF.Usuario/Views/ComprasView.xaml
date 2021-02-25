@@ -6,6 +6,15 @@
              xmlns:local="clr-namespace:Monarca.UI.WPF.Usuario.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="GroupedItems" Source="{Binding Compras}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="FechaHoraCreacion" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -32,8 +41,8 @@
                 </Button.ToolTip>
             </Button>
         </Grid>
-        <ListBox Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding Compras}" SelectedItem="{Binding Compra}" HorizontalContentAlignment="Stretch" Visibility="{Binding VisibilityListBox, Converter={StaticResource BoolToVisibilityConverter}}">
-            <ListBox.ItemTemplate>
+        <ListView Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding Source={StaticResource GroupedItems}}" SelectedItem="{Binding Compra}" HorizontalContentAlignment="Stretch" Visibility="{Binding VisibilityListBox, Converter={StaticResource BoolToVisibilityConverter}}">
+            <ListView.ItemTemplate>
                 <DataTemplate>
                     <ContentControl Content="{Binding}">
                         <ContentControl.Style>
@@ -50,8 +59,39 @@
                         </ContentControl.Style>
                     </ContentControl>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ListView.ItemTemplate>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander
+                                            BorderThickness="0"
+                                            DataContext="{Binding Items}"
+                                            IsExpanded="True">
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock
+                                                        VerticalAlignment="Top"
+                                                        FontSize="22"
+                                                        FontWeight="Bold"
+                                                        Foreground="{StaticResource PrimaryBrush}">
+                                                        <Run Text="{Binding FechaHoraCreacion, StringFormat='dd/MM/yyyy'}" />
+                                                    </TextBlock>
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListView.GroupStyle>
+        </ListView>
         <Border Margin="10 10 10 0" Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Visibility="{Binding VisibilityBorder, Converter={StaticResource BoolToVisibilityConverter}}">
             <TextBlock Text="Click en el buton + para agregar un nuevo item" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray"/>
         </Border>

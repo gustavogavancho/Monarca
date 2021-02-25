@@ -1,5 +1,6 @@
 ﻿using Monarca.UI.WPF.Usuario.CustomControls;
 using Monarca.UI.WPF.Usuario.Helpers;
+using System;
 using System.ComponentModel;
 using System.Net.NetworkInformation;
 using System.Windows;
@@ -34,7 +35,6 @@ namespace Monarca.UI.WPF.Usuario
         {
             SolidColorBrush blueBrush = new SolidColorBrush();
             blueBrush.Color = Colors.Blue;
-
             App.Current.Dispatcher.Invoke(new System.Action(() =>
             {
                 if (e.IsAvailable)

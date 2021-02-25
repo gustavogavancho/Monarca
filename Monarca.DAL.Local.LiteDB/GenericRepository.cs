@@ -56,7 +56,7 @@ namespace Monarca.DAL.Local.LiteDB
         public T Create(T entidad)
         {
             entidad.Id = ObjectId.NewObjectId().ToString();
-            entidad.FechaHoraCreacion = DateTime.Now;
+            entidad.FechaHoraCreacion = DateTime.Now.Date;
             try
             {
                 Collection().Insert(entidad);
