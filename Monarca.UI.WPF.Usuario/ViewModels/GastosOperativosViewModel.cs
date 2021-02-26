@@ -36,6 +36,13 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             }
         }
 
+        private decimal _totalGastosOperativos;
+        public decimal TotalGastosOperativos
+        {
+            get => _totalGastosOperativos;
+            set => SetProperty(ref _totalGastosOperativos, value);
+        }
+
         private string _searchText;
         public string SearchText
         {
@@ -80,10 +87,12 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             if (!string.IsNullOrWhiteSpace(SearchText))
             {
                 GastosOperativos = _gastoOperativoManager.SearchGastoOperativo(SearchText).OrderByDescending(x=> x.FechaHoraCreacion).ToObservableCollection();
+                TotalGastosOperativos = GastosOperativos.Sum(x => x.Costo);
             }
             else
             {
                 GastosOperativos = _gastoOperativoManager.ObtenerTodo.OrderByDescending(x => x.FechaHoraCreacion).ToObservableCollection();
+                TotalGastosOperativos = GastosOperativos.Sum(x => x.Costo);
             }
         }
 
@@ -147,6 +156,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 VisibilityBorder = true;
                 VisibilityListBox = false;
             }
+            TotalGastosOperativos = GastosOperativos.Sum(x => x.Costo);
         }
     }
 }

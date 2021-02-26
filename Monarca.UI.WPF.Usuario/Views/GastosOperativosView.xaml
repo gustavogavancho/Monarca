@@ -22,6 +22,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="Listado de gastos operativos" Grid.Row="0" Margin="10,0,0,0"/>
         <Grid Grid.Row="1">
@@ -78,7 +79,13 @@
         <Border Margin="10 10 10 0" Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Visibility="{Binding VisibilityBorder, Converter={StaticResource BoolToVisibilityConverter}}">
             <TextBlock Text="Click en el buton + para agregar un nuevo item" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray"/>
         </Border>
-        <StackPanel Orientation="Horizontal" Margin="5 0 10 0" Grid.Row="3" HorizontalAlignment="Right">
+        
+        <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" Margin="0 5 10 0">
+            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Gastos Operativos: S/."/>
+            <TextBox Text="{Binding TotalGastosOperativos,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="170" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="5 0 10 0" Grid.Row="4" HorizontalAlignment="Right">
             <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE710;" FontSize="16" Command="{Binding AddCommand}">
                 <Button.ToolTip>
                     <ToolTip Style="{StaticResource ToolTipStyle}" Content="Agregar Gasto Operativo"/>

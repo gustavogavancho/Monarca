@@ -59,6 +59,7 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 btnSave.IsEnabled = false;
                 btnSelectProdcuto.IsEnabled = false;
                 btnSelectProveedor.IsEnabled = false;
+                btnDeleteProducto.IsEnabled = false;
                 txtNombreApellidoProveedor.IsReadOnly = true;
                 txtRazonSocialProveedor.IsReadOnly = true;
                 txtDniProveedor.IsReadOnly = true;
@@ -77,12 +78,13 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
 
         private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            //long.TryParse(txtDniProveedor.Text, out long resultDni);
-            //long.TryParse(txtRucProveedor.Text, out long resultRuc);
-
-            if (Productos.Count <= 0)
+            btnSave.IsEnabled = false;
+            btnClose.IsEnabled = false;
+            if (Productos.Count < 1 || string.IsNullOrWhiteSpace(txtNombreApellidoProveedor.Text) && string.IsNullOrWhiteSpace(txtRazonSocialProveedor.Text))
             {
                 DialogResult result = CustomMessageBox.Show("Todos los cambios son obligatorios", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                btnSave.IsEnabled = true;
+                btnClose.IsEnabled = true;
                 return;
             }
 
@@ -100,53 +102,56 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 TipoVenta = (TipoVenta)cmbTipo.SelectedItem,
             };
 
-            switch (_operacion)
+            if (venta.TipoVenta == TipoVenta.Boleta)
             {
-                case "Add":
-                    if (venta.TipoVenta == TipoVenta.Boleta)
-                    {
-                        BoletaResponse response = await ConsultaEmitirRecibo.Envio_seguro_boleta(venta);
-                        if (response.success)
-                        {
-                            venta.ExternalId = response.data.external_id;
-                            venta.Hash = response.data.hash;
-                            venta.Qr = response.data.qr;
-                            venta.linkPdf = response.links.pdf;
-                            venta.linkXml = response.links.xml;
-                            venta.linkCdr = response.links.cdr;
-                            _ventaManager.Insertar(venta);
-                        }
-                        else
-                        {
-                            DialogResult result = CustomMessageBox.Show(response.message, CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
-                            return;
-                        }
-                    }
-                    else if (venta.TipoVenta == TipoVenta.Factura)
-                    {
-                        FacturaReponse response = await ConsultaEmitirRecibo.Envio_seguro_factura(venta);
-                        if (response.success)
-                        {
-                            venta.ExternalId = response.data.external_id;
-                            venta.Hash = response.data.hash;
-                            venta.Qr = response.data.qr;
-                            venta.linkPdf = response.links.pdf;
-                            venta.linkXml = response.links.xml;
-                            venta.linkCdr = response.links.cdr;
-                            _ventaManager.Insertar(venta);
-                        }
-                        else
-                        {
-                            DialogResult result = CustomMessageBox.Show(response.message, CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
-                            return;
-                        }
-                    }
-                    break;
+                BoletaResponse response = await ConsultaEmitirRecibo.Envio_seguro_boleta(venta);
+
+                if (response.success)
+                {
+                    venta.ExternalId = response.data.external_id;
+                    venta.Hash = response.data.hash;
+                    venta.Qr = response.data.qr;
+                    venta.linkPdf = response.links.pdf;
+                    venta.linkXml = response.links.xml;
+                    venta.linkCdr = response.links.cdr;
+                    _ventaManager.Insertar(venta);
+                }
+                else
+                {
+                    DialogResult result = CustomMessageBox.Show(response.message, CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                    btnSave.IsEnabled = true;
+                    btnClose.IsEnabled = true;
+                    return;
+                }
+            }
+            else if (venta.TipoVenta == TipoVenta.Factura)
+            {
+                FacturaReponse response = await ConsultaEmitirRecibo.Envio_seguro_factura(venta);
+                if (response.success)
+                {
+                    venta.ExternalId = response.data.external_id;
+                    venta.Hash = response.data.hash;
+                    venta.Qr = response.data.qr;
+                    venta.linkPdf = response.links.pdf;
+                    venta.linkXml = response.links.xml;
+                    venta.linkCdr = response.links.cdr;
+                    _ventaManager.Insertar(venta);
+                }
+                else
+                {
+                    DialogResult result = CustomMessageBox.Show(response.message, CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                    btnSave.IsEnabled = true;
+                    btnClose.IsEnabled = true;
+                    return;
+                }
             }
 
             DialogResult = true;
             Close();
-            Process.Start(venta?.linkPdf);
+            if (venta.TipoVenta != TipoVenta.NotaDeVenta)
+            {
+                Process.Start(venta?.linkPdf);
+            }
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -162,6 +167,7 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 txtRazonSocialProveedor.Text = StaticParameters.ClienteSelected.RazonSocial;
                 txtDniProveedor.Text = StaticParameters.ClienteSelected.Dni;
                 txtRucProveedor.Text = StaticParameters.ClienteSelected.Ruc;
+
                 if (StaticParameters.ClienteSelected.TipoCliente == TipoCliente.PersonaNatural)
                 {
                     cmbTipo.SelectedItem = TipoVenta.Boleta;
@@ -180,7 +186,6 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 Productos.Add(StaticParameters.ProductoSelected);
                 UpdateTotal();
             }
-
         }
 
         private void UpdateTotal()

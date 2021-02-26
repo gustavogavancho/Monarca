@@ -140,11 +140,12 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
 
         private void SelectColor(int i)
         {
+            int value = i - 1;
             if (_ventasResumen[i].Crecimiento == 0)
             {
                 _ventasResumen[i].Color = "Gray";
             }
-            else if (_ventasResumen[i].Crecimiento < 0)
+            else if (_ventasResumen[i].Crecimiento < _ventasResumen[value].Crecimiento)
             {
                 _ventasResumen[i].Color = "Red";
             }

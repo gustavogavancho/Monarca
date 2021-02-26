@@ -99,7 +99,7 @@
             </Image>
             <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
                 <Run Text="Cógido Interno:" FontWeight="Bold"/>
-                <Run Text="{Binding CodigoInterno}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
+                <Run Text="{Binding CodigoInterno}"/>
                 <LineBreak/>
                 <Run Text="Producto:" FontWeight="Bold"/>
                 <Run Text="{Binding Nombre}"/>
@@ -320,7 +320,7 @@
             </Image>
             <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
                 <Run Text="Tipo Venta:" FontWeight="Bold"/>
-                <Run Text="{Binding TipoVenta}"/>
+                <Run Text="{Binding TipoVenta, Converter={StaticResource EnumToDescription}}"/>
                 <Run Text="/"/>
                 <Run Text="Cliente:" FontWeight="Bold"/>
                 <Run Text="{Binding NombreProveedor}"/>
@@ -376,7 +376,7 @@
             </Image>
             <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
                 <Run Text="Tipo Venta:" FontWeight="Bold"/>
-                <Run Text="{Binding TipoVenta}"/>
+                <Run Text="{Binding TipoVenta, Converter={StaticResource EnumToDescription}}"/>
                 <Run Text="/"/>
                 <Run Text="Cliente:" FontWeight="Bold"/>
                 <Run Text="{Binding RazonSocialProveedor}"/>
