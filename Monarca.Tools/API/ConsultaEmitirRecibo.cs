@@ -74,7 +74,7 @@ namespace Monarca.Tools.API
                 body.items.Add(new Item
                 {
                     codigo_interno = item.CodigoInterno,
-                    descripcion = item.Descripción,
+                    descripcion = $"{item.Nombre} {item.Marca}",
                     codigo_producto_sunat = "51121703",
                     unidad_de_medida = item.Unidad.ToString(),
                     cantidad = item.Cantidad.ToString("0.##"),
@@ -176,7 +176,7 @@ namespace Monarca.Tools.API
                 body.items.Add(new Item
                 {
                     codigo_interno = item.CodigoInterno,
-                    descripcion = item.Descripción,
+                    descripcion = $"{item.Nombre} {item.Marca}",
                     codigo_producto_sunat = "51121703",
                     unidad_de_medida = item.Unidad.ToString(),
                     cantidad = item.Cantidad.ToString("0.##"),

@@ -107,9 +107,6 @@
                 <Run Text="Unidad:" FontWeight="Bold"/>
                 <Run Text="{Binding Unidad, Converter={StaticResource EnumToDescription}}"/>
                 <LineBreak />
-                <Run Text="Descripción:" FontWeight="Bold"/>
-                <Run Text="{Binding Descripción}"/>
-                <LineBreak />
                 <Run Text="Marca:" FontWeight="Bold"/>
                 <Run Text="{Binding Marca}"/>
             </TextBlock>

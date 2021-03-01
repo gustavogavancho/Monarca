@@ -8,6 +8,7 @@ using Monarca.UI.WPF.Usuario.CustomControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -67,8 +68,6 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            //long.TryParse(txtDNI.Text, out long resultDni);
-            //long.TryParse(txtRUC.Text, out long resultRuc);
             long.TryParse(txtCelular.Text, out long resultCelular);
 
             if (cmbTipoCliente.SelectedItem == null)
@@ -165,27 +164,31 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
 
         private async void btnConsultaRuc_Click(object sender, RoutedEventArgs e)
         {
-            bool canConvert = long.TryParse(txtRUC.Text, out long Ruc);
-            if (canConvert && txtRUC.Text.Length == 11)
-            {
-                try
-                {
-                    RUC ruc = await ConsultaRuc.GetRuc(txtRUC.Text);
-                    txtRazonSocial.Text = ruc.razonSocial;
-                    txtDireccion.Text = ruc.direccion;
-
-                    await Dispatcher.BeginInvoke(new System.Action(() => { Keyboard.Focus(txtRepresentanteLegal); }),
-                        System.Windows.Threading.DispatcherPriority.Loaded);
-
-                }
-                catch (Exception ex)
-                {
-                    DialogResult result = CustomMessageBox.Show($"{ex.Message}", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.No);
-                }
-            }
+            await GetRuc();
         }
 
         private async void btnConsultaDni_Click(object sender, RoutedEventArgs e)
+        {
+            await GetDni();
+        }
+
+        private async void txtDNI_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                await GetDni();
+            }
+        }
+
+        private async void txtRUC_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                await GetRuc();
+            }
+        }
+
+        private async Task GetDni()
         {
             bool canConvert = int.TryParse(txtDNI.Text, out int Dni);
             if (canConvert && txtDNI.Text.Length == 8)
@@ -193,8 +196,11 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 try
                 {
                     DNI dni = await ConsultaDni.GetDni(txtDNI.Text);
-                    txtNombres.Text = dni.nombres;
-                    txtApellidos.Text = $"{dni.apellidoPaterno} {dni.apellidoMaterno}";
+                    if (dni != null)
+                    {
+                        txtNombres.Text = dni.nombres;
+                        txtApellidos.Text = $"{dni.apellidoPaterno} {dni.apellidoMaterno}";
+                    }
 
                     await Dispatcher.BeginInvoke(new System.Action(() => { Keyboard.Focus(txtDireccion); }),
                         System.Windows.Threading.DispatcherPriority.Loaded);
@@ -206,38 +212,7 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             }
         }
 
-        private async void txtDNI_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                bool canConvert = int.TryParse(txtDNI.Text, out int Dni);
-                if (canConvert && txtDNI.Text.Length == 8)
-                {
-                    try
-                    {
-                        DNI dni = await ConsultaDni.GetDni(txtDNI.Text);
-                        if (dni != null)
-                        {
-                            txtNombres.Text = dni.nombres;
-                            txtApellidos.Text = $"{dni.apellidoPaterno} {dni.apellidoMaterno}";
-
-                            await Dispatcher.BeginInvoke(new System.Action(() => { Keyboard.Focus(txtDireccion); }),
-                                System.Windows.Threading.DispatcherPriority.Loaded);
-                        }
-                        else
-                        {
-                            DialogResult result = CustomMessageBox.Show($"N° de DNI no valido", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.No);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        DialogResult result = CustomMessageBox.Show($"{ex.Message}", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.No);
-                    }
-                }
-            }
-        }
-
-        private async void txtRUC_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private async Task GetRuc()
         {
             bool canConvert = long.TryParse(txtRUC.Text, out long Ruc);
             if (canConvert && txtRUC.Text.Length == 11)
@@ -245,8 +220,11 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 try
                 {
                     RUC ruc = await ConsultaRuc.GetRuc(txtRUC.Text);
-                    txtRazonSocial.Text = ruc.razonSocial;
-                    txtDireccion.Text = ruc.direccion;
+                    if (ruc != null)
+                    {
+                        txtRazonSocial.Text = ruc.datos.result.razon_social;
+                        txtDireccion.Text = ruc.datos.result.direccion;
+                    }
                     await Dispatcher.BeginInvoke(new System.Action(() => { Keyboard.Focus(txtRepresentanteLegal); }),
                         System.Windows.Threading.DispatcherPriority.Loaded);
 

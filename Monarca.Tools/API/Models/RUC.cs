@@ -1,33 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Monarca.Tools.API.Models
 {
-    public class RUC
+    public class ActividadEconomica
+    {
+        public string ciiu { get; set; }
+        public string descripcion { get; set; }
+    }
+
+    public class Result
     {
         public string ruc { get; set; }
-        public string razonSocial { get; set; }
-        public string nombreComercial { get; set; }
-        public List<object> telefonos { get; set; }
+        public string razon_social { get; set; }
+        public string nombre_comercial { get; set; }
         public string tipo { get; set; }
+        public string fecha_inscripcion { get; set; }
         public string estado { get; set; }
-        public string condicion { get; set; }
         public string direccion { get; set; }
-        public string departamento { get; set; }
-        public string provincia { get; set; }
-        public string distrito { get; set; }
-        public DateTime fechaInscripcion { get; set; }
-        public string sistEmsion { get; set; }
-        public string sistContabilidad { get; set; }
-        public string actExterior { get; set; }
-        public List<string> actEconomicas { get; set; }
-        public List<string> cpPago { get; set; }
-        public List<string> sistElectronica { get; set; }
-        public object fechaEmisorFe { get; set; }
-        public List<object> cpeElectronico { get; set; }
-        public object fechaPle { get; set; }
-        public List<string> padrones { get; set; }
-        public object fechaBaja { get; set; }
-        public string profesion { get; set; }
+        public string sistema_emision { get; set; }
+        public string actividad_exterior { get; set; }
+        public string sistema_contabilidad { get; set; }
+        public string oficio { get; set; }
+        public string ple { get; set; }
+        public string inicio_actividades { get; set; }
+        public List<ActividadEconomica> actividad_economica { get; set; }
+        public List<object> establecimientos { get; set; }
+        public List<object> representantes_legales { get; set; }
+        public string cantidad_trabajadores { get; set; }
+    }
+
+    public class Datos
+    {
+        public bool success { get; set; }
+        public Result result { get; set; }
+    }
+
+    public class RUC
+    {
+        public Datos datos { get; set; }
+        public bool ok { get; set; }
     }
 }

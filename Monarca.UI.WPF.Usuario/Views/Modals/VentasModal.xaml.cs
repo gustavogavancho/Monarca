@@ -67,6 +67,10 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 txtNumeroDocumento.IsReadOnly = true;
                 cmbTipo.IsReadOnly = true;
             }
+            else if (_operacion == "NotaVenta")
+            {
+                cmbTipo.SelectedItem = TipoVenta.NotaDeVenta;
+            }
 
             dtgProductos.ItemsSource = Productos;
         }
@@ -101,8 +105,12 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 Productos = Productos,
                 TipoVenta = (TipoVenta)cmbTipo.SelectedItem,
             };
+            if(venta.TipoVenta == TipoVenta.NotaDeVenta)
+            {
+                _ventaManager.Insertar(venta);
+            }
 
-            if (venta.TipoVenta == TipoVenta.Boleta)
+            else if (venta.TipoVenta == TipoVenta.Boleta)
             {
                 BoletaResponse response = await ConsultaEmitirRecibo.Envio_seguro_boleta(venta);
 
@@ -168,13 +176,16 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 txtDniProveedor.Text = StaticParameters.ClienteSelected.Dni;
                 txtRucProveedor.Text = StaticParameters.ClienteSelected.Ruc;
 
-                if (StaticParameters.ClienteSelected.TipoCliente == TipoCliente.PersonaNatural)
+                if (_operacion != "NotaVenta")
                 {
-                    cmbTipo.SelectedItem = TipoVenta.Boleta;
-                }
-                else if (StaticParameters.ClienteSelected.TipoCliente == TipoCliente.PersonaJuridica)
-                {
-                    cmbTipo.SelectedItem = TipoVenta.Factura;
+                    if (StaticParameters.ClienteSelected.TipoCliente == TipoCliente.PersonaNatural)
+                    {
+                        cmbTipo.SelectedItem = TipoVenta.Boleta;
+                    }
+                    else if (StaticParameters.ClienteSelected.TipoCliente == TipoCliente.PersonaJuridica)
+                    {
+                        cmbTipo.SelectedItem = TipoVenta.Factura;
+                    }
                 }
             }
         }
@@ -238,6 +249,11 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             {
                 txtSerieDocumento.Text = "F001";
                 txtNumeroDocumento.Text = GenerarCodigoFactura(TipoVenta.Factura);
+            }
+            else if (tipoVenta == TipoVenta.NotaDeVenta)
+            {
+                txtSerieDocumento.Text = "NV001";
+                txtNumeroDocumento.Text = GenerarCodigoFactura(TipoVenta.NotaDeVenta);
             }
         }
     }

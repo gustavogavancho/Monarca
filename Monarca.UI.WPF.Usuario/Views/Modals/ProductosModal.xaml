@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Monarca.UI.WPF.Usuario.Views.Modals"
         mc:Ignorable="d"
         BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="2"
-        Title="ClientesModal" Height="370" Width="400" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
+        Title="ClientesModal" Height="330" Width="400" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
         FocusManager.FocusedElement="{Binding ElementName=txtNombre}">
     
     <Window.InputBindings>
@@ -39,8 +39,6 @@
         <TextBox x:Name="txtCodigoInterno" Grid.Row="3" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" IsReadOnly="True"/>
         <TextBlock Text="Nombre:" Grid.Row="4" Style="{StaticResource BlueTextTextBlockStyle}"/>
         <TextBox x:Name="txtNombre" Grid.Row="5" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
-        <TextBlock Text="Descripción:" Grid.Row="6" Style="{StaticResource BlueTextTextBlockStyle}"/>
-        <TextBox x:Name="txtDescripción" Grid.Row="7" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
         <TextBlock Text="Marca:" Grid.Row="8" Style="{StaticResource BlueTextTextBlockStyle}"/>
         <TextBox x:Name="txtMarca" Grid.Row="9" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0"/>
         <TextBlock Text="Unidad:" Grid.Row="10" Style="{StaticResource BlueTextTextBlockStyle}"/>

@@ -6,9 +6,7 @@ namespace Monarca.COMMON.Enumeraciones
     {
         [Description("Unidad")]
         NIU = 1,
-        [Description("Saco")]
-        SA = 4,
-        [Description("Kilo")]
-        LBR = 5,
+       [Description("Kilo")]
+        KGM = 3,
     }
 }

@@ -76,7 +76,6 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             if (new SeleccionarProductoModal(_factoryManager).ShowDialog().Value)
             {
                 txtNombreProducto.Text = StaticParameters.ProductoSelected.Nombre;
-                txtDescripcionProducto.Text = StaticParameters.ProductoSelected.Descripción;
                 txtMarcaProducto.Text = StaticParameters.ProductoSelected.Marca;
                 txtUnidadProducto.Text = StaticParameters.ProductoSelected.Unidad.ToString();
             }

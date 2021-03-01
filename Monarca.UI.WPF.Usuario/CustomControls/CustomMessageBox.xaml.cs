@@ -2,6 +2,8 @@
 using System;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace Monarca.UI.WPF.Usuario.CustomControls
 {
@@ -17,11 +19,20 @@ namespace Monarca.UI.WPF.Usuario.CustomControls
 
         public enum CMessageBoxButton
         {
+            [Description("Aceptar")]
             Aceptar,
+            [Description("No")]
             No,
+            [Description("Si")]
             Si,
+            [Description("Cancelar")]
             Cancelar,
-            Confirmar
+            [Description("Confirmar")]
+            Confirmar,
+            [Description("Nota de venta")]
+            NotaDeVenta,
+            [Description("Boleta/Factura")]
+            BoletaFactura,
         }
 
         public enum CMessageBoxTitle
@@ -69,10 +80,32 @@ namespace Monarca.UI.WPF.Usuario.CustomControls
             return Enum.GetName(typeof(CMessageBoxTitle), value);
         }
 
+        public string GetEnumDescription(Enum enumObj)
+        {
+            if (enumObj == null)
+            {
+                return string.Empty;
+            }
+            FieldInfo fieldInfo = enumObj.GetType().GetField(enumObj.ToString());
+
+            object[] attribArray = fieldInfo?.GetCustomAttributes(false);
+
+            if (attribArray?.Length == 0)
+            {
+                return enumObj.ToString();
+            }
+            else
+            {
+                DescriptionAttribute attrib = attribArray?[0] as DescriptionAttribute;
+                return attrib?.Description;
+            }
+        }
+
         //For buttons
         public string GetMessageButton(CMessageBoxButton value)
         {
-            return Enum.GetName(typeof(CMessageBoxButton), value);
+            return GetEnumDescription(value);
+            //return Enum.GetName(typeof(CMessageBoxButton), value);
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)

@@ -6,7 +6,6 @@ namespace Monarca.COMMON.Entidades
     {
         public string CodigoInterno { get; set; }
         public string Nombre { get; set; }
-        public string Descripción { get; set; }
         public string Marca { get; set; }
         public Unidad Unidad { get; set; }
         public decimal Cantidad { get; set; }

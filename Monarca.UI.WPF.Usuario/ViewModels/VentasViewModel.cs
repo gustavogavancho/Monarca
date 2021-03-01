@@ -8,7 +8,6 @@ using Monarca.UI.WPF.Usuario.CustomControls;
 using Monarca.UI.WPF.Usuario.Extensions;
 using Monarca.UI.WPF.Usuario.Helpers;
 using Monarca.UI.WPF.Usuario.Views.Modals;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -38,6 +37,19 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 DeleteCommnad.RaiseCanExecuteChanged();
             }
         }
+
+        private bool _isBusy = true;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                SetProperty(ref _isBusy, value);
+                AddCommand.RaiseCanExecuteChanged();
+                DeleteCommnad.RaiseCanExecuteChanged();
+            }
+        }
+
 
         private decimal _totalVentas;
         public decimal TotalVentas
@@ -86,7 +98,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             _factoryManager = factoryManager;
             _ventaManager = factoryManager.CrearVentaManager;
             ReadCommand = new RelayCommand(OnRead, CanReadEditDelete);
-            AddCommand = new RelayCommand(OnAdd);
+            AddCommand = new RelayCommand(OnAdd,CanAdd);
             DeleteCommnad = new RelayCommand(OnDelete, CanReadEditDelete);
             SearchCommand = new RelayCommand(OnSearch);
             ResumenCommand = new RelayCommand(OnResumen);
@@ -122,6 +134,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
 
         private async void OnDelete()
         {
+            IsBusy = false;
             DialogResult result = CustomMessageBox.Show("¿Está seguro que desea borrar la información de la venta?", CustomMessageBox.CMessageBoxTitle.Confirmación, CustomMessageBox.CMessageBoxButton.Si, CustomMessageBox.CMessageBoxButton.No);
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
@@ -136,13 +149,14 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                         _ventaManager.Actualizar(Venta);
                         UpdateData(State);
                         CustomMessageBox.Show("Se dio de baja la boleta/factura correctamente", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                        IsBusy = true;
                     }
                     else
                     {
                         CustomMessageBox.Show("No se pudo dar de baja a la factura/boleta seleccionada, por favor intentelo de nuevo o contacte con su proveedor", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
                     }
                 }
-                else if (Venta!= null && Venta.TipoVenta == TipoVenta.Boleta && !Venta.Baja)
+                else if (Venta != null && Venta.TipoVenta == TipoVenta.Boleta && !Venta.Baja)
                 {
                     BajaResponse response = await ConsultaBaja.Baja_boleta(Venta);
                     if (response.success)
@@ -153,29 +167,66 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                         _ventaManager.Actualizar(Venta);
                         UpdateData(State);
                         CustomMessageBox.Show("Se dio de baja la boleta/factura correctamente", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                        IsBusy = true;
                     }
                     else
                     {
                         CustomMessageBox.Show("No se pudo dar de baja a la factura/boleta seleccionada, por favor intentelo de nuevo o contacte con su proveedor", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
                     }
                 }
+                else if (Venta != null && Venta.TipoVenta == TipoVenta.NotaDeVenta && !Venta.Baja)
+                {
+                    Venta.Baja = true;
+                    _ventaManager.Actualizar(Venta);
+                    UpdateData(State);
+                    CustomMessageBox.Show("Se dio de baja la boleta/factura correctamente", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                }
                 else
                 {
                     CustomMessageBox.Show("La venta ya se encuentra dada de baja", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
                 }
             }
+            else
+            {
+                IsBusy = true;
+            }
         }
 
         private void OnAdd()
         {
-            if (new VentasModal(_factoryManager, "Add").ShowDialog().Value)
+            DialogResult result = CustomMessageBox.Show("Seleccione el tipo de recibo", CustomMessageBox.CMessageBoxTitle.Confirmación, CustomMessageBox.CMessageBoxButton.NotaDeVenta, CustomMessageBox.CMessageBoxButton.BoletaFactura);
+            if (result == System.Windows.Forms.DialogResult.Yes)
             {
-                UpdateData(State);
+                if (new VentasModal(_factoryManager, "NotaVenta").ShowDialog().Value)
+                {
+                    UpdateData(State);
+                }
+            }
+            else if(result == System.Windows.Forms.DialogResult.No)
+            {
+                if (new VentasModal(_factoryManager, "Add").ShowDialog().Value)
+                {
+                    UpdateData(State);
+                }
+            }
+
+        }
+
+        public bool CanAdd()
+        {
+            if (IsBusy)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
+
         private bool CanReadEditDelete()
         {
-            if (!string.IsNullOrWhiteSpace(Venta?.Id) && !State)
+            if (IsBusy && !string.IsNullOrWhiteSpace(Venta?.Id) && !State)
             {
                 return true;
             }

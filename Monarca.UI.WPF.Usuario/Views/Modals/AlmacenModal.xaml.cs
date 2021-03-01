@@ -22,7 +22,6 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             Proveedor proveedor = _proveedorManager.SearchById(almacen.IdProveedor);
             InitializeComponent();
             txtNombreProducto.Text = producto.Nombre;
-            txtDescripcionProducto.Text = producto.Descripción;
             txtMarcaProducto.Text = producto.Marca;
             txtUnidadProducto.Text = producto.Unidad.ToString();
             txtNombreApellidoProveedor.Text = $"{proveedor.Nombres} {proveedor.Apellidos}";

@@ -14,8 +14,6 @@ namespace Monarca.BIZ
         {
             return _repositorio.Query(x => x.Nombre != null &&
                                       x.Nombre.ToLowerInvariant().Contains(text.ToLowerInvariant()) ||
-                                      x.Descripción != null &&
-                                      x.Descripción.ToLowerInvariant().Contains(text.ToLowerInvariant()) ||
                                       x.Marca != null && 
                                       x.Marca.ToLowerInvariant().Contains(text.ToLowerInvariant()));
         }

@@ -36,7 +36,6 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 txtCodigoInterno.Text = producto.CodigoInterno;
                 txtCodigoInterno.IsEnabled = false;
                 txtNombre.Text = producto.Nombre;
-                txtDescripción.Text = producto.Descripción;
                 txtMarca.Text = producto.Marca;
                 cmbUnidad.SelectedItem = producto.Unidad;
             }
@@ -45,7 +44,6 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 btnSave.IsEnabled = false;
                 cmbUnidad.IsEnabled = false;
                 txtNombre.IsReadOnly = true;
-                txtDescripción.IsReadOnly = true;
                 txtMarca.IsReadOnly = true;
             }
         }
@@ -69,7 +67,6 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                     {
                         Nombre = txtNombre.Text,
                         CodigoInterno = txtCodigoInterno.Text,
-                        Descripción = txtDescripción.Text,
                         Marca = txtMarca.Text,
                         Unidad = (Unidad)cmbUnidad.SelectedItem,
                     });
@@ -83,7 +80,6 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                             Id = _producto.Id,
                             CodigoInterno = txtCodigoInterno.Text,
                             Nombre = txtNombre.Text,
-                            Descripción = txtDescripción.Text,
                             Marca = txtMarca.Text,
                             Unidad = (Unidad)cmbUnidad.SelectedItem,
                         });
