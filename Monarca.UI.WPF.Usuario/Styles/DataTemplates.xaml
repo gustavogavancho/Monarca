@@ -287,9 +287,6 @@
                 <Run Text="Descripción:" FontWeight="Bold"/>
                 <Run Text="{Binding Descripcion}"/>
                 <LineBreak />
-                <Run Text="Fecha:" FontWeight="Bold"/>
-                <Run Text="{Binding Descripcion, StringFormat='d'}"/>
-                <LineBreak />
                 <Run Text="Costo:" FontWeight="Bold"/>
                 <Run Text="{Binding Costo, StringFormat='n'}" FontWeight="Bold" Foreground="{StaticResource TertiaryBrush}"/>
             </TextBlock>

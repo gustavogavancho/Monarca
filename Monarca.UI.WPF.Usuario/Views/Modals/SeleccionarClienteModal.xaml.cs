@@ -43,10 +43,10 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
 
         private void btnSelect_Click(object sender, RoutedEventArgs e)
         {
-            SelectProveedor();
+            SelectCliente();
         }
 
-        private void SelectProveedor()
+        private void SelectCliente()
         {
             if (ltbClientes.SelectedItem == null)
             {
@@ -59,7 +59,33 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
 
         private void Window_KeyDown_1(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            SelectProveedor();
+            if (e.Key == Key.Return && e.KeyboardDevice.Modifiers == ModifierKeys.None)
+            {
+                SelectCliente();
+            }
+        }
+
+        private void SearchText()
+        {
+            string textSearch = txtSearch.Text;
+            if (!string.IsNullOrWhiteSpace(textSearch))
+            {
+                ltbClientes.ItemsSource = _clienteManager.SearchCliente(txtSearch.Text);
+            }
+            else
+            {
+                ltbClientes.ItemsSource = _clienteManager.ObtenerTodo;
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            SearchText();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            SearchText();
         }
     }
 }

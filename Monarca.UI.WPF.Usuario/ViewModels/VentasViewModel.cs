@@ -8,6 +8,7 @@ using Monarca.UI.WPF.Usuario.CustomControls;
 using Monarca.UI.WPF.Usuario.Extensions;
 using Monarca.UI.WPF.Usuario.Helpers;
 using Monarca.UI.WPF.Usuario.Views.Modals;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -50,12 +51,25 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             }
         }
 
-
         private decimal _totalVentas;
         public decimal TotalVentas
         {
             get => _totalVentas;
             set => SetProperty(ref _totalVentas, value);
+        }
+
+        private decimal _totalVentasMensual;
+        public decimal TotalVentasMensual
+        {
+            get => _totalVentasMensual;
+            set => SetProperty(ref _totalVentasMensual, value);
+        }
+
+        private decimal _totalVentasDiario;
+        public decimal TotalVentasDiario
+        {
+            get => _totalVentasDiario;
+            set => SetProperty(ref _totalVentasDiario, value);
         }
 
         private string _searchText;
@@ -252,7 +266,12 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 VisibilityListBox = false;
             }
 
+            
             TotalVentas = Ventas.Sum(x => x.Productos.Sum(y => y.Total));
+
+            TotalVentasMensual = Ventas.Where(x=> x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month).Sum(x => x.Productos.Sum(z => z.Total));
+
+            TotalVentasDiario = Ventas.Where(x=> x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month && x.FechaHoraCreacion.Day == DateTime.Now.Day).Sum(x => x.Productos.Sum(z=> z.Total));
         }
     }
 }

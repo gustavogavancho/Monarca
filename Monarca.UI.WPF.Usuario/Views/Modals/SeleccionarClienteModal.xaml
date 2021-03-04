@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Monarca.UI.WPF.Usuario.Views.Modals"
         BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="2"
-        Title="ClientesModal" Height="510" Width="490" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
-        KeyDown="Window_KeyDown_1">
+        Title="ClientesModal" Height="510" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
+        KeyDown="Window_KeyDown_1" FocusManager.FocusedElement="{Binding ElementName=txtSearch}">
 
     <Window.InputBindings>
         <KeyBinding Command="ApplicationCommands.Close" Key="Esc" />
@@ -20,12 +20,25 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="Listado Clientes"/>
         <Border Grid.Row="1" Background="{StaticResource PrimaryBrush}"  Height="2" Margin="10,0" Grid.ColumnSpan="2"/>
-        <ListBox x:Name="ltbClientes" Grid.Row="2" Margin="5 5 5 0">
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="txtSearch" Style="{StaticResource TextBoxStyle}" Margin="5 5 0 0" TextChanged="txtSearch_TextChanged"/>
+            <Button Grid.Column="1" FontFamily="Segoe MDL2 Assets" Content="&#xE721;" Width="27" Background="{StaticResource PrimaryBrush}" Foreground="White" Margin="5 5 5 0" Click="Button_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Buscar Cliente"/>
+                </Button.ToolTip>
+            </Button>
+        </Grid>
+        <ListBox x:Name="ltbClientes" Grid.Row="3" Margin="5 5 5 0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <ContentControl Content="{Binding}">
@@ -45,10 +58,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Border x:Name="brdListItem" Margin="5 5 5 0" Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Visibility="{Binding VisibilityBorder, Converter={StaticResource BoolToVisibilityConverter}}">
+        <Border x:Name="brdListItem" Margin="5 5 5 0" Grid.Row="3" BorderBrush="Gray" BorderThickness="1" Visibility="{Binding VisibilityBorder, Converter={StaticResource BoolToVisibilityConverter}}">
             <TextBlock Text="No se encuentran registros de un algún cliente" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray" TextWrapping="Wrap"/>
         </Border>
-        <StackPanel Orientation="Horizontal" Margin="5 5 0 0" Grid.Row="3" HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal" Margin="5 5 0 0" Grid.Row="4" HorizontalAlignment="Right">
             <Button x:Name="btnSelect" Style="{StaticResource ButtonSecondaryStyle}" Content="&#xF13E;" FontSize="16" Click="btnSelect_Click">
                 <Button.ToolTip>
                     <ToolTip Style="{StaticResource ToolTipStyle}" Content="Seleccionar Cliente"/>

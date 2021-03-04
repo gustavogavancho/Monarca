@@ -11,5 +11,10 @@ namespace Monarca.COMMON.Entidades
         public decimal Cantidad { get; set; }
         public decimal PrecioUnitario { get; set; }
         public decimal Total { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Nombre} {Marca}";
+        }
     }
 }

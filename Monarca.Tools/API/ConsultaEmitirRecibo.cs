@@ -82,12 +82,12 @@ namespace Monarca.Tools.API
                     codigo_tipo_precio = "01",
                     precio_unitario = item.PrecioUnitario.ToString("0.##"),
                     codigo_tipo_afectacion_igv = "20",
-                    total_base_igv = 2,
+                    total_base_igv = (item.PrecioUnitario * item.Cantidad),
                     porcentaje_igv = 18,
                     total_igv = 0,
                     total_impuestos = 0,
-                    total_valor_item = 2,
-                    total_item = 2
+                    total_valor_item = item.PrecioUnitario * item.Cantidad,
+                    total_item = item.PrecioUnitario * item.Cantidad
                 });
             }
 
@@ -184,12 +184,12 @@ namespace Monarca.Tools.API
                     codigo_tipo_precio = "01",
                     precio_unitario = item.PrecioUnitario.ToString("0.##"),
                     codigo_tipo_afectacion_igv = "20",
-                    total_base_igv = 2,
+                    total_base_igv = (item.PrecioUnitario * item.Cantidad),
                     porcentaje_igv = 18,
                     total_igv = 0,
                     total_impuestos = 0,
-                    total_valor_item = 2,
-                    total_item = 2
+                    total_valor_item = item.PrecioUnitario * item.Cantidad,
+                    total_item = item.PrecioUnitario * item.Cantidad
                 });
             }
 

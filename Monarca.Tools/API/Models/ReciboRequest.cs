@@ -48,12 +48,12 @@ namespace Monarca.Tools.API.Models
         public string codigo_tipo_precio { get; set; }
         public string precio_unitario { get; set; }
         public string codigo_tipo_afectacion_igv { get; set; }
-        public int total_base_igv { get; set; }
+        public decimal total_base_igv { get; set; }
         public int porcentaje_igv { get; set; }
         public int total_igv { get; set; }
         public int total_impuestos { get; set; }
-        public int total_valor_item { get; set; }
-        public int total_item { get; set; }
+        public decimal total_valor_item { get; set; }
+        public decimal total_item { get; set; }
     }
 
     public class ReciboRequest

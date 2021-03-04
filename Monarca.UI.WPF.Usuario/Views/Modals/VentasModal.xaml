@@ -17,7 +17,7 @@
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Close" Executed="CommandBinding_Executed" />
     </Window.CommandBindings>
-
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -136,7 +136,7 @@
                         <DataGridTextColumn MinWidth="80" Header="Cantidad" Binding="{Binding Cantidad, StringFormat='n'}" FontFamily="Arial" FontSize="14"/>
                         <DataGridTextColumn MinWidth="100" Header="Unidad Medida" Binding="{Binding Unidad}" FontFamily="Arial" FontSize="14"/>
                         <DataGridTextColumn MinWidth="60" Header="Codigo" Binding="{Binding Id}" FontFamily="Arial" FontSize="14"/>
-                        <DataGridTextColumn MinWidth="280" Header="Descripcion" Binding="{Binding Descripción}" FontFamily="Arial" FontSize="14"/>
+                        <DataGridTextColumn MinWidth="280" Header="Descripcion" Binding="{Binding .}" FontFamily="Arial" FontSize="14"/>
                         <DataGridTextColumn MinWidth="120" Header="Valor Unitario" Binding="{Binding PrecioUnitario, StringFormat='n'}" FontFamily="Arial" FontSize="14"/>
                         <DataGridTextColumn MinWidth="120" Header="Total" Binding="{Binding Total, StringFormat='n'}" FontFamily="Arial" FontSize="14"/>
                     </DataGrid.Columns>

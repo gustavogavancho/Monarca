@@ -85,6 +85,7 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             {
                 Producto producto = (Producto)ltbProductos.SelectedItem;
                 txtUnidad.Text = producto.Unidad.GetDescription();
+                txtSearch.Text = null;
 
                 Dispatcher.BeginInvoke(new System.Action(() => { Keyboard.Focus(txtCantidad); }),
                     System.Windows.Threading.DispatcherPriority.Loaded);
@@ -103,6 +104,29 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             {
                 txtTotal.Text = "";
             }
+        }
+
+        private void SearchText()
+        {
+            string textSeach = txtSearch.Text;
+            if (!string.IsNullOrWhiteSpace(textSeach))
+            {
+                ltbProductos.ItemsSource = _productoManager.SearchProducto(textSeach);
+            }
+            else
+            {
+                ltbProductos.ItemsSource = _productoManager.ObtenerTodo;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            SearchText();
+        }
+
+        private void txtSearch_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            SearchText();
         }
     }
 }

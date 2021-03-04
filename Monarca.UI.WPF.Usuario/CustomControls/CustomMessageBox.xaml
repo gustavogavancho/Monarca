@@ -10,6 +10,7 @@
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource PrimaryBrush}">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>

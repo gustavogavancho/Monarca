@@ -108,9 +108,19 @@
         <Border Margin="10 0 10 0" Grid.Row="3" BorderBrush="Gray" BorderThickness="1" Visibility="{Binding VisibilityBorder, Converter={StaticResource BoolToVisibilityConverter}}">
             <TextBlock Text="Click en el buton + para agregar un nuevo item" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray"/>
         </Border>
-        <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Right" Margin="0 5 10 0">
-            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Ventas: S/."/>
-            <TextBox Text="{Binding TotalVentas,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="170" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Right" Margin="0 5 10 0">
+            <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" Margin="0 0 5 0">
+                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Ventas Diarias: S/."/>
+                <TextBox Text="{Binding TotalVentasDiario,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="130" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right" IsReadOnly="True"/>
+            </StackPanel>
+            <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" Margin="0 0 5 0">
+                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Ventas Mensual: S/."/>
+                <TextBox Text="{Binding TotalVentasMensual,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="130" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right" IsReadOnly="True"/>
+            </StackPanel>
+            <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal">
+                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Ventas: S/."/>
+                <TextBox Text="{Binding TotalVentas,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="130" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right" IsReadOnly="True"/>
+            </StackPanel>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="5 0 10 0" Grid.Row="5" HorizontalAlignment="Right">
