@@ -180,27 +180,27 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 VisibilityListBox = true;
                 VisibilityBorder = false;
                 var compraData = _compraManager.ObtenerTodo;
-                foreach (var item in _compraManager.ObtenerTodo.DistinctBy(x => x.IdProducto))
-                {
-                    var almacen = new AlmacenModel
-                    {
-                        IdProducto = item.IdProducto,
-                        IdProveedor = item.IdProveedor,
-                        NombreProducto = item.NombreProducto,
-                        MarcaProducto = item.MarcaProducto,
-                        CantidadComprada = compraData.Where(x => x.IdProducto == item.IdProducto).Sum(x => x.Cantidad),
-                        Stock = compraData.Where(x => x.IdProducto == item.IdProducto).Sum(x => x.Cantidad),
-                    };
-                    if (string.IsNullOrWhiteSpace(item.NombreProveedor))
-                    {
-                        almacen.NombreProveedor = item.RazonSocialProveedor;
-                    }
-                    else
-                    {
-                        almacen.NombreProveedor = item.NombreProveedor;
-                    }
-                    Almacenes.Add(almacen);
-                }
+                //foreach (var item in _compraManager.ObtenerTodo.DistinctBy(x => x.IdProducto))
+                //{
+                //    var almacen = new AlmacenModel
+                //    {
+                //        //IdProducto = item.IdProducto,
+                //        //IdProveedor = item.IdProveedor,
+                //        //NombreProducto = item.NombreProducto,
+                //        //MarcaProducto = item.MarcaProducto,
+                //        //CantidadComprada = compraData.Where(x => x.IdProducto == item.IdProducto).Sum(x => x.Cantidad),
+                //        //Stock = compraData.Where(x => x.IdProducto == item.IdProducto).Sum(x => x.Cantidad),
+                //    };
+                //    if (string.IsNullOrWhiteSpace(item.NombreProveedor))
+                //    {
+                //        almacen.NombreProveedor = item.RazonSocialProveedor;
+                //    }
+                //    else
+                //    {
+                //        almacen.NombreProveedor = item.NombreProveedor;
+                //    }
+                //    Almacenes.Add(almacen);
+                //}
             }
             else
             {

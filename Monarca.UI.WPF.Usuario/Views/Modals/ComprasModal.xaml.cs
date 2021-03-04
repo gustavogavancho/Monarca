@@ -3,7 +3,10 @@ using Monarca.COMMON.Entidades;
 using Monarca.COMMON.Interfaces;
 using Monarca.UI.WPF.Usuario.CustomControls;
 using Monarca.UI.WPF.Usuario.Helpers;
-using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -13,6 +16,7 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
     public partial class ComprasModal : Window
     {
         FactoryManager _factoryManager;
+        ObservableCollection<Producto> Productos = new ObservableCollection<Producto>();
         ICompraManager _compraManager;
         IProductoManager _productoManager;
         IProveedorManager _proveedorManager;
@@ -28,37 +32,44 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             _compra = compra;
             _operacion = operacion;
             InitializeComponent();
-            if (_operacion == "Edit" || _operacion == "Read")
+            if (_operacion == "Edit")
             {
-                txtNombreProducto.Text = compra.NombreProducto;
-                txtDescripcionProducto.Text = compra.DescripcionProducto;
-                txtMarcaProducto.Text = compra.MarcaProducto;
-                txtUnidadProducto.Text = compra.UnidadProducto;
+                txtNumeroDocumento.Text = compra.NumeroDocumento;
                 txtNombreApellidoProveedor.Text = compra.NombreProveedor;
                 txtRazonSocialProveedor.Text = compra.RazonSocialProveedor;
-                txtDniProveedor.Text = compra.Dni.ToString();
-                txtRucProveedor.Text = compra.Ruc.ToString();
-                txtCantidad.Text = compra.Cantidad.ToString();
-                txtPrecioUnitario.Text = compra.Cantidad.ToString();
-                txtTotal.Text = compra.Total.ToString();
+                txtDniProveedor.Text = compra.Dni;
+                txtRucProveedor.Text = compra.Ruc;
+                Productos = compra.Productos;
+                var nfi = new NumberFormatInfo { NumberDecimalSeparator = ".", NumberGroupSeparator = "," };
+                txbSubTotal.Text = Productos.Sum(x => x.Total).ToString("#,##0.00", nfi);
+                txbTotal.Text = txbSubTotal.Text;
             }
-            if (_operacion == "Read")
+            else if (_operacion == "Read")
             {
+                txtNumeroDocumento.Text = compra.NumeroDocumento;
+                txtNombreApellidoProveedor.Text = compra.NombreProveedor;
+                txtRazonSocialProveedor.Text = compra.RazonSocialProveedor;
+                txtDniProveedor.Text = compra.Dni;
+                txtRucProveedor.Text = compra.Ruc;
+                Productos = compra.Productos;
+                var nfi = new NumberFormatInfo { NumberDecimalSeparator = ".", NumberGroupSeparator = "," };
+                txbSubTotal.Text = Productos.Sum(x => x.Total).ToString("#,##0.00", nfi);
+                txbTotal.Text = txbSubTotal.Text;
+
                 btnSave.IsEnabled = false;
-                btnSelectProduct.IsEnabled = false;
+                btnSelectProdcuto.IsEnabled = false;
                 btnSelectProveedor.IsEnabled = false;
-                txtNombreProducto.IsReadOnly = false;
-                txtDescripcionProducto.IsReadOnly = false;
-                txtMarcaProducto.IsReadOnly = false;
-                txtUnidadProducto.IsReadOnly = false;
-                txtNombreApellidoProveedor.IsReadOnly = false;
-                txtRazonSocialProveedor.IsReadOnly = false;
-                txtDniProveedor.IsReadOnly = false;
-                txtRucProveedor.IsReadOnly = false;
-                txtCantidad.IsReadOnly = false;
-                txtPrecioUnitario.IsReadOnly = false;
-                txtTotal.IsReadOnly = false;
+                btnDeleteProducto.IsEnabled = false;
+                txtNombreApellidoProveedor.IsReadOnly = true;
+                txtRazonSocialProveedor.IsReadOnly = true;
+                txtDniProveedor.IsReadOnly = true;
+                txtRucProveedor.IsReadOnly = true;
             }
+            else if (_operacion == "Add")
+            {
+                txtNumeroDocumento.Text = GenerarCodigo();
+            }
+            dtgProductos.ItemsSource = Productos;
         }
 
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -66,19 +77,64 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             Close();
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            btnSave.IsEnabled = false;
+            btnClose.IsEnabled = false;
+
+            if (Productos.Count < 1 || string.IsNullOrWhiteSpace(txtNombreApellidoProveedor.Text) && string.IsNullOrWhiteSpace(txtRazonSocialProveedor.Text))
+            {
+                DialogResult result = CustomMessageBox.Show("Todos los cambios son obligatorios", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                btnSave.IsEnabled = true;
+                btnClose.IsEnabled = true;
+                return;
+            }
+
+            switch (_operacion)
+            {
+                case "Add":
+                    _compraManager.Insertar(new Compra
+                    {
+                        IdProveedor = StaticParameters.ProveedorSelected.Id,
+                        TipoCliente = StaticParameters.ProveedorSelected.TipoCliente,
+                        NombreProveedor = txtNombreApellidoProveedor.Text,
+                        RazonSocialProveedor = txtRazonSocialProveedor.Text,
+                        Dni = txtDniProveedor.Text,
+                        Ruc = txtRucProveedor.Text,
+                        NumeroDocumento = txtNumeroDocumento.Text,
+                        Productos = Productos,
+                    });
+                    break;
+                case "Edit":
+                    StaticParameters.ProveedorSelected = _proveedorManager.SearchById(_compra.IdProveedor);
+                    DialogResult result = CustomMessageBox.Show("¿Está seguro que desea editar los datos de la compra?", CustomMessageBox.CMessageBoxTitle.Confirmación, CustomMessageBox.CMessageBoxButton.Si, CustomMessageBox.CMessageBoxButton.No);
+                    if (result == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        _compraManager.Actualizar(new Compra
+                        {
+                            Id = _compra.Id,
+                            FechaHoraCreacion = _compra.FechaHoraCreacion,
+                            IdProveedor = StaticParameters.ProveedorSelected.Id,
+                            TipoCliente = StaticParameters.ProveedorSelected.TipoCliente,
+                            NombreProveedor = txtNombreApellidoProveedor.Text,
+                            RazonSocialProveedor = txtRazonSocialProveedor.Text,
+                            Dni = txtDniProveedor.Text,
+                            Ruc = txtRucProveedor.Text,
+                            NumeroDocumento = txtNumeroDocumento.Text,
+                            Productos = Productos,
+                        });
+                    }
+
+                    break;
+            }
+
+            DialogResult = true;
             Close();
         }
 
-        private void btnSelectProduct_Click(object sender, RoutedEventArgs e)
+        private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            if (new SeleccionarProductoModal(_factoryManager).ShowDialog().Value)
-            {
-                txtNombreProducto.Text = StaticParameters.ProductoSelected.Nombre;
-                txtMarcaProducto.Text = StaticParameters.ProductoSelected.Marca;
-                txtUnidadProducto.Text = StaticParameters.ProductoSelected.Unidad.ToString();
-            }
+            Close();
         }
 
         private void btnSelectProveedor_Click(object sender, RoutedEventArgs e)
@@ -92,83 +148,49 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             }
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void btnSelectProduct_Click(object sender, RoutedEventArgs e)
         {
-            long.TryParse(txtDniProveedor.Text, out long resultDni);
-            long.TryParse(txtRucProveedor.Text, out long resultRuc);
-            decimal.TryParse(txtCantidad.Text, out decimal resultCantidad);
-            decimal.TryParse(txtPrecioUnitario.Text, out decimal resultPrecioUnitario);
-
-            if (string.IsNullOrWhiteSpace(txtNombreProducto.Text) || string.IsNullOrWhiteSpace(txtRucProveedor.Text) && string.IsNullOrWhiteSpace(txtDniProveedor.Text) || string.IsNullOrWhiteSpace(txtPrecioUnitario.Text) || string.IsNullOrWhiteSpace(txtCantidad.Text))
+            if (new SeleccionarProductoModal(_factoryManager).ShowDialog().Value)
             {
-                DialogResult result = CustomMessageBox.Show("Todos los campos son obligatorios", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
-                return;
+                Productos.Add(StaticParameters.ProductoSelected);
+                UpdateTotal();
             }
-
-            switch (_operacion)
-            {
-                case "Add":
-                    _compraManager.Insertar(new Compra
-                    {
-                        IdProducto = StaticParameters.ProductoSelected.Id,
-                        IdProveedor = StaticParameters.ProveedorSelected.Id,
-                        TipoCliente = StaticParameters.ProveedorSelected.TipoCliente,
-                        NombreProducto = txtNombreProducto.Text,
-                        DescripcionProducto = txtDescripcionProducto.Text,
-                        MarcaProducto = txtMarcaProducto.Text,
-                        UnidadProducto = txtUnidadProducto.Text,
-                        NombreProveedor = txtNombreApellidoProveedor.Text,
-                        RazonSocialProveedor = txtRazonSocialProveedor.Text,
-                        Dni = resultDni,
-                        Ruc = resultRuc,
-                        Cantidad = resultCantidad,
-                        PrecioCosto = resultPrecioUnitario,
-                        Total = resultCantidad * resultPrecioUnitario,
-                    });
-                    break;
-                case "Edit":
-                    StaticParameters.ProductoSelected = _productoManager.SearchById(_compra.IdProducto);
-                    StaticParameters.ProveedorSelected = _proveedorManager.SearchById(_compra.IdProveedor);
-                    DialogResult result = CustomMessageBox.Show("¿Está seguro que desea editar los datos de la compra?", CustomMessageBox.CMessageBoxTitle.Confirmación, CustomMessageBox.CMessageBoxButton.Si, CustomMessageBox.CMessageBoxButton.No);
-                    if (result == System.Windows.Forms.DialogResult.Yes)
-                    {
-                        _compraManager.Actualizar(new Compra
-                        {
-                            Id = _compra.Id,
-                            FechaHoraCreacion = _compra.FechaHoraCreacion,
-                            IdProducto = StaticParameters.ProductoSelected.Id,
-                            IdProveedor = StaticParameters.ProveedorSelected.Id,
-                            TipoCliente = StaticParameters.ProveedorSelected.TipoCliente,
-                            NombreProducto = txtNombreProducto.Text,
-                            DescripcionProducto = txtDescripcionProducto.Text,
-                            MarcaProducto = txtMarcaProducto.Text,
-                            UnidadProducto = txtUnidadProducto.Text,
-                            NombreProveedor = txtNombreApellidoProveedor.Text,
-                            RazonSocialProveedor = txtRazonSocialProveedor.Text,
-                            Dni = resultDni,
-                            Ruc = resultRuc,
-                            Cantidad = resultCantidad,
-                            PrecioCosto = resultPrecioUnitario,
-                            Total = resultCantidad * resultPrecioUnitario,
-                        });
-                    }
-
-                    break;
-            }
-
-            DialogResult = true;
-            Close();
         }
 
-        private void txtCantidad_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void UpdateTotal()
         {
-            if (decimal.TryParse(txtCantidad.Text, out decimal cantidad) && decimal.TryParse(txtPrecioUnitario.Text, out decimal precioUnitario))
+            var nfi = new NumberFormatInfo { NumberDecimalSeparator = ".", NumberGroupSeparator = "," };
+            txbSubTotal.Text = Productos.Sum(x => x.Total).ToString("#,##0.00", nfi);
+            txbTotal.Text = txbSubTotal.Text;
+        }
+
+        private void btnDeleteProducto_Click(object sender, RoutedEventArgs e)
+        {
+            Producto productoSelected = (Producto)dtgProductos.SelectedItem;
+            if (productoSelected != null)
             {
-                txtTotal.Text = (cantidad * precioUnitario).ToString("n");
+                Productos.Remove(productoSelected);
+                UpdateTotal();
             }
             else
             {
-                txtTotal.Text = "";
+
+            }
+        }
+        private string GenerarCodigo()
+        {
+            var cantidadProductos = _compraManager.ObtenerTodo;
+
+            if (cantidadProductos.Count() <= 0)
+            {
+                int codigo = 1;
+                return codigo.ToString();
+            }
+            else
+            {
+                List<int> listInt = cantidadProductos.Select(x => x.NumeroDocumento).ToList().ConvertAll(int.Parse);
+                int numero = listInt.Max() + 1;
+                return numero.ToString();
             }
         }
     }

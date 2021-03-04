@@ -122,7 +122,6 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Image Source="/Images/buy.png" Grid.Row="0" Grid.RowSpan="2" Height="35" Width="35">
                 <Image.InputBindings>
@@ -134,29 +133,18 @@
                 </Image.ToolTip>
             </Image>
             <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
-                <Run Text="Producto:" FontWeight="Bold"/>
-                <Run Text="{Binding NombreProducto}"/>
-                <Run Text="/"/>
-                <Run Text="Proveedor:" FontWeight="Bold"/>
+                <Run Text="Cliente:" FontWeight="Bold"/>
                 <Run Text="{Binding NombreProveedor}"/>
-                <LineBreak />
-                <Run Text="Precio Unitario:" FontWeight="Bold"/>
-                <Run Text="S/."/>
-                <Run Text="{Binding PrecioCosto,StringFormat='n'}" />
+                <LineBreak/>
+                <Run Text="DNI:" FontWeight="Bold"/>
+                <Run Text="{Binding Dni}"/>
+                <LineBreak/>
+                <Run Text="Número de documento:" FontWeight="Bold"/>
+                <Run Text="{Binding NumeroDocumento}"/>
                 <LineBreak/>
                 <Run Text="Total: S/." FontWeight="Bold"/>
-                <Run Text="{Binding Total, StringFormat='n'}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
+                <Run Text="{Binding ., StringFormat='n'}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
             </TextBlock>
-            <Grid Grid.RowSpan="2" Grid.ColumnSpan="2" VerticalAlignment="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontWeight="Bold" Text="Cantidad:" HorizontalAlignment="Right"/>
-                <Border Height="25" Width="100" Grid.Row="1" Background="{StaticResource PrimaryBrush}" HorizontalAlignment="Right">
-                    <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontSize="12" Text="{Binding Cantidad, StringFormat='n'}" Foreground="White" HorizontalAlignment="Right"/>
-                </Border>
-            </Grid>
         </Grid>
     </DataTemplate>
     <DataTemplate x:Key="ComprasProveedorEmpresa">
@@ -169,7 +157,6 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Image Source="/Images/buy.png" Grid.Row="0" Grid.RowSpan="2" Height="35" Width="35">
                 <Image.InputBindings>
@@ -181,29 +168,18 @@
                 </Image.ToolTip>
             </Image>
             <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
-                <Run Text="Producto:" FontWeight="Bold"/>
-                <Run Text="{Binding NombreProducto}"/>
-                <Run Text="/"/>
-                <Run Text="Proveedor:" FontWeight="Bold"/>
+                <Run Text="Cliente:" FontWeight="Bold"/>
                 <Run Text="{Binding RazonSocialProveedor}"/>
-                <LineBreak />
-                <Run Text="Precio Unitario:" FontWeight="Bold"/>
-                <Run Text="S/."/>
-                <Run Text="{Binding PrecioCosto,StringFormat='n'}" />
+                <LineBreak/>
+                <Run Text="RUC:" FontWeight="Bold"/>
+                <Run Text="{Binding Ruc}"/>
+                <LineBreak/>
+                <Run Text="Número de documento:" FontWeight="Bold"/>
+                <Run Text="{Binding NumeroDocumento}"/>
                 <LineBreak/>
                 <Run Text="Total: S/." FontWeight="Bold"/>
-                <Run Text="{Binding Total, StringFormat='n'}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
+                <Run Text="{Binding ., StringFormat='n'}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
             </TextBlock>
-            <Grid Grid.RowSpan="2" Grid.ColumnSpan="2" VerticalAlignment="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontWeight="Bold" Text="Cantidad:" HorizontalAlignment="Right"/>
-                <Border Height="25" Width="100" Grid.Row="1" Background="{StaticResource PrimaryBrush}" HorizontalAlignment="Right">
-                    <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" FontSize="12" Text="{Binding Cantidad, StringFormat='n'}" Foreground="White" HorizontalAlignment="Right"/>
-                </Border>
-            </Grid>
         </Grid>
     </DataTemplate>
     <DataTemplate x:Key="AlmacenDataTemplate">
@@ -405,6 +381,28 @@
         </Grid>
     </DataTemplate>
     <DataTemplate x:Key="ResumenVentaDataTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Background="{Binding Color}">
+                <TextBlock Text="{Binding Mes}" Style="{StaticResource WhiteTextTextBlockStyle}" HorizontalAlignment="Center" FontSize="16"/>
+            </Grid>
+            <TextBlock Grid.Column="1" Style="{StaticResource BlueTextTextBlockStyle}" FontSize="16">
+                <Run Text="Total: S/." FontWeight="Bold"/>
+                <Run Text="{Binding Monto, StringFormat='#,##0.00'}"/>
+                <Run Text="Crecimmiento: S/." FontWeight="Bold"/>
+                <Run Text="{Binding Crecimiento, StringFormat='#,##0.00'}"/>
+                <Run Text="Porcentaje:" FontWeight="Bold"/>
+                <Run Text="{Binding Porcentaje, StringFormat='P2'}"/>
+            </TextBlock>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="ResumenCompraDataTemplate">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

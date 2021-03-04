@@ -44,6 +44,19 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             set => SetProperty(ref _totalCompras, value);
         }
 
+        private decimal _totalComprasMensual;
+        public decimal TotalComprasMensual
+        {
+            get => _totalComprasMensual;
+            set => SetProperty(ref _totalComprasMensual, value);
+        }
+
+        private decimal _totalComprasDiario;
+        public decimal TotalComprasDiario
+        {
+            get => _totalComprasDiario;
+            set => SetProperty(ref _totalComprasDiario, value);
+        }
 
         private string _searchText;
         public string SearchText
@@ -73,6 +86,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         public RelayCommand EditCommnad { get; private set; }
         public RelayCommand DeleteCommnad { get; set; }
         public RelayCommand SearchCommand { get; set; }
+        public RelayCommand ResumenCommand { get; set; }
 
         public ComprasViewModel(FactoryManager factoryManager)
         {
@@ -83,7 +97,13 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             EditCommnad = new RelayCommand(OnEdit, CanReadEditDelete);
             DeleteCommnad = new RelayCommand(OnDelete, CanReadEditDelete);
             SearchCommand = new RelayCommand(OnSearch);
+            ResumenCommand = new RelayCommand(OnResumen);
             UpdateData();
+        }
+
+        private void OnResumen()
+        {
+            new ResumenCompras(_factoryManager).ShowDialog();
         }
 
         private void OnSearch()
@@ -91,12 +111,10 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             if (!string.IsNullOrWhiteSpace(SearchText))
             {
                 Compras = _compraManager.SearchCompra(SearchText).OrderByDescending(x => x.FechaHoraCreacion).ToObservableCollection();
-                TotalCompras = Compras.Sum(x => x.Total);
             }
             else
             {
                 Compras = _compraManager.ObtenerTodo.OrderByDescending(x=> x.FechaHoraCreacion).ToObservableCollection();
-                TotalCompras = Compras.Sum(x => x.Total);
             }
         }
 
@@ -160,7 +178,13 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 VisibilityBorder = true;
                 VisibilityListBox = false;
             }
-            TotalCompras = Compras.Sum(x => x.Total);
+
+            TotalCompras = Compras.Sum(x => x.Productos.Sum(y => y.Total));
+
+            TotalComprasMensual = Compras.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month).Sum(x => x.Productos.Sum(z => z.Total));
+
+            TotalComprasDiario = Compras.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month && x.FechaHoraCreacion.Day == DateTime.Now.Day).Sum(x => x.Productos.Sum(z => z.Total));
+
 
             AlmacenUpdate();
         }

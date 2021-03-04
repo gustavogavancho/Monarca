@@ -7,8 +7,8 @@
         xmlns:attached="clr-namespace:Monarca.UI.WPF.Usuario.Attached"
         mc:Ignorable="d"
         BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="2"
-        Title="ClientesModal" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
-        FocusManager.FocusedElement="{Binding ElementName=txtCantidad}">
+        Title="ClientesModal" Height="570" Width="1250" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
+        FocusManager.FocusedElement="{Binding ElementName=btnSelectProveedor}">
 
     <Window.InputBindings>
         <KeyBinding Command="ApplicationCommands.Close" Key="Esc" />
@@ -27,45 +27,29 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.34*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="Compra"/>
         <Border Grid.Row="1" Background="{StaticResource PrimaryBrush}"  Height="2" Margin="10,0" Grid.ColumnSpan="2"/>
-        <TextBlock Text="Producto:" Grid.Row="2" Style="{StaticResource BlueTextTextBlockStyle}"/>
-        <Border Grid.Row="3" BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="2" Margin="5">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Button x:Name="btnSelectProduct" Content="Seleccionar Producto" Background="{StaticResource PrimaryBrush}" Foreground="White" HorizontalAlignment="Left" Margin="5" Click="btnSelectProduct_Click">
-                    <Button.ToolTip>
-                        <ToolTip Style="{StaticResource ToolTipStyle}" Content="Seleccionar Producto"/>
-                    </Button.ToolTip>
-                </Button>
-                <TextBlock Text="Nombre:" Grid.Row="1" Style="{StaticResource BlueTextTextBlockStyle}"/>
-                <TextBox x:Name="txtNombreProducto" Grid.Row="2" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" IsEnabled="False"/>
-                <TextBlock Text="Descripción:" Grid.Row="3" Style="{StaticResource BlueTextTextBlockStyle}"/>
-                <TextBox x:Name="txtDescripcionProducto" Grid.Row="4" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" IsEnabled="False"/>
-                <TextBlock Text="Marca:" Grid.Row="5" Style="{StaticResource BlueTextTextBlockStyle}"/>
-                <TextBox x:Name="txtMarcaProducto" Grid.Row="6" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" IsEnabled="False"/>
-                <TextBlock Text="Unidad:" Grid.Row="7" Style="{StaticResource BlueTextTextBlockStyle}"/>
-                <TextBox x:Name="txtUnidadProducto" Grid.Row="8" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 5" IsEnabled="False"/>
-            </Grid>
-        </Border>
-        <TextBlock Text="Proveedor:" Grid.Row="2" Style="{StaticResource BlueTextTextBlockStyle}" Grid.Column="1"/>
-        <Border Grid.Row="3" Grid.Column="1" BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="2" Margin="5">
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Número de documento:" Grid.Row="0" Grid.Column="0" Style="{StaticResource BlueTextTextBlockStyle}"/>
+            <TextBox attached:TextBoxHelper.OnlyNumeric="Natural" x:Name="txtNumeroDocumento" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" Width="190" IsReadOnly="True"/>
+        </Grid>
+        <TextBlock Text="Proveedor:" Grid.Row="3" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <Border Grid.Row="4" Grid.Column="0" BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="2" Margin="5">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -93,28 +77,98 @@
                 <TextBox x:Name="txtRucProveedor" Grid.Row="8" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 5" IsEnabled="False"/>
             </Grid>
         </Border>
-        
-        <Grid Grid.Row="4" Grid.ColumnSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="Cantidad:" Grid.Row="0" Style="{StaticResource BlueTextTextBlockStyle}"/>
-            <TextBlock Text="Precio Unitario:" Grid.Row="0" Grid.Column="1" Style="{StaticResource BlueTextTextBlockStyle}"/>
-            <TextBlock Text="Total:" Grid.Row="0" Grid.Column="2" Style="{StaticResource BlueTextTextBlockStyle}"/>
-            <TextBox attached:TextBoxHelper.OnlyNumeric="Double" x:Name="txtCantidad" Grid.Row="1" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 5" TextChanged="txtCantidad_TextChanged"/>
-            <TextBox attached:TextBoxHelper.OnlyNumeric="Double" x:Name="txtPrecioUnitario" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 5" TextChanged="txtCantidad_TextChanged"/>
-            <TextBox x:Name="txtTotal" Background="{StaticResource PrimaryBrush}" Foreground="White" IsEnabled="False" Grid.Row="1" Grid.Column="2" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 5"/>
-        </Grid>
-        <StackPanel Orientation="Horizontal" Margin="5 5 0 0" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+        <TextBlock Text="Productos:" Grid.Row="3" Grid.Column="1" Style="{StaticResource BlueTextTextBlockStyle}"/>
+        <Border Grid.Row="4" Grid.Column="1" BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="2" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="btnSelectProdcuto" Content="Seleccionar Producto" Background="{StaticResource PrimaryBrush}" Foreground="White" HorizontalAlignment="Left" Margin="5" Click="btnSelectProduct_Click">
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource ToolTipStyle}" Content="Seleccionar Proveedor"/>
+                    </Button.ToolTip>
+                </Button>
+                <DataGrid Grid.Row="1" Margin="5" IsReadOnly="True" x:Name="dtgProductos" AutoGenerateColumns="False" SelectionMode="Single" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+                    <DataGrid.Resources>
+                        <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter Property="Foreground" Value="{StaticResource SecondaryBrush}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="Padding" Value="3"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </Style>
+                        <Style TargetType="{x:Type DataGridRow}">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="False">
+                                    <Setter Property="Background" Value="{StaticResource SecondaryBrush}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource SecondaryBrush}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn MinWidth="80" Header="Cantidad" Binding="{Binding Cantidad, StringFormat='n'}" FontFamily="Arial" FontSize="14"/>
+                        <DataGridTextColumn MinWidth="100" Header="Unidad Medida" Binding="{Binding Unidad}" FontFamily="Arial" FontSize="14"/>
+                        <DataGridTextColumn MinWidth="60" Header="Codigo" Binding="{Binding Id}" FontFamily="Arial" FontSize="14"/>
+                        <DataGridTextColumn MinWidth="280" Header="Descripcion" Binding="{Binding .}" FontFamily="Arial" FontSize="14"/>
+                        <DataGridTextColumn MinWidth="120" Header="Valor Unitario" Binding="{Binding PrecioUnitario, StringFormat='n'}" FontFamily="Arial" FontSize="14"/>
+                        <DataGridTextColumn MinWidth="120" Header="Total" Binding="{Binding Total, StringFormat='n'}" FontFamily="Arial" FontSize="14"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button x:Name="btnDeleteProducto" Grid.Row="2" Background="{StaticResource PrimaryBrush}" Foreground="White" FontFamily="Segoe MDL2 Assets" Content="&#xE74D;" Width="30" Height="30" HorizontalAlignment="Right" Margin="0 0 5 5" Click="btnDeleteProducto_Click"/>
+            </Grid>
+        </Border>
+        <Border BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="2" Grid.Row="5" Grid.ColumnSpan="2" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Background="{StaticResource PrimaryBrush}">
+                    <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Foreground="White" Text="Importes" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center"/>
+                </Grid>
+                <Border Grid.Row="1" Background="{StaticResource PrimaryBrush}"  Height="2" Margin="0"/>
+                <Grid Grid.Row="2" HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Sub Total S/." FontWeight="Bold" Grid.Row="0" Style="{StaticResource SubTitleTextBlockStyle}" FontSize="24" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="txbSubTotal" Text="0.00" Grid.Row="0" Grid.Column="1" Style="{StaticResource SubTitleTextBlockStyle}" FontSize="24" HorizontalAlignment="Center"/>
+                    <TextBlock Text="IGV/." FontWeight="Bold" Grid.Row="1" Style="{StaticResource SubTitleTextBlockStyle}" FontSize="24" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="txbIgv" Text="0.00" Grid.Row="1" Grid.Column="1" Style="{StaticResource SubTitleTextBlockStyle}" FontSize="24" HorizontalAlignment="Center"/>
+                </Grid>
+                <Grid Width="2" Grid.Column="1" Grid.RowSpan="3" Background="{StaticResource PrimaryBrush}"/>
+                <Grid Grid.Column="2" Background="{StaticResource PrimaryBrush}">
+                    <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Foreground="White" Grid.Column="1" Text="Total S/." FontWeight="Bold" FontSize="18" HorizontalAlignment="Center"/>
+                </Grid>
+                <Border Grid.Row="1" Grid.Column="2" Background="{StaticResource PrimaryBrush}"  Height="2" Margin="0"/>
+                <TextBlock x:Name="txbTotal" Style="{StaticResource SubTitleTextBlockStyle}" Grid.Row="2" Grid.Column="2" Text="0.00" FontSize="24" HorizontalAlignment="Center"/>
+            </Grid>
+        </Border>
+        <StackPanel Orientation="Horizontal" Margin="0 5 0 0" Grid.Row="6" HorizontalAlignment="Right" Grid.ColumnSpan="2">
             <Button x:Name="btnSave" Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE74E;" FontSize="16" Click="btnSave_Click">
                 <Button.ToolTip>
-                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Guardar Compra"/>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Guardar Cliente"/>
                 </Button.ToolTip>
             </Button>
             <Button x:Name="btnClose" Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE8BB;" FontSize="16" Click="btnClose_Click">
@@ -123,6 +177,5 @@
                 </Button.ToolTip>
             </Button>
         </StackPanel>
-
     </Grid>
 </Window>

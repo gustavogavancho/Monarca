@@ -28,6 +28,7 @@
             <Grid.ColumnDefinitions >
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="txtSearch" Style="{StaticResource TextBoxStyle}" Width="260" Margin="10 5 0 0" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.InputBindings>
@@ -40,6 +41,13 @@
                     <ToolTip Style="{StaticResource ToolTipStyle}" Content="Buscar Cliente"/>
                 </Button.ToolTip>
             </Button>
+            <StackPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button FontFamily="Segoe MDL2 Assets" Content="&#xE71D;" Width="27" Background="{StaticResource PrimaryBrush}" Foreground="White" Margin="5 5 5 0" HorizontalAlignment="Right" Command="{Binding ResumenCommand}" Height="21">
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource ToolTipStyle}" Content="Resumen de ventas"/>
+                    </Button.ToolTip>
+                </Button>
+            </StackPanel>
         </Grid>
         <ListView Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding Source={StaticResource GroupedItems}}" SelectedItem="{Binding Compra}" HorizontalContentAlignment="Stretch" Visibility="{Binding VisibilityListBox, Converter={StaticResource BoolToVisibilityConverter}}">
             <ListView.ItemTemplate>
@@ -95,9 +103,19 @@
         <Border Margin="10 10 10 0" Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Visibility="{Binding VisibilityBorder, Converter={StaticResource BoolToVisibilityConverter}}">
             <TextBlock Text="Click en el buton + para agregar un nuevo item" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray"/>
         </Border>
-        <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" Margin="0 5 10 0">
-            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Compras: S/."/>
-            <TextBox Text="{Binding TotalCompras,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="170" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" Margin="0 5 10 0">
+            <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" Margin="0 0 5 0">
+                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Compras Diarias: S/."/>
+                <TextBox Text="{Binding TotalComprasDiario,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="130" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right" IsReadOnly="True"/>
+            </StackPanel>
+            <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" Margin="0 0 5 0">
+                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Compras Mensual: S/."/>
+                <TextBox Text="{Binding TotalComprasMensual,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="130" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right" IsReadOnly="True"/>
+            </StackPanel>
+            <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal">
+                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Compras: S/."/>
+                <TextBox Text="{Binding TotalCompras,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="130" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right" IsReadOnly="True"/>
+            </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="5 0 10 0" Grid.Row="4" HorizontalAlignment="Right">
             <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE710;" FontSize="16" Command="{Binding AddCommand}">

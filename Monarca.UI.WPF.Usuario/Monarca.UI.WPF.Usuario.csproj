@@ -99,6 +99,7 @@
     <Compile Include="Helpers\CheckOneTimeInternetConnection.cs" />
     <Compile Include="Helpers\StaticParameters.cs" />
     <Compile Include="Models\AlmacenModel.cs" />
+    <Compile Include="Models\CompraResumenModel.cs" />
     <Compile Include="Models\VentaResumenModel.cs" />
     <Compile Include="ViewModels\AlmacenViewModel.cs" />
     <Compile Include="ViewModels\ClientesViewModel.cs" />
@@ -145,6 +146,9 @@
     </Compile>
     <Compile Include="Views\Modals\ProveedoresModal.xaml.cs">
       <DependentUpon>ProveedoresModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Modals\ResumenCompras.xaml.cs">
+      <DependentUpon>ResumenCompras.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Modals\ResumenVentas.xaml.cs">
       <DependentUpon>ResumenVentas.xaml</DependentUpon>
@@ -257,6 +261,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Modals\ProveedoresModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Modals\ResumenCompras.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

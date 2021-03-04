@@ -15,8 +15,10 @@ namespace Monarca.BIZ
                           x.NombreProveedor.ToLowerInvariant().Contains(text.ToLowerInvariant()) ||
                           x.RazonSocialProveedor != null &&
                           x.RazonSocialProveedor.ToLowerInvariant().Contains(text.ToLowerInvariant()) ||
-                          x.NombreProducto != null &&
-                          x.NombreProducto.ToLowerInvariant().Contains(text.ToLowerInvariant()) ||
+                          x.Dni != null &&
+                          x.Dni.Contains(text) ||
+                          x.Ruc != null &&
+                          x.Ruc.Contains(text) ||
                           x.FechaHoraCreacion != null &&
                           x.FechaHoraCreacion.ToString().Contains(text));
         }
