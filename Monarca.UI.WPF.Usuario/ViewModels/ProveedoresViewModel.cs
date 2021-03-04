@@ -6,6 +6,7 @@ using Monarca.UI.WPF.Usuario.Extensions;
 using Monarca.UI.WPF.Usuario.Helpers;
 using Monarca.UI.WPF.Usuario.Views.Modals;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Monarca.UI.WPF.Usuario.ViewModels
@@ -78,11 +79,11 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         {
             if (!string.IsNullOrWhiteSpace(SearchText))
             {
-                Proveedores = _proveedorManager.SearchProveedor(SearchText).ToObservableCollection();
+                Proveedores = _proveedorManager.SearchProveedor(SearchText).OrderBy(x => x.Nombres).ThenBy(x => x.Apellidos).ThenBy(x => x.RazonSocial).ToObservableCollection();
             }
             else
             {
-                Proveedores = _proveedorManager.ObtenerTodo.ToObservableCollection();
+                Proveedores = _proveedorManager.ObtenerTodo.OrderBy(x => x.Nombres).ThenBy(x => x.Apellidos).ThenBy(x => x.RazonSocial).ToObservableCollection();
             }
         }
 
@@ -134,7 +135,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
 
         private void UpdateData()
         {
-            Proveedores = _proveedorManager.ObtenerTodo.ToObservableCollection();
+            Proveedores = _proveedorManager.ObtenerTodo.OrderBy(x => x.Nombres).ThenBy(x => x.Apellidos).ThenBy(x => x.RazonSocial).ToObservableCollection();
             SearchText = "";
             if (Proveedores.Count >= 1)
             {
