@@ -45,6 +45,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         }
 
         public RelayCommand CloseCommand { get; set; }
+        public RelayCommand MinimizeCommand { get; set; }
         public RelayCommand NavCommand { get; set; }
 
         public MainViewModel()
@@ -103,6 +104,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 },
             };
             CloseCommand = new RelayCommand(OnClose);
+            MinimizeCommand = new RelayCommand(OnMinimize);
             NavCommand = new RelayCommand(OnNav);
             _comprasViewModel.AlmacenUpdate += _comprasViewModel_AlmacenUpdate;
         }
@@ -158,6 +160,12 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         private void OnClose()
         {
             Application.Current.Windows.OfType<MainWindow>().FirstOrDefault().Close();
+        }
+
+        private void OnMinimize()
+        {
+            var window = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+            window.WindowState = WindowState.Minimized;
         }
     }
 }

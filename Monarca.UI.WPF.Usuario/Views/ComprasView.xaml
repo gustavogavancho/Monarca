@@ -49,7 +49,7 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <ListView Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding Source={StaticResource GroupedItems}}" SelectedItem="{Binding Compra}" HorizontalContentAlignment="Stretch" Visibility="{Binding VisibilityListBox, Converter={StaticResource BoolToVisibilityConverter}}">
+        <ListView Margin="10 10 10 0" VirtualizingStackPanel.IsVirtualizing="false" Grid.Row="2" ItemsSource="{Binding Source={StaticResource GroupedItems}}" SelectedItem="{Binding Compra}" HorizontalContentAlignment="Stretch" Visibility="{Binding VisibilityListBox, Converter={StaticResource BoolToVisibilityConverter}}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ContentControl Content="{Binding}">

@@ -72,6 +72,7 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Image Source="/Images/logomonarca.png" Margin="10"/>
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Distrubuidora Monarca" Grid.Column="1"/>
@@ -84,6 +85,11 @@
                 <TextBlock x:Name="txtInternet" Text="No Especificado / Consulte a su proveedor" Foreground="White" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 15 0"/>
             </StackPanel>
             <Button Style="{StaticResource ButtonPrimaryStyle}" Content="&#xE8BB;" Grid.Column="3" HorizontalAlignment="Right" Command="{Binding CloseCommand}">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Cerrar Aplicación"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Style="{StaticResource ButtonPrimaryStyle}" Content="&#xE738;" Grid.Column="4" HorizontalAlignment="Right" Command="{Binding MinimizeCommand}">
                 <Button.ToolTip>
                     <ToolTip Style="{StaticResource ToolTipStyle}" Content="Cerrar Aplicación"/>
                 </Button.ToolTip>

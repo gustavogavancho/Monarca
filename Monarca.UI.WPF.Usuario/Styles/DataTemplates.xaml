@@ -424,5 +424,23 @@
             </TextBlock>
         </Grid>
     </DataTemplate>
+    <DataTemplate x:Key="ResumenGastoOperativoDataTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Background="{Binding Color}">
+                <TextBlock Text="{Binding Mes}" Style="{StaticResource WhiteTextTextBlockStyle}" HorizontalAlignment="Center" FontSize="16"/>
+            </Grid>
+            <TextBlock Grid.Column="1" Style="{StaticResource BlueTextTextBlockStyle}" FontSize="16">
+                <Run Text="Total: S/." FontWeight="Bold"/>
+                <Run Text="{Binding Monto, StringFormat='#,##0.00'}"/>
+            </TextBlock>
+        </Grid>
+    </DataTemplate>
 
 </ResourceDictionary>

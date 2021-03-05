@@ -100,6 +100,7 @@
     <Compile Include="Helpers\StaticParameters.cs" />
     <Compile Include="Models\AlmacenModel.cs" />
     <Compile Include="Models\CompraResumenModel.cs" />
+    <Compile Include="Models\GastoOperativoResumenModel.cs" />
     <Compile Include="Models\VentaResumenModel.cs" />
     <Compile Include="ViewModels\AlmacenViewModel.cs" />
     <Compile Include="ViewModels\ClientesViewModel.cs" />
@@ -149,6 +150,9 @@
     </Compile>
     <Compile Include="Views\Modals\ResumenCompras.xaml.cs">
       <DependentUpon>ResumenCompras.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Modals\ResumenGastosOperativos.xaml.cs">
+      <DependentUpon>ResumenGastosOperativos.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Modals\ResumenVentas.xaml.cs">
       <DependentUpon>ResumenVentas.xaml</DependentUpon>
@@ -265,6 +269,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Modals\ResumenCompras.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Modals\ResumenGastosOperativos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

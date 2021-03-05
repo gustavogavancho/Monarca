@@ -54,7 +54,7 @@
             <customControls:ItemTabCustom TextTab="Vigentes" BorderBrush="{StaticResource PrimaryBrush}" IndexItem="0" BorderThickness="3 3 0 3" ClickItem="ItemTabCustom_ClickItem"/>
             <customControls:ItemTabCustom TextTab="Eliminadas" BorderBrush="{StaticResource PrimaryBrush}"  IndexItem="1" BorderThickness="3 3 3 3" ClickItem="ItemTabCustom_ClickItem"/>
         </StackPanel>
-        <ListView Margin="10 0 10 0" Grid.Row="3" ItemsSource="{Binding Source={StaticResource GroupedItems}}" SelectedItem="{Binding Venta}" HorizontalContentAlignment="Stretch" Visibility="{Binding VisibilityListBox, Converter={StaticResource BoolToVisibilityConverter}}">
+        <ListView Margin="10 0 10 0" Grid.Row="3" VirtualizingStackPanel.IsVirtualizing="false" VirtualizingPanel.IsVirtualizingWhenGrouping="False" ItemsSource="{Binding Source={StaticResource GroupedItems}}" SelectedItem="{Binding Venta}" HorizontalContentAlignment="Stretch" Visibility="{Binding VisibilityListBox, Converter={StaticResource BoolToVisibilityConverter}}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ContentControl Content="{Binding}">

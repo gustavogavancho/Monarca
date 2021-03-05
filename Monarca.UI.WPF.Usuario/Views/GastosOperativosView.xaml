@@ -29,6 +29,7 @@
             <Grid.ColumnDefinitions >
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="txtSearch" Style="{StaticResource TextBoxStyle}" Width="260" Margin="10 5 0 0" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.InputBindings>
@@ -41,6 +42,13 @@
                     <ToolTip Style="{StaticResource ToolTipStyle}" Content="Buscar Gasto Operativo"/>
                 </Button.ToolTip>
             </Button>
+            <StackPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button FontFamily="Segoe MDL2 Assets" Content="&#xE71D;" Width="27" Background="{StaticResource PrimaryBrush}" Foreground="White" Margin="5 5 5 0" HorizontalAlignment="Right" Command="{Binding ResumenCommand}" Height="21">
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource ToolTipStyle}" Content="Resumen de ventas"/>
+                    </Button.ToolTip>
+                </Button>
+            </StackPanel>
         </Grid>
         <ListView Margin="10 10 10 0" Grid.Row="2" ItemsSource="{Binding Source={StaticResource GroupedItems}}" SelectedItem="{Binding GastoOperativo}" Visibility="{Binding VisibilityListBox, Converter={StaticResource BoolToVisibilityConverter}}" ItemTemplate="{StaticResource GastosOperativosDataTemplate}">
             <ListView.GroupStyle>
@@ -80,9 +88,19 @@
             <TextBlock Text="Click en el buton + para agregar un nuevo item" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray"/>
         </Border>
         
-        <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" Margin="0 5 10 0">
-            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Gastos Operativos: S/."/>
-            <TextBox Text="{Binding TotalGastosOperativos,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="170" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right"/>
+        <StackPanel  Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" Margin="0 5 5 0">
+            <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" Margin="0 0 5 0">
+                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Gastos Operativos Diarios: S/."/>
+                <TextBox Text="{Binding TotalGastosOperativosDiario,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="100" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right" IsReadOnly="True"/>
+            </StackPanel>
+            <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" Margin="0 0 5 0">
+                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Gastos Operativos: S/."/>
+                <TextBox Text="{Binding TotalGastosOperativosMensual,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="100" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right" IsReadOnly="True"/>
+            </StackPanel>
+            <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" Margin="0 0 5 0">
+                <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Gastos Operativos: S/."/>
+                <TextBox Text="{Binding TotalGastosOperativos,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="100" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right"/>
+            </StackPanel>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="5 0 10 0" Grid.Row="4" HorizontalAlignment="Right">

@@ -138,11 +138,15 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             {
                 Ventas = _ventaManager.SearchVenta(SearchText).OrderByDescending(x => x.FechaHoraCreacion).Where(x => x.Baja == State).ToObservableCollection();
                 TotalVentas = Ventas.Sum(x => x.Productos.Sum(y => y.Total));
+                TotalVentasMensual = Ventas.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month).Sum(x => x.Productos.Sum(z => z.Total));
+                TotalVentasDiario = Ventas.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month && x.FechaHoraCreacion.Day == DateTime.Now.Day).Sum(x => x.Productos.Sum(z => z.Total));
             }
             else
             {
                 Ventas = _ventaManager.ObtenerTodo.OrderByDescending(x => x.FechaHoraCreacion).Where(x => x.Baja == State).ToObservableCollection();
                 TotalVentas = Ventas.Sum(x => x.Productos.Sum(y => y.Total));
+                TotalVentasMensual = Ventas.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month).Sum(x => x.Productos.Sum(z => z.Total));
+                TotalVentasDiario = Ventas.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month && x.FechaHoraCreacion.Day == DateTime.Now.Day).Sum(x => x.Productos.Sum(z => z.Total));
             }
         }
 

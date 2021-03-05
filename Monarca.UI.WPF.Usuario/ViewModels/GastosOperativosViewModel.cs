@@ -5,6 +5,7 @@ using Monarca.UI.WPF.Usuario.CustomControls;
 using Monarca.UI.WPF.Usuario.Extensions;
 using Monarca.UI.WPF.Usuario.Helpers;
 using Monarca.UI.WPF.Usuario.Views.Modals;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -43,6 +44,21 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             set => SetProperty(ref _totalGastosOperativos, value);
         }
 
+        private decimal _totalGastosOperativosMensual;
+        public decimal TotalGastosOperativosMensual
+        {
+            get => _totalGastosOperativosMensual;
+            set => SetProperty(ref _totalGastosOperativosMensual, value);
+        }
+
+        private decimal _totalGastosOperativosDiario;
+        public decimal TotalGastosOperativosDiario
+        {
+            get => _totalGastosOperativosDiario;
+            set => SetProperty(ref _totalGastosOperativosDiario, value);
+        }
+
+
         private string _searchText;
         public string SearchText
         {
@@ -69,6 +85,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         public RelayCommand EditCommnad { get; private set; }
         public RelayCommand DeleteCommnad { get; private set; }
         public RelayCommand SearchCommand { get; private set; }
+        public RelayCommand ResumenCommand { get; set; }
 
         public GastosOperativosViewModel(FactoryManager factoryManager)
         {
@@ -79,7 +96,13 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             EditCommnad = new RelayCommand(OnEdit, CanReadEditDelete);
             DeleteCommnad = new RelayCommand(OnDelete, CanReadEditDelete);
             SearchCommand = new RelayCommand(OnSearch);
+            ResumenCommand = new RelayCommand(OnResumen);
             UpdateData();
+        }
+
+        private void OnResumen()
+        {
+            new ResumenGastosOperativos(_factoryManager).ShowDialog();
         }
 
         private void OnSearch()
@@ -88,11 +111,16 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             {
                 GastosOperativos = _gastoOperativoManager.SearchGastoOperativo(SearchText).OrderByDescending(x=> x.FechaHoraCreacion).ToObservableCollection();
                 TotalGastosOperativos = GastosOperativos.Sum(x => x.Costo);
+                TotalGastosOperativosMensual = GastosOperativos.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month).Sum(x => x.Costo);
+                TotalGastosOperativosDiario = GastosOperativos.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month && x.FechaHoraCreacion.Day == DateTime.Now.Day).Sum(x => x.Costo);
+
             }
             else
             {
                 GastosOperativos = _gastoOperativoManager.ObtenerTodo.OrderByDescending(x => x.FechaHoraCreacion).ToObservableCollection();
                 TotalGastosOperativos = GastosOperativos.Sum(x => x.Costo);
+                TotalGastosOperativosMensual = GastosOperativos.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month).Sum(x => x.Costo);
+                TotalGastosOperativosDiario = GastosOperativos.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month && x.FechaHoraCreacion.Day == DateTime.Now.Day).Sum(x => x.Costo);
             }
         }
 
@@ -157,6 +185,8 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 VisibilityListBox = false;
             }
             TotalGastosOperativos = GastosOperativos.Sum(x => x.Costo);
+            TotalGastosOperativosMensual = GastosOperativos.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month).Sum(x => x.Costo);
+            TotalGastosOperativosDiario = GastosOperativos.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month && x.FechaHoraCreacion.Day == DateTime.Now.Day).Sum(x => x.Costo);
         }
     }
 }

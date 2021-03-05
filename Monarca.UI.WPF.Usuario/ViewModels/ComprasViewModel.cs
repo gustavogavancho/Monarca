@@ -111,10 +111,16 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             if (!string.IsNullOrWhiteSpace(SearchText))
             {
                 Compras = _compraManager.SearchCompra(SearchText).OrderByDescending(x => x.FechaHoraCreacion).ToObservableCollection();
+                TotalCompras = Compras.Sum(x => x.Productos.Sum(y => y.Total));
+                TotalComprasMensual = Compras.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month).Sum(x => x.Productos.Sum(z => z.Total));
+                TotalComprasDiario = Compras.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month && x.FechaHoraCreacion.Day == DateTime.Now.Day).Sum(x => x.Productos.Sum(z => z.Total));
             }
             else
             {
                 Compras = _compraManager.ObtenerTodo.OrderByDescending(x=> x.FechaHoraCreacion).ToObservableCollection();
+                TotalCompras = Compras.Sum(x => x.Productos.Sum(y => y.Total));
+                TotalComprasMensual = Compras.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month).Sum(x => x.Productos.Sum(z => z.Total));
+                TotalComprasDiario = Compras.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month && x.FechaHoraCreacion.Day == DateTime.Now.Day).Sum(x => x.Productos.Sum(z => z.Total));
             }
         }
 
@@ -180,11 +186,8 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             }
 
             TotalCompras = Compras.Sum(x => x.Productos.Sum(y => y.Total));
-
             TotalComprasMensual = Compras.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month).Sum(x => x.Productos.Sum(z => z.Total));
-
             TotalComprasDiario = Compras.Where(x => x.FechaHoraCreacion.Year == DateTime.Now.Year && x.FechaHoraCreacion.Month == DateTime.Now.Month && x.FechaHoraCreacion.Day == DateTime.Now.Day).Sum(x => x.Productos.Sum(z => z.Total));
-
 
             AlmacenUpdate();
         }
