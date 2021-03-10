@@ -37,6 +37,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 SetProperty(ref _venta, value);
                 ReadCommand.RaiseCanExecuteChanged();
                 DeleteCommnad.RaiseCanExecuteChanged();
+                CreditoCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -49,6 +50,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 SetProperty(ref _isBusy, value);
                 AddCommand.RaiseCanExecuteChanged();
                 DeleteCommnad.RaiseCanExecuteChanged();
+                CreditoCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -107,6 +109,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         public RelayCommand AddCommand { get; private set; }
         public RelayCommand EditCommnad { get; private set; }
         public RelayCommand DeleteCommnad { get; set; }
+        public RelayCommand CreditoCommand { get; set; }
         public RelayCommand SearchCommand { get; set; }
         public RelayCommand ResumenCommand { get; set; }
 
@@ -118,9 +121,45 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             ReadCommand = new RelayCommand(OnRead, CanReadEditDelete);
             AddCommand = new RelayCommand(OnAdd,CanAdd);
             DeleteCommnad = new RelayCommand(OnDelete, CanReadEditDelete);
+            CreditoCommand = new RelayCommand(OnCredito, CanReadEditDelete);
             SearchCommand = new RelayCommand(OnSearch);
             ResumenCommand = new RelayCommand(OnResumen);
             UpdateData(State);
+        }
+
+        private void OnCredito()
+        {
+            if (Venta.Credito == false)
+            {
+                DialogResult result = CustomMessageBox.Show("¿Está seguro que desea marcar la venta como crédito?", CustomMessageBox.CMessageBoxTitle.Confirmación, CustomMessageBox.CMessageBoxButton.Si, CustomMessageBox.CMessageBoxButton.No);
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    Venta.Credito = true;
+                    _ventaManager.Actualizar(Venta);
+                    CuentaPorCobrar cuentaPorCobrar = new CuentaPorCobrar
+                    {
+                        Venta = Venta,
+                        FechaHoraCreacion = Venta.FechaHoraCreacion,
+                        TipoCliente = Venta.TipoCliente,
+                        TotalCobrar = Venta.Productos.Sum(x => x.Total),
+                        Balance = Venta.Productos.Sum(x => x.Total),
+                    };
+                    _cuentaCobrarManager.Insertar(cuentaPorCobrar);
+                    UpdateData(State);
+                }
+            }
+            else
+            {
+                DialogResult result = CustomMessageBox.Show("¿Está seguro que desea desmarcar la venta como crédito?", CustomMessageBox.CMessageBoxTitle.Confirmación, CustomMessageBox.CMessageBoxButton.Si, CustomMessageBox.CMessageBoxButton.No);
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    Venta.Credito = false;
+                    _ventaManager.Actualizar(Venta);
+                    CuentaPorCobrar cuentaPagarCobrar = _cuentaCobrarManager.ObtenerTodo.Where(x => x.Venta.Id == Venta.Id).FirstOrDefault();
+                    _cuentaCobrarManager.Eliminar(cuentaPagarCobrar.Id);
+                    UpdateData(State);
+                }
+            }
         }
 
         private void OnResumen()

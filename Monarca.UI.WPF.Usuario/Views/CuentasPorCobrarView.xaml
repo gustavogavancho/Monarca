@@ -102,16 +102,11 @@
         <StackPanel  Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" Margin="0 5 5 0">
             <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" Margin="0 0 5 0">
                 <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Cuentas por Cobrar: S/."/>
-                <TextBox Text="{Binding TotalGastosOperativos,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="110" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right"/>
+                <TextBox Text="{Binding TotalCuentasPendientes,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="110" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right"/>
             </StackPanel>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="5 0 10 0" Grid.Row="4" HorizontalAlignment="Right">
-            <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE710;" FontSize="16" Command="{Binding AddCommand}">
-                <Button.ToolTip>
-                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Agregar Compra"/>
-                </Button.ToolTip>
-            </Button>
             <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE73F;" FontSize="16" Command="{Binding EditCommand}">
                 <Button.ToolTip>
                     <ToolTip Style="{StaticResource ToolTipStyle}" Content="Registrar Cobranza"/>

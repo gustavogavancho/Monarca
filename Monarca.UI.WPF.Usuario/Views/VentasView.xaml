@@ -124,6 +124,11 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="5 0 10 0" Grid.Row="5" HorizontalAlignment="Right">
+            <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xF13E;" FontSize="16" Command="{Binding CreditoCommand}">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Agregar Venta"/>
+                </Button.ToolTip>
+            </Button>
             <Button Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE710;" FontSize="16" Command="{Binding AddCommand}">
                 <Button.ToolTip>
                     <ToolTip Style="{StaticResource ToolTipStyle}" Content="Agregar Venta"/>

@@ -151,9 +151,6 @@
     <Compile Include="Views\Modals\CuadrarCuentaCobrarModal.xaml.cs">
       <DependentUpon>CuadrarCuentaCobrarModal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Modals\CuentaCobrarModal.xaml.cs">
-      <DependentUpon>CuentaCobrarModal.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Modals\GastosOperativosModal.xaml.cs">
       <DependentUpon>GastosOperativosModal.xaml</DependentUpon>
     </Compile>
@@ -280,10 +277,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Modals\CuadrarCuentaCobrarModal.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Modals\CuentaCobrarModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

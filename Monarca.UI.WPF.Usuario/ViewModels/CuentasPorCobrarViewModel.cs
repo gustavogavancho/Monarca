@@ -30,7 +30,6 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 SetProperty(ref _cuentaPorCobrar, value);
                 ReadCommand.RaiseCanExecuteChanged();
                 EditCommand.RaiseCanExecuteChanged();
-                DeleteCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -55,6 +54,14 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             set => SetProperty(ref _visibilityBorder, value);
         }
 
+        private decimal _totalCuentasPendinetes;
+        public decimal TotalCuentasPendientes
+        {
+            get => _totalCuentasPendinetes;
+            set => SetProperty(ref _totalCuentasPendinetes, value);
+        }
+
+
         public RelayCommand ReadCommand { get; private set; }
         public RelayCommand AddCommand { get; private set; }
         public RelayCommand EditCommand { get; private set; }
@@ -66,29 +73,28 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             _factoryManager = factoryManager;
             _cuentaCobrarPagarManager = _factoryManager.CrearCuentaPorCobrarManager;
             ReadCommand = new RelayCommand(OnRead, CanReadEditDelete);
-            AddCommand = new RelayCommand(OnAdd);
             EditCommand = new RelayCommand(OnEdit, CanReadEditDelete);
-            DeleteCommand = new RelayCommand(OnDelete, CanReadEditDelete);
             SearchCommand = new RelayCommand(OnSearch);
             UpdateData();
         }
 
         private void OnSearch()
         {
-
+            if (!string.IsNullOrWhiteSpace(SearchText))
+            {
+                CuentasPorCobrar = _cuentaCobrarPagarManager.SearchCuentaCobrar(SearchText).OrderBy(x => x.Estado).OrderByDescending(x => x.FechaHoraCreacion).ToObservableCollection();
+                TotalCuentasPendientes = CuentasPorCobrar.Where(x => x.Estado == false).Sum(x => x.TotalCobrar) - CuentasPorCobrar.Where(x => x.Estado == false).Sum(x => x.Pagos.Sum(y => y.Monto));
+            }
+            else
+            {
+                CuentasPorCobrar = _cuentaCobrarPagarManager.ObtenerTodo.OrderBy(x => x.Estado).OrderByDescending(x => x.FechaHoraCreacion).ToObservableCollection();
+                TotalCuentasPendientes = CuentasPorCobrar.Where(x => x.Estado == false).Sum(x => x.TotalCobrar) - CuentasPorCobrar.Where(x => x.Estado == false).Sum(x => x.Pagos.Sum(y => y.Monto));
+            }
         }
 
         private void OnRead()
         {
 
-        }
-
-        private void OnAdd()
-        {
-            if (new CuentaCobrarModal().ShowDialog().Value)
-            {
-                UpdateData();
-            }
         }
 
         private void OnEdit()
@@ -97,11 +103,6 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             {
                 UpdateData();
             }
-        }
-
-        private void OnDelete()
-        {
-
         }
 
         private bool CanReadEditDelete()
@@ -118,7 +119,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
 
         private void UpdateData()
         {
-            CuentasPorCobrar = _cuentaCobrarPagarManager.ObtenerTodo.OrderByDescending(x => x.Estado).ThenBy(x=> x.FechaHoraCreacion).ToObservableCollection();
+            CuentasPorCobrar = _cuentaCobrarPagarManager.ObtenerTodo.OrderBy(x => x.Estado).OrderByDescending(x=> x.FechaHoraCreacion).ToObservableCollection();
             SearchText = "";
             if (CuentasPorCobrar.Count >= 1)
             {
@@ -131,7 +132,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 VisibilityListBox = false;
             }
 
-            //TODO: Totales
+            TotalCuentasPendientes = CuentasPorCobrar.Where(x => x.Estado == false).Sum(x => x.TotalCobrar) - CuentasPorCobrar.Where(x => x.Estado == false).Sum(x => x.Pagos.Sum(y=> y.Monto));
         }
     }
 }

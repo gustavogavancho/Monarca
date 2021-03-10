@@ -120,6 +120,7 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                         Venta = venta,
                         TipoCliente = venta.TipoCliente,
                         TotalCobrar = venta.Productos.Sum(x => x.Total),
+                        Balance = venta.Productos.Sum(x => x.Total),
                     };
                     _cuentaPorCobrarManager.Insertar(cuentaPorCobrar);
                 }
@@ -144,6 +145,7 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                             Venta = venta,
                             TipoCliente = venta.TipoCliente,
                             TotalCobrar = venta.Productos.Sum(x => x.Total),
+                            Balance = venta.Productos.Sum(x => x.Total),
                         };
                         _cuentaPorCobrarManager.Insertar(cuentaPorCobrar);
                     }
@@ -175,6 +177,7 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                             Venta = venta,
                             TipoCliente = venta.TipoCliente,
                             TotalCobrar = venta.Productos.Sum(x => x.Total),
+                            Balance = venta.Productos.Sum(x => x.Total),
                         };
                         _cuentaPorCobrarManager.Insertar(cuentaPorCobrar);
                     }

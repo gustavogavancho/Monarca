@@ -54,9 +54,9 @@
         </WrapPanel>
         <StackPanel Grid.Row="3" Margin="10 5 0 5" Orientation="Horizontal">
             <Button x:Name="btnAddPago" Grid.Row="2" Background="{StaticResource PrimaryBrush}" Foreground="White" FontFamily="Segoe MDL2 Assets" Content="&#xE710;" Width="30" Height="30" HorizontalAlignment="Left" Click="btnAddPago_Click"/>
-            <Button x:Name="btnDeletePago" Grid.Row="2" Background="{StaticResource PrimaryBrush}" Foreground="White" FontFamily="Segoe MDL2 Assets" Content="&#xE74D;" Width="30" Height="30" HorizontalAlignment="Left" Margin="5 0 0 0" />
+            <Button x:Name="btnDeletePago" Grid.Row="2" Background="{StaticResource PrimaryBrush}" Foreground="White" FontFamily="Segoe MDL2 Assets" Content="&#xE74D;" Width="30" Height="30" HorizontalAlignment="Left" Margin="5 0 0 0" Click="btnDeletePago_Click" IsEnabled="False"/>
         </StackPanel>
-        <DataGrid Grid.Row="4" Margin="10 0 10 0" IsReadOnly="True" x:Name="dtgMontosPagos" AutoGenerateColumns="False" SelectionMode="Single" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <DataGrid Grid.Row="4" Margin="10 0 10 0" IsReadOnly="True" x:Name="dtgMontosPagos" AutoGenerateColumns="False" SelectionMode="Single" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" SelectionChanged="dtgMontosPagos_SelectionChanged">
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
@@ -87,12 +87,12 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="5" Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 10 0">
-            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total pendiente: S/."/>
-            <TextBox x:Name="txtTotalPagado" Text="{Binding TotalComprasMensual,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="130" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right" IsReadOnly="True"/>
+            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total cancelado: S/."/>
+            <TextBox x:Name="txtTotalPagado" Style="{StaticResource TextBoxStyle}" Width="130" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right" IsReadOnly="True"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="5 5 0 0" Grid.Row="6" HorizontalAlignment="Right">
-            <Button x:Name="btnSave" Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE74E;" FontSize="16">
+            <Button x:Name="btnSave" Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE74E;" FontSize="16" Click="btnSave_Click">
                 <Button.ToolTip>
                     <ToolTip Style="{StaticResource ToolTipStyle}" Content="Guardar Cliente"/>
                 </Button.ToolTip>

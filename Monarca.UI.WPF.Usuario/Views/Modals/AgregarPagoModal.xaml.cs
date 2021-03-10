@@ -51,17 +51,17 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                     }
                     else
                     {
-                        CustomMessageBox.Show($"Por favor ingrese un monto valido...\nDeuda total: {_amount.ToString("#,##0.00", nfi)} \nDeuda cancelada: {_amountPagado.ToString("#,##0.00", nfi)}", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                        CustomMessageBox.Show($"Deuda total: S/.{_amount.ToString("#,##0.00", nfi)} \nDeuda cancelada: S/.{_amountPagado.ToString("#,##0.00", nfi)} \nDeuda por cancelar S/.{(_amount - _amountPagado).ToString("#,##0.00", nfi)}", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
                     }
                 }
                 else 
                 {
-                    CustomMessageBox.Show($"Por favor ingrese un monto valido...\nDeuda total: {_amount.ToString("#,##0.00", nfi)} \nDeuda cancelada: {_amountPagado.ToString("#,##0.00", nfi)}", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                    CustomMessageBox.Show($"Deuda total: S/.{_amount.ToString("#,##0.00", nfi)} \nDeuda cancelada: S/.{_amountPagado.ToString("#,##0.00", nfi)} \nDeuda por cancelar S/.{(_amount - _amountPagado).ToString("#,##0.00", nfi)}", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
                 }
             }
             else
             {
-                CustomMessageBox.Show($"Por favor ingrese un monto valido...\nDeuda total: {_amount.ToString("#,##0.00", nfi)} \nDeuda cancelada: {_amountPagado.ToString("#,##0.00", nfi)}", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                CustomMessageBox.Show($"Deuda total: S/.{_amount.ToString("#,##0.00", nfi)} \nDeuda cancelada: S/.{_amountPagado.ToString("#,##0.00", nfi)} \nDeuda por cancelar S/.{(_amount - _amountPagado).ToString("#,##0.00", nfi)}", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
             }
         }
 
