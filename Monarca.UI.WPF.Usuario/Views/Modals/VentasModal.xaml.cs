@@ -25,6 +25,7 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
         ObservableCollection<Producto> Productos = new ObservableCollection<Producto>();
         IVentaManager _ventaManager;
         IClienteManager _clienteManager;
+        ICuentaCobrarManager _cuentaPorCobrarManager;
         Venta _venta;
         string _operacion;
 
@@ -37,11 +38,13 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             _factoryManager = factoryManager;
             _ventaManager = factoryManager.CrearVentaManager;
             _clienteManager = factoryManager.CrearClienteManager;
+            _cuentaPorCobrarManager = factoryManager.CrearCuentaPorCobrarManager;
             InitializeComponent();
             cmbTipo.ItemsSource = _tipoVenta;
             dtpFechaEmision.SelectedDate = DateTime.Now;
             if (_operacion == "Read")
             {
+                chkCredito.IsChecked = venta.Credito;
                 txtSerieDocumento.Text = venta.SerieDocumento;
                 txtNumeroDocumento.Text = venta.NumeroDocumento;
                 txtNombreApellidoProveedor.Text = venta.NombreProveedor;
@@ -57,6 +60,7 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 txtExternalId.Text = venta.ExternalId;
 
                 btnSave.IsEnabled = false;
+                chkCredito.IsEnabled = false;
                 btnSelectProdcuto.IsEnabled = false;
                 btnSelectProveedor.IsEnabled = false;
                 btnDeleteProducto.IsEnabled = false;
@@ -104,10 +108,21 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                 NumeroDocumento = txtNumeroDocumento.Text,
                 Productos = Productos,
                 TipoVenta = (TipoVenta)cmbTipo.SelectedItem,
+                Credito = (bool)chkCredito.IsChecked
             };
+
             if(venta.TipoVenta == TipoVenta.NotaDeVenta)
             {
-                _ventaManager.Insertar(venta);
+                if (_ventaManager.Insertar(venta) != null && venta.Credito)
+                {
+                    CuentaPorCobrar cuentaPorCobrar = new CuentaPorCobrar
+                    {
+                        Venta = venta,
+                        TipoCliente = venta.TipoCliente,
+                        TotalCobrar = venta.Productos.Sum(x => x.Total),
+                    };
+                    _cuentaPorCobrarManager.Insertar(cuentaPorCobrar);
+                }
             }
 
             else if (venta.TipoVenta == TipoVenta.Boleta)
@@ -122,6 +137,16 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                     venta.linkPdf = response.links.pdf;
                     venta.linkXml = response.links.xml;
                     venta.linkCdr = response.links.cdr;
+                    if (_ventaManager.Insertar(venta) != null && venta.Credito)
+                    {
+                        CuentaPorCobrar cuentaPorCobrar = new CuentaPorCobrar
+                        {
+                            Venta = venta,
+                            TipoCliente = venta.TipoCliente,
+                            TotalCobrar = venta.Productos.Sum(x => x.Total),
+                        };
+                        _cuentaPorCobrarManager.Insertar(cuentaPorCobrar);
+                    }
                     _ventaManager.Insertar(venta);
                 }
                 else
@@ -143,7 +168,16 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                     venta.linkPdf = response.links.pdf;
                     venta.linkXml = response.links.xml;
                     venta.linkCdr = response.links.cdr;
-                    _ventaManager.Insertar(venta);
+                    if (_ventaManager.Insertar(venta) != null && venta.Credito)
+                    {
+                        CuentaPorCobrar cuentaPorCobrar = new CuentaPorCobrar
+                        {
+                            Venta = venta,
+                            TipoCliente = venta.TipoCliente,
+                            TotalCobrar = venta.Productos.Sum(x => x.Total),
+                        };
+                        _cuentaPorCobrarManager.Insertar(cuentaPorCobrar);
+                    }
                 }
                 else
                 {
@@ -153,6 +187,8 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                     return;
                 }
             }
+
+
 
             DialogResult = true;
             Close();

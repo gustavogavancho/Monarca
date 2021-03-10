@@ -319,8 +319,11 @@
                     Descargar
                 </Hyperlink>
                 <LineBreak/>
-                <Run Text="Baja" FontWeight="Bold"/>
+                <Run Text="Baja:" FontWeight="Bold"/>
                 <Run Text="{Binding Baja, Converter={StaticResource BoolToStringVenta}}"/>
+                <Run Text="/"/>
+                <Run Text="Credito:" FontWeight="Bold"/>
+                <Run Text="{Binding Credito, Converter={StaticResource BoolToStringVentaCredito}}"/>
             </TextBlock>
         </Grid>
     </DataTemplate>
@@ -375,8 +378,11 @@
                     Descargar
                 </Hyperlink>
                 <LineBreak/>
-                <Run Text="Baja" FontWeight="Bold"/>
+                <Run Text="Baja:" FontWeight="Bold"/>
                 <Run Text="{Binding Baja, Converter={StaticResource BoolToStringVenta}}"/>
+                <Run Text="/"/>
+                <Run Text="Credito:" FontWeight="Bold"/>
+                <Run Text="{Binding Credito, Converter={StaticResource BoolToStringVentaCredito}}"/>
             </TextBlock>
         </Grid>
     </DataTemplate>
@@ -439,6 +445,100 @@
             <TextBlock Grid.Column="1" Style="{StaticResource BlueTextTextBlockStyle}" FontSize="16">
                 <Run Text="Total: S/." FontWeight="Bold"/>
                 <Run Text="{Binding Monto, StringFormat='#,##0.00'}"/>
+            </TextBlock>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="CuentasPorCobrarPersonaDateTemplate">
+        <Grid Margin="1" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Images/cuentacobrar.png" Grid.Row="0" Grid.RowSpan="2" Height="35" Width="35">
+                <Image.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick"
+                                      Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                </Image.InputBindings>
+                <Image.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
+                </Image.ToolTip>
+            </Image>
+            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
+                <Run Text="Cliente:" FontWeight="Bold"/>
+                <Run Text="{Binding Venta.NombreProveedor}"/>
+                <Run Text="/"/>
+                <Run Text="DNI:" FontWeight="Bold"/>
+                <Run Text="{Binding Venta.Dni}"/>
+                <LineBreak/>
+                <Run Text="Fecha" FontWeight="Bold"/>
+                <Run Text="{Binding FechaHoraCreacion, StringFormat='dd/MM/yyyy'}"/>
+                <LineBreak/>
+                <Run Text="Tipo Cliente:" FontWeight="Bold"/>
+                <Run Text="{Binding TipoCliente, Converter={StaticResource EnumToDescription}}"/>
+                <LineBreak/>
+                <Run Text="Total por cobrar: S/." FontWeight="Bold"/>
+                <Run Text="{Binding TotalCobrar, StringFormat='n'}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
+                <Run Text="/"/>
+                <Run Text="Total pagado: S/." FontWeight="Bold"/>
+                <Run Text="{Binding ., StringFormat='n'}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
+                <Run Text="/"/>
+                <Run Text="Total pendiente: S/." FontWeight="Bold"/>
+                <Run Text="{Binding Balance, StringFormat='n'}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
+                <LineBreak/>
+                <Run Text="Estado:" FontWeight="Bold"/>
+                <Run Text="{Binding Estado, Converter={StaticResource BoolToStringCuentaCobrar}}"/>
+            </TextBlock>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="CuentasPorCobrarEmpresaDateTemplate">
+        <Grid Margin="1" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Images/cuentacobrar.png" Grid.Row="0" Grid.RowSpan="2" Height="35" Width="35">
+                <Image.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick"
+                                      Command="{Binding DataContext.ReadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                </Image.InputBindings>
+                <Image.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Presione doble click para obtener información detallada"/>
+                </Image.ToolTip>
+            </Image>
+            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
+                <Run Text="Cliente:" FontWeight="Bold"/>
+                <Run Text="{Binding Venta.RazonSocialProveedor}"/>
+                <Run Text="/"/>
+                <Run Text="RUC:" FontWeight="Bold"/>
+                <Run Text="{Binding Venta.Ruc}"/>
+                <LineBreak/>
+                <Run Text="Fecha" FontWeight="Bold"/>
+                <Run Text="{Binding FechaHoraCreacion, StringFormat='dd/MM/yyyy'}"/>
+                <LineBreak/>
+                <Run Text="Tipo Cliente:" FontWeight="Bold"/>
+                <Run Text="{Binding TipoCliente, Converter={StaticResource EnumToDescription}}"/>
+                <LineBreak/>
+                <Run Text="Total por cobrar: S/." FontWeight="Bold"/>
+                <Run Text="{Binding TotalCobrar, StringFormat='n'}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
+                <Run Text="/"/>
+                <Run Text="Total pagado: S/." FontWeight="Bold"/>
+                <Run Text="{Binding ., StringFormat='n'}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
+                <Run Text="/"/>
+                <Run Text="Pendiente: S/." FontWeight="Bold"/>
+                <Run Text="{Binding Balance, StringFormat='n'}" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold"/>
+                <LineBreak/>
+                <Run Text="Estado:" FontWeight="Bold"/>
+                <Run Text="{Binding Estado, Converter={StaticResource BoolToStringCuentaCobrar}}"/>
             </TextBlock>
         </Grid>
     </DataTemplate>

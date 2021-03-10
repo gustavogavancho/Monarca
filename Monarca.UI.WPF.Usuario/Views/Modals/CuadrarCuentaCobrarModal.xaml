@@ -1,0 +1,108 @@
+﻿<Window x:Class="Monarca.UI.WPF.Usuario.Views.Modals.CuadrarCuentaCobrarModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:Monarca.UI.WPF.Usuario.Views.Modals"
+        mc:Ignorable="d" 
+        d:DesignHeight="450" d:DesignWidth="800"
+        BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="2"
+        Title="ResumenCompras" Height="500" Width="500" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
+        FocusManager.FocusedElement="{Binding ElementName=btnAddPago}">
+
+    <Window.InputBindings>
+        <KeyBinding Command="ApplicationCommands.Close" Key="Esc" />
+    </Window.InputBindings>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CommandBinding_Executed" />
+    </Window.CommandBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="Registrar pagos"/>
+        <Border Grid.Row="1" Background="{StaticResource PrimaryBrush}"  Height="2" Margin="10,0" Grid.ColumnSpan="2"/>
+        <WrapPanel Grid.Row="2">
+            <StackPanel Margin="5">
+                <TextBlock Text="Nombre proveedor de documento:" Grid.Row="0" Grid.Column="0" Style="{StaticResource BlueTextTextBlockStyle}"/>
+                <TextBox x:Name="txtNombreProveedor" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" Width="230" IsReadOnly="True"/>
+            </StackPanel>
+            <StackPanel Margin="0 5 5 5">
+                <TextBlock Text="Razon Social:" Grid.Row="0" Grid.Column="0" Style="{StaticResource BlueTextTextBlockStyle}"/>
+                <TextBox x:Name="txtRazonSocialProveedor" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" Width="230" IsReadOnly="True"/>
+            </StackPanel>
+            <StackPanel Margin="5 5 5 5">
+                <TextBlock Text="DNI:" Grid.Row="0" Grid.Column="0" Style="{StaticResource BlueTextTextBlockStyle}"/>
+                <TextBox x:Name="txtDniProveedor" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" Width="230" IsReadOnly="True"/>
+            </StackPanel>
+            <StackPanel Margin="0 5 5 5">
+                <TextBlock Text="RUC:" Grid.Row="0" Grid.Column="0" Style="{StaticResource BlueTextTextBlockStyle}"/>
+                <TextBox x:Name="txtRucProveedor" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" Width="230" IsReadOnly="True"/>
+            </StackPanel>
+            <StackPanel Margin="5">
+                <TextBlock Text="Total deuda:" Grid.Row="0" Grid.Column="0" Style="{StaticResource BlueTextTextBlockStyle}"/>
+                <TextBox Background="{StaticResource PrimaryBrush}" Foreground="White" x:Name="txtTotalDeuda" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" Width="230" IsReadOnly="True"/>
+            </StackPanel>
+        </WrapPanel>
+        <StackPanel Grid.Row="3" Margin="10 5 0 5" Orientation="Horizontal">
+            <Button x:Name="btnAddPago" Grid.Row="2" Background="{StaticResource PrimaryBrush}" Foreground="White" FontFamily="Segoe MDL2 Assets" Content="&#xE710;" Width="30" Height="30" HorizontalAlignment="Left" Click="btnAddPago_Click"/>
+            <Button x:Name="btnDeletePago" Grid.Row="2" Background="{StaticResource PrimaryBrush}" Foreground="White" FontFamily="Segoe MDL2 Assets" Content="&#xE74D;" Width="30" Height="30" HorizontalAlignment="Left" Margin="5 0 0 0" />
+        </StackPanel>
+        <DataGrid Grid.Row="4" Margin="10 0 10 0" IsReadOnly="True" x:Name="dtgMontosPagos" AutoGenerateColumns="False" SelectionMode="Single" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+            <DataGrid.Resources>
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                    <Setter Property="Foreground" Value="{StaticResource SecondaryBrush}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Padding" Value="3"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Style>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter Property="Background" Value="{StaticResource SecondaryBrush}"/>
+                            <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter Property="Foreground" Value="{StaticResource SecondaryBrush}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Monto" Binding="{Binding Monto, StringFormat='n'}" FontFamily="Arial" FontSize="14"/>
+                <DataGridTextColumn Width="*" Header="Fecha" Binding="{Binding Fecha}" FontFamily="Arial" FontSize="14"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="5" Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 10 0">
+            <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total pendiente: S/."/>
+            <TextBox x:Name="txtTotalPagado" Text="{Binding TotalComprasMensual,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="130" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right" IsReadOnly="True"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="5 5 0 0" Grid.Row="6" HorizontalAlignment="Right">
+            <Button x:Name="btnSave" Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE74E;" FontSize="16">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Guardar Cliente"/>
+                </Button.ToolTip>
+            </Button>
+            <Button x:Name="btnClose" Style="{StaticResource ButtonSecondaryStyle}" Content="&#xE8BB;" FontSize="16" Click="btnClose_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Cerrar Diálogo"/>
+                </Button.ToolTip>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Window>

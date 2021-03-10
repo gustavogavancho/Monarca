@@ -24,6 +24,7 @@ namespace Monarca.COMMON.Entidades
         public string linkXml { get; set; }
         public string linkCdr { get; set; }
         public bool Baja { get; set; }
+        public bool Credito { get; set; }
         public string ExternalIdBaja { get; set; }
         public string Ticket { get; set; }
 

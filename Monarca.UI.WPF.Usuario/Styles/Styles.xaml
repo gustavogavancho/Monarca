@@ -8,12 +8,13 @@
     <!-- Converters -->
     <converters:EnunToDescription x:Key="EnumToDescription"/>
     <converters:BoolToStringVenta x:Key="BoolToStringVenta"/>
+    <converters:BoolToStringCuentaCobrar x:Key="BoolToStringCuentaCobrar"/>
+    <converters:BoolToStringVentaCredito x:Key="BoolToStringVentaCredito"/>
 
     <!-- Colors -->
     <Color x:Key="PrimaryColor">#003366</Color>
     <Color x:Key="SecondaryColor">White</Color>
     <Color x:Key="TertiaryColor">#C70039</Color>
-
 
     <!-- Brushes -->
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
@@ -161,6 +162,10 @@
     <!-- DateTimePicker-->
     <Style x:Key="DateTimePickerStyle" TargetType="DatePicker">
         <Setter Property="Height" Value="25"/>
+    </Style>
+    
+    <!-- Checkbox -->
+    <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
     </Style>
     
 </ResourceDictionary>

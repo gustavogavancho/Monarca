@@ -47,6 +47,9 @@
         <DataTemplate DataType="{x:Type viewModels:AlmacenViewModel}">
             <views:AlmacenView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:CierreCajaViewModel}">
+            <views:CierreCajaView/>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type viewModels:ConfiguracionesViewModel}">
             <views:ConfiguracionesView/>
         </DataTemplate>
@@ -84,12 +87,12 @@
                 </Ellipse>
                 <TextBlock x:Name="txtInternet" Text="No Especificado / Consulte a su proveedor" Foreground="White" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 15 0"/>
             </StackPanel>
-            <Button Style="{StaticResource ButtonPrimaryStyle}" Content="&#xE8BB;" Grid.Column="3" HorizontalAlignment="Right" Command="{Binding CloseCommand}">
+            <Button Style="{StaticResource ButtonPrimaryStyle}" Content="&#xE738;" Grid.Column="3" Foreground="{StaticResource PrimaryBrush}" HorizontalAlignment="Right" Command="{Binding MinimizeCommand}">
                 <Button.ToolTip>
-                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Cerrar Aplicación"/>
+                    <ToolTip Style="{StaticResource ToolTipStyle}" Content="Minimizar Aplicación"/>
                 </Button.ToolTip>
             </Button>
-            <Button Style="{StaticResource ButtonPrimaryStyle}" Content="&#xE738;" Grid.Column="4" HorizontalAlignment="Right" Command="{Binding MinimizeCommand}">
+            <Button Style="{StaticResource ButtonPrimaryStyle}" Content="&#xE8BB;" Foreground="{StaticResource PrimaryBrush}" Grid.Column="4" HorizontalAlignment="Right" Command="{Binding CloseCommand}">
                 <Button.ToolTip>
                     <ToolTip Style="{StaticResource ToolTipStyle}" Content="Cerrar Aplicación"/>
                 </Button.ToolTip>

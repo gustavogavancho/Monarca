@@ -1,4 +1,5 @@
 ﻿using Monarca.BIZ;
+using Monarca.UI.WPF.Usuario.CustomControls;
 using Monarca.UI.WPF.Usuario.Helpers;
 using Monarca.UI.WPF.Usuario.Models;
 using System.Collections.ObjectModel;
@@ -18,12 +19,12 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
         VentasViewModel _ventasViewModel = new VentasViewModel(_factoryManager);
         ComprasViewModel _comprasViewModel = new ComprasViewModel(_factoryManager);
         GastosOperativosViewModel _gastosOperativosViewModel = new GastosOperativosViewModel(_factoryManager);
-        CuentasPorCobrarViewModel _cuentasPorCobrarViewModel = new CuentasPorCobrarViewModel();
+        CuentasPorCobrarViewModel _cuentasPorCobrarViewModel = new CuentasPorCobrarViewModel(_factoryManager);
         AlmacenViewModel _almacenViewModel = new AlmacenViewModel(_factoryManager);
+        CierreCajaViewModel _cierreCajaViewModel = new CierreCajaViewModel();
         ConfiguracionesViewModel _configuracionesViewModel = new ConfiguracionesViewModel();
 
         private ObservableCollection<CurrentUserControl> _userControlList;
-
         public ObservableCollection<CurrentUserControl> UserControlList
         {
             get => _userControlList;
@@ -99,6 +100,11 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 },
                 new CurrentUserControl
                 {
+                    Ventana = "Cierre caja",
+                    Icon = "/Images/cierrecaja.png"
+                },
+                new CurrentUserControl
+                {
                     Ventana = "Configuraciones",
                     Icon = "/Images/config.png"
                 },
@@ -107,6 +113,12 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
             MinimizeCommand = new RelayCommand(OnMinimize);
             NavCommand = new RelayCommand(OnNav);
             _comprasViewModel.AlmacenUpdate += _comprasViewModel_AlmacenUpdate;
+            _ventasViewModel.CuentasCobrarUpdate += _ventasViewModel_CuentasCobrarUpdate;
+        }
+
+        private void _ventasViewModel_CuentasCobrarUpdate()
+        {
+            _cuentasPorCobrarViewModel = new CuentasPorCobrarViewModel(_factoryManager);
         }
 
         private void _comprasViewModel_AlmacenUpdate()
@@ -132,6 +144,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                     break;
                 case "Ventas":
                     CurrentViewModel = _ventasViewModel = new VentasViewModel(_factoryManager);
+                    _ventasViewModel.CuentasCobrarUpdate += _ventasViewModel_CuentasCobrarUpdate;
                     break;
                 case "Compras":
                     CurrentViewModel = _comprasViewModel;
@@ -144,6 +157,9 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                     break;
                 case "Almacén":
                     CurrentViewModel = _almacenViewModel;
+                    break;
+                case "Cierre caja":
+                    CurrentViewModel = _cierreCajaViewModel;
                     break;
                 case "Configuraciones":
                     CurrentViewModel = _configuracionesViewModel;

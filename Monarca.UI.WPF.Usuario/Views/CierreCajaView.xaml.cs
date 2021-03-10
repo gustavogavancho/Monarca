@@ -2,9 +2,9 @@
 
 namespace Monarca.UI.WPF.Usuario.Views
 {
-    public partial class ConfiguracionesView : UserControl
+    public partial class CierreCajaView : UserControl
     {
-        public ConfiguracionesView()
+        public CierreCajaView()
         {
             InitializeComponent();
         }
