@@ -102,7 +102,7 @@
         <StackPanel  Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" Margin="0 5 5 0">
             <StackPanel Background="{StaticResource PrimaryBrush}" Orientation="Horizontal" Margin="0 0 5 0">
                 <TextBlock Style="{StaticResource BlueTextTextBlockStyle}" Foreground="White" Text="Total Cuentas por Cobrar: S/."/>
-                <TextBox Text="{Binding TotalCuentasPendientes,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="110" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right"/>
+                <TextBox Text="{Binding TotalCuentasPendientes,StringFormat='n'}" Style="{StaticResource TextBoxStyle}" Width="110" Margin="0 0 10 0" Foreground="{StaticResource TertiaryBrush}" FontWeight="Bold" TextAlignment="Right" IsReadOnly="True"/>
             </StackPanel>
         </StackPanel>
 

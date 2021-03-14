@@ -85,7 +85,6 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
             {
                 Producto producto = (Producto)ltbProductos.SelectedItem;
                 txtUnidad.Text = producto.Unidad.GetDescription();
-                txtSearch.Text = null;
 
                 Dispatcher.BeginInvoke(new System.Action(() => { Keyboard.Focus(txtCantidad); }),
                     System.Windows.Threading.DispatcherPriority.Loaded);

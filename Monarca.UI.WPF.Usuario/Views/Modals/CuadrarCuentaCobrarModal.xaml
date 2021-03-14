@@ -32,7 +32,7 @@
         <Border Grid.Row="1" Background="{StaticResource PrimaryBrush}"  Height="2" Margin="10,0" Grid.ColumnSpan="2"/>
         <WrapPanel Grid.Row="2">
             <StackPanel Margin="5">
-                <TextBlock Text="Nombre proveedor de documento:" Grid.Row="0" Grid.Column="0" Style="{StaticResource BlueTextTextBlockStyle}"/>
+                <TextBlock Text="Nombre cliente:" Grid.Row="0" Grid.Column="0" Style="{StaticResource BlueTextTextBlockStyle}"/>
                 <TextBox x:Name="txtNombreProveedor" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Margin="5 0 5 0" Width="230" IsReadOnly="True"/>
             </StackPanel>
             <StackPanel Margin="0 5 5 5">

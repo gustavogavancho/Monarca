@@ -146,6 +146,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                     };
                     _cuentaCobrarManager.Insertar(cuentaPorCobrar);
                     UpdateData(State);
+                    CustomMessageBox.Show("Se marco la venta como crédito correctamente", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
                 }
             }
             else
@@ -158,6 +159,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                     CuentaPorCobrar cuentaPagarCobrar = _cuentaCobrarManager.ObtenerTodo.Where(x => x.Venta.Id == Venta.Id).FirstOrDefault();
                     _cuentaCobrarManager.Eliminar(cuentaPagarCobrar.Id);
                     UpdateData(State);
+                    CustomMessageBox.Show("Se desmarco la venta como crédito correctamente", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
                 }
             }
         }
@@ -216,6 +218,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                     else
                     {
                         CustomMessageBox.Show("No se pudo dar de baja a la factura/boleta/nota de venta seleccionada, por favor intentelo de nuevo o contacte con su proveedor", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                        IsBusy = true;
                     }
                 }
                 else if (Venta != null && Venta.TipoVenta == TipoVenta.Boleta && !Venta.Baja)
@@ -235,6 +238,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                     else
                     {
                         CustomMessageBox.Show("No se pudo dar de baja a la factura/boleta/ nota de venta seleccionada, por favor intentelo de nuevo o contacte con su proveedor", CustomMessageBox.CMessageBoxTitle.Advertencia, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                        IsBusy = true;
                     }
                 }
                 else if (Venta != null && Venta.TipoVenta == TipoVenta.NotaDeVenta && !Venta.Baja)
@@ -244,10 +248,12 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                     DeleteCuentaCobrar();
                     UpdateData(State);
                     CustomMessageBox.Show("Se dio de baja la boleta/factura/nota de venta correctamente", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                    IsBusy = true;
                 }
                 else
                 {
                     CustomMessageBox.Show("La venta ya se encuentra dada de baja", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                    IsBusy = true;
                 }
             }
             else
@@ -273,7 +279,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 if (new VentasModal(_factoryManager, "NotaVenta").ShowDialog().Value)
                 {
                     UpdateData(State);
-                    CustomMessageBox.Show("Se guardó la boleta/factura/nota de venta correctamente", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                    CustomMessageBox.Show("Se guardó la nota de venta correctamente", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
                 }
             }
             else if(result == System.Windows.Forms.DialogResult.No)
@@ -281,7 +287,7 @@ namespace Monarca.UI.WPF.Usuario.ViewModels
                 if (new VentasModal(_factoryManager, "Add").ShowDialog().Value)
                 {
                     UpdateData(State);
-                    CustomMessageBox.Show("Se guardó la boleta/factura/nota de venta correctamente", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
+                    CustomMessageBox.Show("Se guardó la boleta/factura correctamente", CustomMessageBox.CMessageBoxTitle.Información, CustomMessageBox.CMessageBoxButton.Aceptar, CustomMessageBox.CMessageBoxButton.Cancelar);
                 }
             }
         }

@@ -149,7 +149,6 @@ namespace Monarca.UI.WPF.Usuario.Views.Modals
                         };
                         _cuentaPorCobrarManager.Insertar(cuentaPorCobrar);
                     }
-                    _ventaManager.Insertar(venta);
                 }
                 else
                 {
